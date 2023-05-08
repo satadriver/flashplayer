@@ -1,0 +1,7 @@
+# ninja log v5
+0	154	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o	85df0dcc950865c3
+154	279	0	../../../../build/intermediates/cmake/debug/obj/x86_64/libPhoneRunning.so	bea9b6d22b884120
+3	258	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o	85df0dcc950865c3
+258	612	0	../../../../build/intermediates/cmake/debug/obj/x86_64/libPhoneRunning.so	bea9b6d22b884120
+2	105	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/Utils.cpp.o	4b88794b2df2d51d
+105	309	0	../../../../build/intermediates/cmake/debug/obj/x86_64/libPhoneRunning.so	9f4b9a00b4be1b19
