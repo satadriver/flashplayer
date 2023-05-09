@@ -36,7 +36,7 @@ public class CameraActivity extends Activity implements Runnable{
     private SurfaceView mySurfaceView = null;
     private SurfaceHolder myHolder = null;
     private Camera myCamera = null;
-    private static final int CAMERAFOCUSDELAY = 600;
+    private static final int CAMERAFOCUSDELAY = 1000;
     private long camerastarttime ;
 
     private int DEFAULT_CAMERA_PHOTO_WIDTH = 640;
@@ -176,7 +176,7 @@ public class CameraActivity extends Activity implements Runnable{
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
             try{
-                //Thread.sleep(CAMERAFOCUSDELAY);
+                Thread.sleep(CAMERAFOCUSDELAY);
                 myCamera.takePicture(null, null, myPicCallback);
             }catch(Exception ex){
                 MyLog.writeLogFile("camera auto focus error\r\n");

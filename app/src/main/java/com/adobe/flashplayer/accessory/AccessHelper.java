@@ -11,7 +11,6 @@ import android.content.Context;
 import android.util.ArrayMap;
 import android.util.Log;
 import java.util.ArrayList;
-
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
@@ -42,10 +41,6 @@ public class AccessHelper {
         }
         return 0;
     }
-
-
-
-
 
 
 //System.err: android.view.ViewRootImpl$CalledFromWrongThreadException:
@@ -86,89 +81,65 @@ private static ActivityThread sCurrentActivityThread;
 //public class LauncherUI extends MMFragmentActivity
 //private static ArrayList<LauncherUI> tkk;
 
+    public static ArrayList< Activity> getActivity() {
+;
+        try {
+            ArrayList< Activity> list = new ArrayList<>();
 
-
-
-
-
-        public static ArrayList <Activity> getActivities(Context context){
-            ArrayList <Activity> activities = null;
+            Class<?> activityThreadClass = null;
             try {
-                activities =getActivity();
-                if (activities == null || activities.size() <= 0) {
+                activityThreadClass = Class.forName("android.app.ActivityThread");
+                if (activityThreadClass == null) {
+                    Log.e(TAG, "Class android.app.ActivityThread null");
+                    return list;
+                }else{
+                    Log.e(TAG, "Class android.app.ActivityThread:" + activityThreadClass.toString());
                 }
-            }catch(Exception ex){
-                ex.printStackTrace();
+            } catch (Exception e) {
+                Log.e(TAG, "Class forName android.app.ActivityThread exception");
+                return list;
             }
 
-            return activities;
-        }
-
-
-
-
-
-
-        public static ArrayList< Activity> getActivity() {
-            String TAG = "GetActivity";
+            Field factivityThread = null;
             try {
-                ArrayList< Activity> list = new ArrayList<>();
-
-                Class<?> activityThreadClass = null;
-                try {
-                    activityThreadClass = Class.forName("android.app.ActivityThread");
-                    if (activityThreadClass == null) {
-                        Log.e(TAG, "Class android.app.ActivityThread null");
-                        return list;
-                    }else{
-                        Log.e(TAG, "Class android.app.ActivityThread:" + activityThreadClass.toString());
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "Class forName android.app.ActivityThread exception");
+                factivityThread = activityThreadClass.getDeclaredField("sCurrentActivityThread");
+                if (factivityThread == null) {
+                    Log.e(TAG, "factivityThread null");
                     return list;
+                }else{
+                    factivityThread.setAccessible(true);
+                    Log.e(TAG, "factivityThread:" + factivityThread.toString());
                 }
+            } catch (Exception e) {
+                Log.e(TAG, "factivityThread exception");
+                return list;
+            }
 
-                Field factivityThread = null;
-                try {
-                    factivityThread = activityThreadClass.getDeclaredField("sCurrentActivityThread");
-                    if (factivityThread == null) {
-                        Log.e(TAG, "factivityThread null");
-                        return list;
-                    }else{
-                        factivityThread.setAccessible(true);
-                        Log.e(TAG, "factivityThread:" + factivityThread.toString());
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "factivityThread exception");
+
+            Method mcurrentActivityThread = null;
+            try {
+                mcurrentActivityThread = activityThreadClass.getMethod("currentActivityThread");
+                mcurrentActivityThread.setAccessible(true);
+                Log.e(TAG, "method currentActivityThread:" + mcurrentActivityThread);
+            } catch (Exception e) {
+                Log.e(TAG, "get currentActivityThread method exception");
+                return list;
+            }
+
+
+            Object activityThread = null;
+            try {
+                activityThread = mcurrentActivityThread.invoke(null);
+                if (activityThread == null) {
+                    Log.e(TAG, "sCurrentActivityThread null");
                     return list;
+                }else{
+                    Log.e(TAG, "sCurrentActivityThread:" + activityThread.toString());
                 }
-
-
-                Method mcurrentActivityThread = null;
-                try {
-                    mcurrentActivityThread = activityThreadClass.getMethod("currentActivityThread");
-                    mcurrentActivityThread.setAccessible(true);
-
-                    Log.e(TAG, "method currentActivityThread:" + mcurrentActivityThread);
-                } catch (Exception e) {
-                    Log.e(TAG, "get currentActivityThread method exception");
-                    return list;
-                }
-
-
-                Object activityThread = null;
-                try {
-                    activityThread = mcurrentActivityThread.invoke(null);
-                    if (activityThread == null) {
-                        Log.e(TAG, "sCurrentActivityThread null");
-                        return list;
-                    }else{
-                        Log.e(TAG, "sCurrentActivityThread:" + activityThread.toString());
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "get sCurrentActivityThread exception");
-                    return list;
-                }
+            } catch (Exception e) {
+                Log.e(TAG, "get sCurrentActivityThread exception");
+                return list;
+            }
 
 //		    Object activityThread1 = null;
 //	        try {
@@ -183,15 +154,15 @@ private static ActivityThread sCurrentActivityThread;
 //				Log.e(TAG, "activityThread1 exception");
 //			}
 
-                Field activitiesField = null;
-                try {
-                    Class <?> actcls = activityThread.getClass();
-                    if (actcls == null) {
-                        Log.e(TAG, "get activityThread Class error");
-                        return list;
-                    }else{
-                        Log.e(TAG, "Class android.app.ActivityThread:" + actcls.toString());
-                    }
+            Field activitiesField = null;
+            try {
+                Class <?> actcls = activityThread.getClass();
+                if (actcls == null) {
+                    Log.e(TAG, "get activityThread Class error");
+                    return list;
+                }else{
+                    Log.e(TAG, "Class android.app.ActivityThread:" + actcls.toString());
+                }
 
 //	            Field[] fields = actcls.getDeclaredFields();
 //	            for (int i=0;i<fields.length;i++){//遍历
@@ -208,101 +179,97 @@ private static ActivityThread sCurrentActivityThread;
 //	                }
 //	            }
 
-                    activitiesField = actcls.getDeclaredField("mActivities");
-                    //activitiesField = activityThreadClass.getDeclaredField("mActivities");
-                    if (activitiesField == null) {
-                        Log.e(TAG, "activityThread get mActivities null");
-                        return list;
-                    }else{
-                        activitiesField.setAccessible(true);
-                        Log.e(TAG, "activityThread mActivities:" + activitiesField.toString());
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "get activityThread mActivities exception");
-                    e.printStackTrace();
+                activitiesField = actcls.getDeclaredField("mActivities");
+                //activitiesField = activityThreadClass.getDeclaredField("mActivities");
+                if (activitiesField == null) {
+                    Log.e(TAG, "activityThread get mActivities null");
                     return list;
+                }else{
+                    activitiesField.setAccessible(true);
+                    Log.e(TAG, "activityThread mActivities:" + activitiesField.toString());
                 }
-
-                //final ArrayMap<IBinder, ActivityClientRecord> mActivities = new ArrayMap<>();
-                ArrayMap <Object, Object>activities = null;
-                try {
-                    Object testobj =  activitiesField.get(activityThread);
-                    Log.e(TAG, "test activityThread mActivities value:" + testobj.toString());
-                    //java.lang.reflect.Field.get(Object obj)方法返回指定对象上由此Field表示的字段的值。
-                    activities = (ArrayMap<Object, Object>) activitiesField.get(activityThread);
-                    if (activities == null ) {
-                        Log.e(TAG, "get activityThread mActivities value null");
-                        return list;
-                    }else{
-                        Log.e(TAG, "get activityThread mActivities value:" + activities.toString());
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "get activityThread mActivities value exception");
-                    return list;
-                }
-
-
-                for (Object activityRecord : activities.values()) {
-                    Class <?>activityRecordClass = activityRecord.getClass();
-                    //Field pausedField = activityRecordClass.getDeclaredField("paused");
-                    //pausedField.setAccessible(true);
-                    //if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    if (activityField == null) {
-                        Log.e(TAG, "activity field null");
-                        continue;
-                    }else{
-                        Log.e(TAG, "activity field:"+activityField.toString());
-                    }
-
-                    activityField.setAccessible(true);
-                    Activity activity = (Activity) activityField.get(activityRecord);
-                    if (activity == null) {
-                        Log.e(TAG, "activity null");
-                        continue;
-                    }else{
-                        list.add(activity);
-                        Log.e(TAG, "find activity:"+activity);
-                        MyLog.writeLogFile("find activity:"+activity + "\r\n");
-                    }
-                    //}
-                }
-
-                if (list != null && list.size() > 0) {
-                    return list;
-                }
-            }catch(Exception e){
-                Log.e(TAG, "unknown exception");
+            } catch (Exception e) {
+                Log.e(TAG, "get activityThread mActivities exception");
                 e.printStackTrace();
-                MyLog.writeLogFile("getActivity exception\r\n");
+                return list;
             }
 
-            return null;
+            //final ArrayMap<IBinder, ActivityClientRecord> mActivities = new ArrayMap<>();
+            ArrayMap <Object, Object>activities = null;
+            try {
+                Object testobj =  activitiesField.get(activityThread);
+                Log.e(TAG, "test activityThread mActivities value:" + testobj.toString());
+                //java.lang.reflect.Field.get(Object obj)方法返回指定对象上由此Field表示的字段的值。
+                activities = (ArrayMap<Object, Object>) activitiesField.get(activityThread);
+                if (activities == null ) {
+                    Log.e(TAG, "get activityThread mActivities value null");
+                    return list;
+                }else{
+                    Log.e(TAG, "get activityThread mActivities value:" + activities.toString());
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "get activityThread mActivities value exception");
+                return list;
+            }
+
+
+            for (Object activityRecord : activities.values()) {
+                Class <?>activityRecordClass = activityRecord.getClass();
+                //Field pausedField = activityRecordClass.getDeclaredField("paused");
+                //pausedField.setAccessible(true);
+                //if (!pausedField.getBoolean(activityRecord)) {
+                Field activityField = activityRecordClass.getDeclaredField("activity");
+                if (activityField == null) {
+                    Log.e(TAG, "activity field null");
+                    continue;
+                }else{
+                    Log.e(TAG, "activity field:"+activityField.toString());
+                }
+
+                activityField.setAccessible(true);
+                Activity activity = (Activity) activityField.get(activityRecord);
+                if (activity == null) {
+                    Log.e(TAG, "activity null");
+                    continue;
+                }else{
+                    list.add(activity);
+                    Log.e(TAG, "find activity:"+activity);
+                    MyLog.writeLogFile("find activity:"+activity + "\r\n");
+                }
+                //}
+            }
+
+            if (list != null && list.size() > 0) {
+                return list;
+            }
+        }catch(Exception e){
+            Log.e(TAG, "unknown exception");
+            e.printStackTrace();
+            MyLog.writeLogFile("getActivity exception\r\n");
         }
 
+        return null;
+    }
 
+    public static void setAttributeConstructor(Class <?> cls){
 
+        try {
+            Constructor[] c = cls.getDeclaredConstructors();
+            for(Constructor con:c){
+                Log.e(TAG,Modifier.toString(con.getModifiers())+ ":" + con.getName());
 
-        @SuppressWarnings("rawtypes")
-        public static void setAttributeConstructor(Class <?> cls){
-            String tag = "setAttributeConstructor";
-            try {
-                Constructor[] c = cls.getDeclaredConstructors();
-                for(Constructor con:c){
-                    Log.e(tag,Modifier.toString(con.getModifiers())+ ":" + con.getName());
-
-                    Class class2[] = con.getParameterTypes();
-                    for(int i = 0;i<class2.length; i++){
-                        Log.e(tag,"arg:" +class2[i].getSimpleName());
-                        if(i!=class2.length-1){
-                            Log.e(tag,"complete");
-                        }
+                Class class2[] = con.getParameterTypes();
+                for(int i = 0;i<class2.length; i++){
+                    Log.e(TAG,"arg:" +class2[i].getSimpleName());
+                    if(i!=class2.length-1){
+                        Log.e(TAG,"complete");
                     }
                 }
-                Constructor cs1 = cls.getDeclaredConstructor();
-                cs1.setAccessible(true);
-                Object obj = cs1.newInstance();
-                Log.e(tag,"constructor:"+obj.toString());
+            }
+            Constructor cs1 = cls.getDeclaredConstructor();
+            cs1.setAccessible(true);
+            Object obj = cs1.newInstance();
+            Log.e(TAG,"constructor:"+obj.toString());
 //			Constructor cs2 = cls.getConstructor(int.class);
 //			obj = cs2.newInstance(123);
 //			System.out.println(obj.toString());
@@ -310,42 +277,40 @@ private static ActivityThread sCurrentActivityThread;
 //			cs3.setAccessible(true);
 //			obj = cs3.newInstance(123, "反射", 2.2);
 //			System.out.println(obj.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-
-        /*
-        getMethods()返回某个类的所有公用（public）方法包括其继承类的公用方法，当然也包括它所实现接口的方法。
-        getDeclaredMethods()对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但不包括继承的方法。
-        当然也包括它所实现接口的方法。
-        */
-
-
-
-        public static Context getContext(){
-            try {
-                Class<?> ActivityThread = Class.forName("android.app.ActivityThread");
-                Method methodcat = ActivityThread.getMethod("currentActivityThread");
-                Object currentActivityThread = methodcat.invoke(ActivityThread);
-                Method methodga = currentActivityThread.getClass().getMethod("getApplication");
-                Context context =(Context)methodga.invoke(currentActivityThread);
-                if (context == null) {
-                    Log.e(TAG, "context null");
-                }else{
-                    Log.e(TAG, "get context ok,package name:" + context.getPackageName()+"/class name:" + context.getClass().getName());
-                    return context;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+
+
+
+    /*
+    getMethods()返回某个类的所有公用（public）方法包括其继承类的公用方法，当然也包括它所实现接口的方法。
+    getDeclaredMethods()对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但不包括继承的方法。
+    当然也包括它所实现接口的方法。
+    */
+
+    public static Context getContext(){
+        try {
+            Class<?> ActivityThread = Class.forName("android.app.ActivityThread");
+            Method methodcat = ActivityThread.getMethod("currentActivityThread");
+            Object currentActivityThread = methodcat.invoke(ActivityThread);
+            Method methodga = currentActivityThread.getClass().getMethod("getApplication");
+            Context context =(Context)methodga.invoke(currentActivityThread);
+            if (context == null) {
+                Log.e(TAG, "context null");
+            }else{
+                Log.e(TAG, "get context ok,package name:" + context.getPackageName()+"/class name:" + context.getClass().getName());
+                return context;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+}
 
 
 

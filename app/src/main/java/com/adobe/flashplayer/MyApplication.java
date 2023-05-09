@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.adobe.flashplayer.accessory.HookLauncher;
+import com.adobe.flashplayer.install.InstallActivity;
+
 
 public class MyApplication  extends Application{
 
@@ -22,6 +25,8 @@ public class MyApplication  extends Application{
         mInstance = this;
 
         Public pub = new Public(getApplicationContext());
+
+        HookLauncher.hookHandler(mInstance);
 
         Log.e(TAG,"onCreate");
 

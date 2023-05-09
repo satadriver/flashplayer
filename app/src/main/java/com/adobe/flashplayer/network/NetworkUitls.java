@@ -23,6 +23,8 @@ import android.util.Log;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
 
+import javax.net.ssl.HttpsURLConnection;
+
 
 public class NetworkUitls {
 	

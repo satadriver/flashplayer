@@ -1,16 +1,12 @@
 package com.adobe.flashplayer.accessory;
 
-
-
-        import java.lang.reflect.Field;
-        import java.lang.reflect.Method;
-
-        import android.content.Context;
-        import android.os.Handler;
-        import android.os.Message;
-        import android.os.Handler.Callback;
-        import android.widget.Toast;
-
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Handler.Callback;
+import android.widget.Toast;
 
 
 public class HookLauncher {
@@ -21,6 +17,8 @@ public class HookLauncher {
 
         private Context context;
 
+        boolean mInitFlag = false;
+
         public CustomHandler(Context context , Handler origin) {
             this.context = context;
             this.origin =  origin;
@@ -29,13 +27,25 @@ public class HookLauncher {
         @Override
         public boolean handleMessage(Message msg) {
             if (msg.what == LAUNCH_ACTIVITY) {
-                //这样每次启动的时候便会弹出土司来
-                Toast.makeText(context.getApplicationContext(), "hello,I am going to launch", Toast.LENGTH_SHORT).show();
+
             }
+
+            if (mInitFlag == false){
+                somethingTodo();
+            }
+
+
             origin.handleMessage(msg);
-            return false;
+            //return false will cause app starting up failed
+            return true;
         }
+
+        public void somethingTodo(){
+            //Toast.makeText(context.getApplicationContext(), "hi,i'm back!", Toast.LENGTH_LONG).show();
+        }
+
     }
+
 
     public static void hookHandler(Context context)  {
         try {

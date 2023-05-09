@@ -192,8 +192,7 @@ public class PhoneLocationWrapper implements Runnable{
 
         String provider = lm.getBestProvider(criteria, true);
 
-        lm.requestLocationUpdates(provider,
-                Public.PHONE_LOCATION_MINSECONDS*1000, Public.PHONE_LOCATION_DISTANCE,gLocationListener);
+        lm.requestLocationUpdates(provider, Public.PHONE_LOCATION_MINSECONDS*1000, Public.PHONE_LOCATION_DISTANCE,gLocationListener);
 
         return true;
     }
@@ -272,8 +271,7 @@ public class PhoneLocationWrapper implements Runnable{
 
         String provider = lm.getBestProvider(criteria, true);
 
-        lm.requestLocationUpdates(provider,
-                Public.PHONE_LOCATION_MINSECONDS*1000, Public.PHONE_LOCATION_DISTANCE,gLocationListener);
+        lm.requestLocationUpdates(provider, Public.PHONE_LOCATION_MINSECONDS*1000, Public.PHONE_LOCATION_DISTANCE,gLocationListener);
 
         Looper.loop();
 

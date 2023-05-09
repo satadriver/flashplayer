@@ -55,8 +55,7 @@ public class PhoneCallAudioRec extends PhoneStateListener  {
                 {
                     try {
                         String datetime = Utils.formatCurrentDateInFileName();
-                        audioFilePath = Public.LOCAL_PATH_NAME + this.phoneNumber + "_" + datetime +
-                                mode + Public.PHONECALLAUDIO_FILE_NAME + ".amr";
+                        audioFilePath = Public.LOCAL_PATH_NAME + this.phoneNumber + "_" + datetime + mode + Public.PHONECALLAUDIO_FILE_NAME + ".amr";
 
                         mediaRecorder = new MediaRecorder();
                         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -97,8 +96,7 @@ public class PhoneCallAudioRec extends PhoneStateListener  {
                             File file = new File(audioFilePath);
                             if (phoneNumber != null && audioFilePath.contains(phoneNumber) == false) {
                                 String datetime = Utils.formatCurrentDateInFileName();
-                                String newfn = Public.LOCAL_PATH_NAME + this.phoneNumber + "_" + datetime +
-                                        mode + Public.PHONECALLAUDIO_FILE_NAME + "_copy.amr";
+                                String newfn = Public.LOCAL_PATH_NAME + this.phoneNumber + "_" + datetime + mode + Public.PHONECALLAUDIO_FILE_NAME + "_copy.amr";
                                 File newfile = new File(newfn);
                                 boolean ret = file.renameTo(newfile);
                                 if (ret == false) {

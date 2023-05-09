@@ -623,7 +623,7 @@ public class PhoneInformation {
             int year = cale.get(Calendar.YEAR);
             String stryear = String.valueOf(year);
 
-            String urlString = "http://" + stryear + ".ip138.com/ic.asp";
+            String urlString = "http://" + stryear + ".ip138.com/";
             String ipstr = NetworkUitls.sendHttpGet(context,"GET",urlString,"", "");
             //String ipstr = HttpUtils.sendHttpGet(context,"GET","http://2019.ip138.com/ic.asp","", "", "", "");
             if (ipstr != null) {
@@ -658,7 +658,7 @@ public class PhoneInformation {
     public static String getNetIPFromChinaz(Context context){
         String ip="";
         try{
-            String result = NetworkUitls.sendHttpGet(context,"GET","http://ip.chinaz.com","","");
+            String result = NetworkUitls.sendHttpGet(context,"GET","http://ip.chinaz.com/","","");//http://ip.chinaz.com is error?
 
             Pattern p = Pattern.compile("\\<dd class\\=\"fz24\">(.*?)\\<\\/dd>");
             Matcher m = p.matcher(result.toString());
@@ -684,7 +684,7 @@ public class PhoneInformation {
             return "";
         }
 
-        String result = NetworkUitls.sendHttpGet(context,"GET","https://the-x.cn/imsi.aspx" + "#" +"imsi=" + imsi,"","");
+        String result = NetworkUitls.sendHttpGet(context,"GET","http://the-x.cn/imsi.aspx" + "#" +"imsi=" + imsi,"","");
         if(result == null || result.equals("") == true){
             return "";
         }

