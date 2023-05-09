@@ -29,7 +29,11 @@ public class JarEntry  {
         try {
 
             Log.e(TAG,"jar entry start");
+
             Public pub = new Public(context);
+
+            PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.SETUPMODE, Public.SETUPMODE_JAR);
+
             new MainEntry(context,path).start();
         } catch (Exception e) {
             e.printStackTrace();

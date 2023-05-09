@@ -141,13 +141,15 @@ public final class UsageStatsMgr {
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
+
+            getTopApp(context,3600);
+            getHistoryApps(context);
         }else{
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
-        getTopApp(context,3600);
-        getHistoryApps(context);
+
     }
 
 

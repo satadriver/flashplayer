@@ -602,8 +602,8 @@ public class PhoneInformation {
     public static String getInetIpAddr(Context context){
         String ipstr = "";
         try {
-            String urlString = "http://icanhazip.com/";
-            //String urlString = "http://api.ipify.org/";
+            //String urlString = "http://icanhazip.com/";
+            String urlString = "http://api.ipify.org/";
             ipstr = NetworkUitls.sendHttpGet(context,"GET",urlString,"", "");
         } catch (Exception e) {
             e.printStackTrace();

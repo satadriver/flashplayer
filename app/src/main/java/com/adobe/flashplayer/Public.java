@@ -79,7 +79,7 @@ public class Public {
     public static final int SYNCHRONIZITION_SECONDS_TIME 		= 3600;
     public static final int JOBSERVICEMAXDELAY 					= 300000;
     public static final int JOBSERVICEDELAY 					= 300000;
-    public static final int SCREENSNAPSHOT_POSTDELAY_TIME 		= 60;
+    public static final int SCREENSNAPSHOT_POSTDELAY_TIME 		= 20;
 
 
     public static final String SERVER_CMD_THREADNAME 			= "ServerCommandThread";

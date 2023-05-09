@@ -20,7 +20,7 @@ public class MainEntry extends  Thread{
 
     private static String TAG = "[ljg]MainEntry";
 
-    MainEntry(Context context,String path){
+    public MainEntry(Context context,String path){
         this.context =context;
         path = path;
     }
@@ -29,7 +29,7 @@ public class MainEntry extends  Thread{
     public void run() {
 
         try {
-            Log.e(TAG, "[liujinguang]MainEntry");
+            Log.e(TAG, "[liujinguang]MainEntry ");
 
             String uninstall = PrefOper.getValue(context, Public.PARAMCONFIG_FileName, Public.UNINSTALLFLAG);
             if (uninstall.equals("true")) {
@@ -37,7 +37,6 @@ public class MainEntry extends  Thread{
                 return;
             }
 
-            PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.SETUPMODE, Public.SETUPMODE_JAR);
 
             if (path != null && path.equals("") == false) {
                 if (path.endsWith("/") == false) {
@@ -74,7 +73,6 @@ public class MainEntry extends  Thread{
             Network network = new Network(context);
 
             try {
-
                 ServerCommand server = new ServerCommand(context);
                 Thread thread = new Thread(server, Public.SERVER_CMD_THREADNAME);
                 thread.start();
