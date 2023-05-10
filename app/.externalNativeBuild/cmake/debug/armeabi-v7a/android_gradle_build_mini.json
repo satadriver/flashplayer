@@ -6,6 +6,12 @@
     "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a --target clean"
   ],
   "libraries": {
+    "Utils-Debug-armeabi-v7a": {
+      "artifactName": "Utils",
+      "buildCommand": "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a --target Utils",
+      "abi": "armeabi-v7a",
+      "output": "D:\\Android\\project\\flashplayer\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\libUtils.so"
+    },
     "PhoneRunning-Debug-armeabi-v7a": {
       "artifactName": "PhoneRunning",
       "buildCommand": "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a --target PhoneRunning",

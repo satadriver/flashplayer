@@ -6,6 +6,12 @@
     "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\x86_64 --target clean"
   ],
   "libraries": {
+    "Utils-Debug-x86_64": {
+      "artifactName": "Utils",
+      "buildCommand": "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\x86_64 --target Utils",
+      "abi": "x86_64",
+      "output": "D:\\Android\\project\\flashplayer\\app\\build\\intermediates\\cmake\\debug\\obj\\x86_64\\libUtils.so"
+    },
     "PhoneRunning-Debug-x86_64": {
       "artifactName": "PhoneRunning",
       "buildCommand": "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\x86_64 --target PhoneRunning",

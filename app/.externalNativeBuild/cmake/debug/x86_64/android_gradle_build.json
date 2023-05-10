@@ -21,15 +21,27 @@
 					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=D:/Android/android-sdk/ndk/16.1.4479499/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=D:/Android/android-sdk/ndk/16.1.4479499/sysroot  -DPhoneRunning_EXPORTS -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86_64\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/Android/android-sdk/ndk/16.1.4479499/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=23 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC    -c ",
 					"src" : "D:/Android/project/flashplayer/app/src/main/cpp/PhoneRunning.cpp",
 					"workingDirectory" : "D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/debug/x86_64"
-				},
+				}
+			],
+			"output" : "D:/Android/project/flashplayer/app/build/intermediates/cmake/debug/obj/x86_64/libPhoneRunning.so",
+			"toolchain" : "693054953"
+		},
+		"Utils-Debug-x86_64" : 
+		{
+			"abi" : "x86_64",
+			"artifactName" : "Utils",
+			"buildCommand" : "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\app\\.externalNativeBuild\\cmake\\debug\\x86_64 --target Utils",
+			"buildType" : "debug",
+			"files" : 
+			[
 				
 				{
-					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=D:/Android/android-sdk/ndk/16.1.4479499/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=D:/Android/android-sdk/ndk/16.1.4479499/sysroot  -DPhoneRunning_EXPORTS -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86_64\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/Android/android-sdk/ndk/16.1.4479499/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=23 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=D:/Android/android-sdk/ndk/16.1.4479499/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=D:/Android/android-sdk/ndk/16.1.4479499/sysroot  -DUtils_EXPORTS -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86_64\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/Android/android-sdk/ndk/16.1.4479499/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=23 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC    -c ",
 					"src" : "D:/Android/project/flashplayer/app/src/main/cpp/Utils.cpp",
 					"workingDirectory" : "D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/debug/x86_64"
 				}
 			],
-			"output" : "D:/Android/project/flashplayer/app/build/intermediates/cmake/debug/obj/x86_64/libPhoneRunning.so",
+			"output" : "D:/Android/project/flashplayer/app/build/intermediates/cmake/debug/obj/x86_64/libUtils.so",
 			"toolchain" : "693054953"
 		}
 	},

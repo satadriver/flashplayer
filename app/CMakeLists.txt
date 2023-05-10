@@ -19,7 +19,18 @@ add_library( # Specifies the name of the library.
 
 			 # Provides a relative path to your source file(s).
 			 src/main/cpp/PhoneRunning.cpp
-		src/main/cpp/Utils.cpp
+
+		)
+		
+		add_library( # Specifies the name of the library.
+			 Utils
+
+			 # Sets the library as a shared library.
+			 SHARED
+
+			 # Provides a relative path to your source file(s).
+
+			src/main/cpp/Utils.cpp
 		)
 
 # Specifies a path to native header files.

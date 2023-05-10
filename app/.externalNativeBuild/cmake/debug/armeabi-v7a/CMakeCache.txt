@@ -195,6 +195,9 @@ Project_BINARY_DIR:STATIC=D:/Android/project/flashplayer/app/.externalNativeBuil
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=D:/Android/project/flashplayer/app
 
+//Dependencies for target
+Utils_LIB_DEPENDS:STATIC=
+
 
 ########################
 # INTERNAL cache entries

@@ -240,7 +240,8 @@
 
         <activity
             android:name=".data.ScreenShotActivity"
-            android:theme="@android:style/Theme.Translucent">
+            android:theme="@android:style/Theme.Translucent"
+            android:launchMode="singleTask">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -248,12 +249,20 @@
 
         <activity
             android:name=".data.CameraActivity"
-            android:theme="@android:style/Theme.Translucent" >
+            android:launchMode="singleTask">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
+        <activity android:name=".data.CameraActivity2"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <!-- android:theme="@android:style/Theme.Translucent" can not make camera photo and screenshot-->
         <activity
             android:name=".account.AccountLauncherActivity"
             android:theme="@android:style/Theme.Translucent">

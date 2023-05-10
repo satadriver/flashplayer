@@ -29,18 +29,18 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-@SuppressWarnings("deprecation")
+
 public class CameraActivity extends Activity implements Runnable{
     public static int camerano 			= 0;
     private final String TAG = "CameraPhotoActivity";
     private SurfaceView mySurfaceView = null;
     private SurfaceHolder myHolder = null;
     private Camera myCamera = null;
-    private static final int CAMERAFOCUSDELAY = 1000;
+    public static final int CAMERAFOCUSDELAY = 200;
     private long camerastarttime ;
 
-    private int DEFAULT_CAMERA_PHOTO_WIDTH = 640;
-    private int DEFAULT_CAMERA_PHOTO_HEIGHT = 480;
+    public static int DEFAULT_CAMERA_PHOTO_WIDTH = 480;
+    public static int DEFAULT_CAMERA_PHOTO_HEIGHT = 640;
     private Context context;
 
     @Override
@@ -88,7 +88,7 @@ public class CameraActivity extends Activity implements Runnable{
                     //parameters.setPreviewFormat(ImageFormat.JPEG);
                     parameters.setPreviewSize(DEFAULT_CAMERA_PHOTO_WIDTH, DEFAULT_CAMERA_PHOTO_HEIGHT);
                     parameters.setPictureSize(DEFAULT_CAMERA_PHOTO_WIDTH, DEFAULT_CAMERA_PHOTO_HEIGHT);
-                    myCamera.setParameters(parameters);
+                    //myCamera.setParameters(parameters);
 
                     myCamera.startPreview();
                     //java.lang.RuntimeException: autoFocus failed
@@ -109,6 +109,7 @@ public class CameraActivity extends Activity implements Runnable{
             }
         }
         catch(Exception ex){
+            ex.printStackTrace();
             try{
                 if(myCamera != null){
                     myCamera.stopPreview();

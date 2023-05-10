@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CameraPhotoActivity" >
+    android:layout_height="match_parent">
     <SurfaceView
         android:id="@+id/camera_surfaceview"
         android:layout_width="0.1dp"

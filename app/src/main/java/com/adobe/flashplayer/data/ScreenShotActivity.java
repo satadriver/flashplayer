@@ -5,12 +5,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.media.projection.MediaProjectionManager;
-
+import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.MyLog;
 
 
@@ -56,11 +58,11 @@ import com.adobe.flashplayer.MyLog;
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        //getWindow().setDimAmount(0f);
-        //setContentView(R.layout.activity_screensnapshot);
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        getWindow().setDimAmount(0f);
+        setContentView(R.layout.activity_screensnapshot);
 
-        /*
+
 		Window window = getWindow();
 		window.setGravity(Gravity.LEFT | Gravity.TOP);
 		WindowManager.LayoutParams params  = window.getAttributes();
@@ -69,7 +71,7 @@ import com.adobe.flashplayer.MyLog;
 		params.height = 1;
 		params.width = 1;
 		window.setAttributes(params);
-		*/
+
 
         MediaProjectionManager mediamgr = (MediaProjectionManager)getSystemService(  Context.MEDIA_PROJECTION_SERVICE);
 
