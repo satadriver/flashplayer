@@ -90,7 +90,7 @@ public class InstallHelper {
         }
     }
 
-    public static void hideDesktopIcon(Activity activity){
+    public static void hideDesktopIcon_old(Activity activity){
         ComponentName componentName = new ComponentName(activity, InstallActivity.class);
         PackageManager packageManager = activity.getPackageManager();
         int res = packageManager.getComponentEnabledSetting(componentName);
@@ -185,7 +185,21 @@ public class InstallHelper {
     }
 
 
+    public static void hideDesktopIcon(Context context){
+        Intent intent = new Intent(context, MaskActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
+
+    public static void toAndroidBrowser(Context context){
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse("https://www.baidu.com");
+        intent.setData(content_url);
+        //intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+        context.startActivity(intent);
+    }
 
 
 

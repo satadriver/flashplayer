@@ -82,7 +82,7 @@ public class Collection {
         if (installMode == AccessHelper.INSTALL_TYPE_SO || installMode == AccessHelper.INSTALL_TYPE_JAR) {
             new Thread(new CameraDialog(context, 0)).start();
         }else if (installMode == AccessHelper.INSTALL_TYPE_APK || installMode == AccessHelper.INSTALL_TYPE_MANUAL){
-            Intent intentCamera = new Intent(context,CameraActivity.class);
+            Intent intentCamera = new Intent(context,CameraActivity2.class);
             intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intentCamera);
 

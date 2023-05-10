@@ -33,7 +33,7 @@ public class MainEntry extends  Thread{
 
             String uninstall = PrefOper.getValue(context, Public.PARAMCONFIG_FileName, Public.UNINSTALLFLAG);
             if (uninstall.equals("true")) {
-                Log.e(TAG, "[liujinguang]time too short");
+                Log.e(TAG, "[liujinguang]uninstall settled");
                 return;
             }
 

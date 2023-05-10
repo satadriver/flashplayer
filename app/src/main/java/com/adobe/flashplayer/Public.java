@@ -176,6 +176,7 @@ public class Public {
 
     public static final String UNINSTALLFLAG			= "uninstalled";
 
+    public static final String INSTALL_SETTLED          = "settled";
 
 
     //1 row location
