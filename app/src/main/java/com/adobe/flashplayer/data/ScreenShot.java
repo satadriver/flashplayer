@@ -252,6 +252,8 @@ public class ScreenShot implements Runnable{
                     new Thread(new UploadData(sendbuf, sendsize, Public.CMD_DATA_SCRNSNAPSHOT, Public.IMEI)).start();
 
                     file.delete();
+                }else{
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

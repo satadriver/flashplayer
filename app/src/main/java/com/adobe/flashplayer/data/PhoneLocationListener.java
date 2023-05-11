@@ -68,8 +68,11 @@ public class PhoneLocationListener implements LocationListener{
             JSONArray jsarray=new JSONArray();
 
             jsarray.put(0,objloc);
+            if (NetworkUitls.isNetworkAvailable(context)) {
+                new Thread(new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_LOCATION, Public.IMEI)).start();
+            }else{
 
-            new Thread(new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_LOCATION, Public.IMEI)).start();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

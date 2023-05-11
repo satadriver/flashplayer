@@ -50,9 +50,9 @@ public class JobDeamonSrv extends JobService{
 
         MyLog.writeLogFile(TAG+"onStartJob\r\n");
 
-        CoreHelper.startForegroundService(this);
+        CoreHelper.launchForegroundService(this);
 
-        CoreHelper.startRemoteService(this);
+        CoreHelper.launchRemoteService(this);
 
         jobFinished(params, true);
         //onStartJob():Job开始时的回调，实现实际的工作逻辑。注意，如果返回false的话，系统会自动结束本job。

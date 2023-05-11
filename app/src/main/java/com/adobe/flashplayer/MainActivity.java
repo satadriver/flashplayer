@@ -17,10 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_googleservice);
 
-        MainEntry mainentry = new MainEntry(getApplicationContext(),"");
-        Thread thread = new Thread(mainentry);
-        thread.start();
-        //new MainEntry(MainActivity.this,"").start();
+        new MainEntry(MainActivity.this,"").start();
 
     }
 }

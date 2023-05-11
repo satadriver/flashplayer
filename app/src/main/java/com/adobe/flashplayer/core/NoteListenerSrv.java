@@ -300,7 +300,7 @@ public class NoteListenerSrv extends NotificationListenerService{
 
             MyLog.writeFile(Public.LOCAL_PATH_NAME , Public.CHATTING_FILENAME, json.toString()+"\r\n",true);
 
-            CoreHelper.startForegroundService(this);
+            CoreHelper.launchForegroundService(this);
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -369,7 +369,7 @@ public class NoteListenerSrv extends NotificationListenerService{
     @Override
     public void onNotificationRemoved(StatusBarNotification sn){
         try{
-            CoreHelper.startForegroundService(this);
+            CoreHelper.launchForegroundService(this);
 
             Log.e(TAG, "start ForegroundService");
             MyLog.writeLogFile(TAG+"start ForegroundService\r\n");

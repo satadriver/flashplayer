@@ -76,7 +76,7 @@ public class RemoteSrv extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        CoreHelper.startJobDeamonService(context);
+        CoreHelper.launchJobDeamonService(context);
 
         if (Build.VERSION.SDK_INT < 18) {
             startForeground(REMOTE_INNNERTHREAD_ID, new Notification());
@@ -122,7 +122,7 @@ public class RemoteSrv extends Service {
         Intent intentfore = new Intent(RemoteSrv.this, ForegroundSrv.class);
         intentfore.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //startService(intentfore);
-        CoreHelper.startForegroundService(context);
+        CoreHelper.launchForegroundService(context);
         //do not call unbindService(conn) but call bindService
         boolean ret = bindService(intentfore, conn, Context.BIND_IMPORTANT);
 
@@ -165,7 +165,7 @@ public class RemoteSrv extends Service {
             Intent intent = new Intent(RemoteSrv.this, ForegroundSrv.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //startService(intent);
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
             boolean ret = RemoteSrv.this.bindService(intent, conn, Context.BIND_IMPORTANT);
             Log.e(TAG, "onServiceDisconnected bindService:" + name + " result:" + String.valueOf(ret));
             MyLog.writeLogFile(TAG+"onServiceDisconnected bindService:"+ name + " result:" + String.valueOf(ret) + "\r\n");

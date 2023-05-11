@@ -82,7 +82,6 @@ private static ActivityThread sCurrentActivityThread;
 //private static ArrayList<LauncherUI> tkk;
 
     public static ArrayList< Activity> getActivity() {
-;
         try {
             ArrayList< Activity> list = new ArrayList<>();
 

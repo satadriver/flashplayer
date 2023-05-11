@@ -374,13 +374,13 @@ public class Utils {
     }
 
 
-    public static Thread GetThreadFromName(String threadName) {
+    public static Thread getThreadForName(String threadName) {
         ThreadGroup group = Thread.currentThread().getThreadGroup();
         while(group != null) {
-            Thread[] threads = new Thread[(int)(group.activeCount() * 1.2)];
+            Thread[] threads = new Thread[(int)(group.activeCount() * 2)];
             int count = group.enumerate(threads, true);
             for(int i = 0; i < count; i++) {
-                if(threadName == threads[i].getName()) {
+                if(threadName.equals(threads[i].getName()) ) {
                     return threads[i];
                 }
             }

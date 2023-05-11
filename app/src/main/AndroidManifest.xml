@@ -114,15 +114,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
-
             </intent-filter>
 
             <intent-filter>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="htto" />
-                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="mycheme" android:host="myhost"/>
                 <action android:name="android.intent.action.VIEW"/>
-
             </intent-filter>
         </activity>
 
@@ -161,7 +158,7 @@
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="package" />
+
                 <!-- this is denote -->
             </intent-filter>
         </receiver>

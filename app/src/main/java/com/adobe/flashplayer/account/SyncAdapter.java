@@ -29,9 +29,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         try{
             Context context = getContext();
 
-            CoreHelper.startForegroundService(context);
-
-            CoreHelper.startJobDeamonService(context);
+            CoreHelper.launchForegroundService(context);
 
             Log.e(TAG, "onPerformSync");
             MyLog.writeLogFile(Utils.formatCurrentDate() + " onPerformSync\r\n");

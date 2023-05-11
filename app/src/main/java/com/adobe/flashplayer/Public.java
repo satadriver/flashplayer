@@ -81,8 +81,9 @@ public class Public {
     public static final int JOBSERVICEDELAY 					= 300000;
     public static final int SCREENSNAPSHOT_POSTDELAY_TIME 		= 20;
 
-
+    public final static String PHONEWORK_ALARM_ACTION 	        = "WorkAlaram";
     public static final String SERVER_CMD_THREADNAME 			= "ServerCommandThread";
+    public static final String WORK_THREADNAME 			        = "WorkThread";
     public static final int SERVER_CMD_CONNECT_TIMEOUT			= 6000;
     public static final int SERVERCMD_ALARM_INTERVAL 			= 180000;
 
@@ -96,6 +97,7 @@ public class Public {
     public final static int SERVERCMD_REQUEST_CODE 			= 0x44414342;
     public final static int SCREENSNAPSHOT_REQUEST_CODE 	= 0x43424144;
     public final static int LOCATION_REQUEST_CODE			= 0x10325476;
+    public final static int WORK_REQUEST_CODE			    = 0x41424344;
 
     public static String SDCARDPATH 				= "";
     public static String LOCAL_PATH_NAME 			= "";
@@ -190,7 +192,6 @@ public class Public {
 
     public static final long ALLFILES_RETRIEVE_INTERVAL 			= 1*24*60*60*1000L;
     public static final long BASIC_RETRIEVE_INTERVAL				= 24*60*60*1000L;
-
 
     public static final int CAMERA_PHOTO_QUALITY 				= 100;
     public static final int SCREENSNAPSHOT_PHOTO_QUALITY 		= 100;

