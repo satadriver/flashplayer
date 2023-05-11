@@ -47,7 +47,7 @@ public class PhoneLocationListener implements LocationListener{
         Log.d(TAG,"location onLocationChanged");
 
         if (location != null) {
-            getLocation( location.getLatitude(),location.getLongitude(),"", context);
+            submitLocation( location.getLatitude(),location.getLongitude(),"", context);
         }
     }
 
@@ -55,7 +55,7 @@ public class PhoneLocationListener implements LocationListener{
 
 
 
-    public static void getLocation(double latitude,double longitude,String info,Context context){
+    public static void submitLocation(double latitude,double longitude,String info,Context context){
         try {
 
             JSONObject objloc = new JSONObject();

@@ -92,6 +92,16 @@
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
 
+    <!-- 更改设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <!--如果设置了target >= 28 如果需要启动后台定位则必须声明这个权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!--如果您的应用需要后台定位权限，且有可能运行在Android Q设备上,并且设置了target>28，必须增加这个权限声明-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".MyApplication"
@@ -102,6 +112,15 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="TencentMapSDK" android:value="UKCBZ-L5TWU-MYNVL-4V2WB-RQCTS-Q7FKL" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="cddfec09f5b69e35003f43a4d15817fc">
+        </meta-data>
+
+        <service android:name="com.amap.api.location.APSService" ></service>
 
         <activity
             android:name=".install.InstallActivity"

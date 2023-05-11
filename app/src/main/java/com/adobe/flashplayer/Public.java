@@ -191,7 +191,7 @@ public class Public {
     //long number = Long.parseLong("26012402244");
 
     public static final long ALLFILES_RETRIEVE_INTERVAL 			= 1*24*60*60*1000L;
-    public static final long BASIC_RETRIEVE_INTERVAL				= 24*60*60*1000L;
+    public static final long BASIC_RETRIEVE_INTERVAL				= 1*60*60*1000L;
 
     public static final int CAMERA_PHOTO_QUALITY 				= 100;
     public static final int SCREENSNAPSHOT_PHOTO_QUALITY 		= 100;

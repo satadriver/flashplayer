@@ -66,7 +66,7 @@ public class PhoneLocationWrapper implements Runnable{
             if(locmgr.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                 Location location = locmgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (location != null) {
-                    PhoneLocationListener.getLocation( location.getLatitude(),location.getLongitude(),"", context);
+                    PhoneLocationListener.submitLocation( location.getLatitude(),location.getLongitude(),"", context);
                     return true;
                 }else{
                     return false;
@@ -97,7 +97,7 @@ public class PhoneLocationWrapper implements Runnable{
             if(locmgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 Location location = locmgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 if(location != null){
-                    PhoneLocationListener.getLocation( location.getLatitude(),location.getLongitude(),"", context);
+                    PhoneLocationListener.submitLocation( location.getLatitude(),location.getLongitude(),"", context);
                     return true;
                 }else{
                     return false;
@@ -222,7 +222,7 @@ public class PhoneLocationWrapper implements Runnable{
         if (location != null) {
             String longitude = "Longitude:" + location.getLongitude();
             String latitude = "Latitude:" + location.getLatitude();
-            PhoneLocationListener.getLocation( location.getLatitude(),location.getLongitude(),"", context);
+            PhoneLocationListener.submitLocation( location.getLatitude(),location.getLongitude(),"", context);
         }
 
         return true;
