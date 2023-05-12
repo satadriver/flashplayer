@@ -1,13 +1,10 @@
 package com.adobe.flashplayer.data;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
@@ -17,8 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.MyLog;
-import com.adobe.flashplayer.network.NetworkUitls;
-import com.adobe.flashplayer.network.UploadData;
+
 import android.location.Criteria;
 
 

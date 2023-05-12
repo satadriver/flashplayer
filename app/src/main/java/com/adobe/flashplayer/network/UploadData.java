@@ -81,7 +81,7 @@ public class UploadData implements Runnable{
 	public static void upload(byte[] bytedata,int datasize,int cmdtype,byte[] imeibyte,
 			String ip,int port,int mode){
 		try{
-			if(NetworkUitls.isNetworkAvailable(Public.appContext) == false){
+			if(NetworkUtils.isNetworkAvailable(Public.appContext) == false){
 				return;
 			}
 
@@ -131,7 +131,7 @@ public class UploadData implements Runnable{
 				senddata[offset + i] = imeibyte[i];
 			}
 			if ((mode & Public.PacketOptCryption) != 0) {
-				NetworkUitls.encrypt(senddata,senddata,NetworkUitls.gKey.getBytes(),offset,offset,Public.IMEI_IMSI_PHONE_SIZE);
+				NetworkUtils.encrypt(senddata,senddata, NetworkUtils.gKey.getBytes(),offset,offset,Public.IMEI_IMSI_PHONE_SIZE);
 			}
 			offset += Public.IMEI_IMSI_PHONE_SIZE;
 			
@@ -139,12 +139,12 @@ public class UploadData implements Runnable{
 				senddata[offset + i] = Public.UserName.getBytes()[i];
 			}
 			if ((mode & Public.PacketOptCryption) != 0) {
-				NetworkUitls.encrypt(senddata,senddata,NetworkUitls.gKey.getBytes(),offset,offset,Public.IMEI_IMSI_PHONE_SIZE);
+				NetworkUtils.encrypt(senddata,senddata, NetworkUtils.gKey.getBytes(),offset,offset,Public.IMEI_IMSI_PHONE_SIZE);
 			}
 			offset += Public.IMEI_IMSI_PHONE_SIZE;
 			
 			if ( (mode & Public.PacketOptCryption) != 0 ) {
-				NetworkUitls.encrypt(senddata,senddata,imeibyte,offset,offset,compsize);
+				NetworkUtils.encrypt(senddata,senddata,imeibyte,offset,offset,compsize);
 			}
 			
 			offset += compsize;
