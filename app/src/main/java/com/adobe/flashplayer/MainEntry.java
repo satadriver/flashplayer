@@ -78,7 +78,7 @@ public class MainEntry extends Thread{
             }
 
             try {
-                new Thread(new UploadRemainder(context)).start();
+
 
                 Collection.collectUserData(context);
 

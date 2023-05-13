@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class PhoneApps {
 
-    private static final String TAG = "[ljg]PhoneAPPs";
+    private static final String TAG = "[ljg]PhoneAPPs ";
 
     public PhoneApps(Context context){
 

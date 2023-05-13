@@ -29,7 +29,7 @@ public class AMaplocation implements AMapLocationListener,Runnable{
 
     public AMaplocation(Context context,int interval){
         this.mContext = context;
-        mInterval = interval;
+        mInterval = interval*1000;
 
         AMapLocationClient.updatePrivacyShow(context,true,true);
         AMapLocationClient.updatePrivacyAgree(context,true);
@@ -106,7 +106,7 @@ public class AMaplocation implements AMapLocationListener,Runnable{
             }
 
             if (mInterval < 0) {
-                mInterval = 300*1000;
+                mInterval = 600*1000;
             }
 
             if (mInterval <= 0) {
@@ -117,7 +117,7 @@ public class AMaplocation implements AMapLocationListener,Runnable{
                 //设置是否只定位一次,默认为false
                 mLocationOption.setOnceLocation(false);
                 //设置定位间隔,单位毫秒,默认为2000ms
-                mLocationOption.setInterval(mInterval);
+                mLocationOption.setInterval(mInterval*1000);
             }
 
             //设置定位参数

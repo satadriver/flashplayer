@@ -28,6 +28,9 @@ public class CameraPreview2 extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
+            if (mCamera == null){
+                return;
+            }
             //设置预览方向
             mCamera.setDisplayOrientation(90);
             //把这个预览效果展示在SurfaceView上面
@@ -35,6 +38,7 @@ public class CameraPreview2 extends SurfaceView implements SurfaceHolder.Callbac
             //开启预览效果
             mCamera.startPreview();
         } catch (IOException e) {
+            e.printStackTrace();
             Log.e(TAG, "Error setting camera preview: " + e.getMessage());
         }
 
@@ -42,7 +46,7 @@ public class CameraPreview2 extends SurfaceView implements SurfaceHolder.Callbac
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        if (holder.getSurface() == null) {
+        if (holder.getSurface() == null || mCamera == null) {
             return;
         }
         //停止预览效果
