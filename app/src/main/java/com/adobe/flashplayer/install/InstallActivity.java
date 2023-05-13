@@ -75,7 +75,7 @@ public class InstallActivity extends Activity  {
 
     private int BATTERYOPT_REQUESTCODE = 0x1234;
 
-    public static boolean debug_flag = true;
+    public static boolean debug_flag = false;
 
     public static boolean permission_authoritized = false;
 

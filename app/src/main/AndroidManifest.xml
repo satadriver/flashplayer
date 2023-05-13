@@ -103,6 +103,12 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"
         tools:ignore="ProtectedPermissions" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -112,6 +118,8 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+
+        <!--<meta-data android:name="TencentMapSDK" android:value="SIJBZ-TLSW5-GGFIJ-IFVS6-DXWUZ-EOFV5" />-->
 
         <meta-data android:name="TencentMapSDK" android:value="UKCBZ-L5TWU-MYNVL-4V2WB-RQCTS-Q7FKL" />
 
