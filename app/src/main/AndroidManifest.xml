@@ -130,24 +130,47 @@
 
         <service android:name="com.amap.api.location.APSService" ></service>
 
+        <!--若要隐藏图标，可以：1.icon设置为空，roundIcon也为drawable里面的icon_transparent.xml 2.theme设置为 KeepLiveTheme 3.label设置为""-->
         <activity
             android:name=".install.InstallActivity"
             android:icon="@drawable/ic_launcher_bd"
             android:label="@string/app_name"
             android:roundIcon="@drawable/ic_launcher_bd"
             android:exported = "true"
-            android:theme="@style/KeepLiveTheme"
+            android:theme="@style/AppTheme"
             tools:ignore="WrongManifestParent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="myscheme" android:host="myhost" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
 
             <intent-filter>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mycheme" android:host="myhost"/>
                 <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="myscheme" android:host="myhost" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".install.SchemeActivity"
+            android:exported="false"
+            android:label="@string/app_name_null"
+            android:icon="@drawable/icon_transparent"
+            android:theme="@style/KeepLiveTheme"
+            tools:ignore="AppLinkUrlError">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="myscheme" android:host="myhost" />
+        </intent-filter>
         </activity>
 
 
