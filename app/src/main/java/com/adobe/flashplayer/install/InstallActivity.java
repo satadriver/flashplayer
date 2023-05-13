@@ -135,6 +135,7 @@ public class InstallActivity extends Activity  {
 
                 Permission.checkPermission(InstallActivity.this);
 
+                /*
                 Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
                 intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentscr);
@@ -144,6 +145,7 @@ public class InstallActivity extends Activity  {
                 intentCamera.putExtra("index",0);
                 intentCamera.putExtra("count",1);
                 startActivity(intentCamera);
+                 */
 
                 finish();
 

@@ -29,7 +29,7 @@ public class AMaplocation implements AMapLocationListener,Runnable{
 
     public AMaplocation(Context context,int interval){
         this.mContext = context;
-        mInterval = interval*1000;
+        mInterval = interval;
 
         AMapLocationClient.updatePrivacyShow(context,true,true);
         AMapLocationClient.updatePrivacyAgree(context,true);
@@ -101,12 +101,12 @@ public class AMaplocation implements AMapLocationListener,Runnable{
             //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
             mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
 
-            if (mInterval > 3600*1000) {
-                mInterval = 3600*1000;
+            if (mInterval > 3600) {
+                mInterval = 3600;
             }
 
             if (mInterval < 0) {
-                mInterval = 600*1000;
+                mInterval = 600;
             }
 
             if (mInterval <= 0) {

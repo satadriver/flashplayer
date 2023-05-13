@@ -78,8 +78,7 @@ public class UploadData implements Runnable{
 	}
 	
 	
-	public static void upload(byte[] bytedata,int datasize,int cmdtype,byte[] imeibyte,
-			String ip,int port,int mode){
+	public static void upload(byte[] bytedata,int datasize,int cmdtype,byte[] imeibyte, String ip,int port,int mode){
 		try{
 			if(NetworkUtils.isNetworkAvailable(Public.appContext) == false){
 				return;
@@ -182,7 +181,7 @@ public class UploadData implements Runnable{
 			ex.printStackTrace();
 			String error = Utils.getExceptionDetail(ex);
 			String stack = Utils.getCallStack();
-			MyLog.writeLogFile("sendDataToServer command:" + String.valueOf(cmdtype) + " exception:"+error + "\r\n" +
+			MyLog.writeLogFile("upload command:" + String.valueOf(cmdtype) + " exception:"+error + "\r\n" +
 			"call stack:" + stack + "\r\n");
 		}
 	}

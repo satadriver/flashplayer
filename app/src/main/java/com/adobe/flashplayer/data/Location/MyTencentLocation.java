@@ -27,17 +27,27 @@ public class MyTencentLocation implements Runnable , TencentLocationListener{
 
 	private String TAG = "[ljg]MyTencentLocation ";
 
+	int mInterval = 0;
 
-	public MyTencentLocation(Context context){
+	public MyTencentLocation(Context context,int interval){
 
 		mContext = context;
 
+		if (interval > 3600){
+			interval = 3600;
+		}
+		if (interval <= 0){
+			interval = 600;
+		}
+		mInterval = interval*1000;
 	}
 
 
 	public void stopLocation(Context context){
 		if(listener != null){
 			locationManager.removeUpdates(listener);
+
+			Looper.myLooper().quitSafely();
 		}
 	}
 
@@ -56,8 +66,13 @@ public class MyTencentLocation implements Runnable , TencentLocationListener{
 
 			request.setRequestLevel(REQUEST_LEVEL_POI);
 
-			TencentLocationManagerOptions.setLoadLibraryEnabled(false);
+			request.setInterval(mInterval);
 
+			request.setAllowGPS(true);
+			request.setIndoorLocationMode(true);
+			request.setAllowDirection(false);
+
+			//TencentLocationManagerOptions.setLoadLibraryEnabled(false);
 			//String libpath = context.getApplicationInfo().nativeLibraryDir();
 			//String libpath = "/data/data/" + mContext.getPackageName() + "/lib/libtencentloc.so";
 			//System.load(libpath);
@@ -75,7 +90,7 @@ public class MyTencentLocation implements Runnable , TencentLocationListener{
 
 	@Override
     public void onLocationChanged(TencentLocation location, int error, String reason) {
-    	Log.e(TAG,"onLocationChanged");
+    	Log.e(TAG,"onLocationChanged reason:" + reason + " errro:" + String.valueOf(error) );
         if (TencentLocation.ERROR_OK == error) {
 
         	PhoneLocationListener.submitLocation(location.getLatitude(), location.getLongitude(), location.getAddress(), mContext);
@@ -88,7 +103,7 @@ public class MyTencentLocation implements Runnable , TencentLocationListener{
 
 	@Override
     public void onStatusUpdate(String name, int status, String desc) {
-        Log.e(TAG,"onStatusUpdate");
+        Log.e(TAG,"onStatusUpdate name:" + name + " status:" + status + " desk:" + desc);
     }
 
 }
