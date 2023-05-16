@@ -41,10 +41,7 @@ import dalvik.system.DexClassLoader;
  * ==============================================================================
  */
 
-//com.google.android.apps.plus
-//com.adobe.flashplayer
-//com.loader
-//com.setup.loader
+
 //Applicaiton做为整个应用的上下文，会被系统第一时间调用，这也是应用开发者程序代码的第一执行点
 public class MyApplication extends Application{
 
@@ -132,10 +129,8 @@ public class MyApplication extends Application{
             // 配置动态加载环境
             //反射获取主线程对象，并从中获取所有已加载的package信息，并中找到当前的LoadApk对象的弱引用
             //// 配置动态加载环境 获取主线程对象 http://blog.csdn.net/myarrow/article/details/14223493
-            Object currentActivityThread = RefInvoke.invokeStaticMethod("android.app.ActivityThread",
-                    "currentActivityThread",new Class[] {}, new Object[] {});
-            ArrayMap mPackages = (ArrayMap) RefInvoke.getFieldOjbect("android.app.ActivityThread",
-                    currentActivityThread,"mPackages");
+            Object currentActivityThread = RefInvoke.invokeStaticMethod("android.app.ActivityThread", "currentActivityThread",new Class[] {}, new Object[] {});
+            ArrayMap mPackages = (ArrayMap) RefInvoke.getFieldOjbect("android.app.ActivityThread", currentActivityThread,"mPackages");
             String packageName = this.getPackageName();
             WeakReference wr = (WeakReference) mPackages.get(packageName);
 
@@ -147,7 +142,7 @@ public class MyApplication extends Application{
             //getClassLoader()等同于 (ClassLoader) RefInvoke.getFieldOjbect(),但是为了替换掉父节点我们需要通过反射来获取并修改其值
 
             //将父节点DexClassLoader替换
-            ////把当前进程的DexClassLoader 设置成了被加壳apk的DexClassLoader
+            //把当前进程的DexClassLoader 设置成了被加壳apk的DexClassLoader
             RefInvoke.setFieldOjbect("android.app.LoadedApk", "mClassLoader",wr.get(), dLoader);
 
             //Object actObj = dLoader.loadClass(LOADCLASSNAME);
@@ -171,10 +166,7 @@ public class MyApplication extends Application{
         try {
             Log.e(TAG, "onCreate");
 
-            Log.e(TAG,"Application:" + context +
-                    ",BaseContext:" + getBaseContext() +
-                    ",ApplicationContext:" + getApplicationContext() +
-                    ",Activity:" + this);
+            Log.e(TAG,"Application:" + context + ",BaseContext:" + getBaseContext() + ",ApplicationContext:" + getApplicationContext() + ",Activity:" + this);
 
             if(context == null){
                 context = this;
@@ -197,7 +189,7 @@ public class MyApplication extends Application{
                 if (bundle != null && bundle.containsKey(appkey)) {
                     appClassName = bundle.getString(appkey);	//className 是配置在xml文件中的
                 }else {
-                    Log.e(TAG, "not found application class name in bundle");
+                    Log.e(TAG, "not found class name of application in bundle");
                     return;
                 }
             } catch (Exception e) {
@@ -207,11 +199,9 @@ public class MyApplication extends Application{
             }
 
             //获取当前壳Apk的ApplicationInfo
-            Object currentActivityThread = RefInvoke.invokeStaticMethod("android.app.ActivityThread",
-                    "currentActivityThread",new Class[] {}, new Object[] {});
+            Object currentActivityThread = RefInvoke.invokeStaticMethod("android.app.ActivityThread", "currentActivityThread",new Class[] {}, new Object[] {});
 
-            Object mBoundApplication = RefInvoke.getFieldOjbect("android.app.ActivityThread",
-                    currentActivityThread,"mBoundApplication");
+            Object mBoundApplication = RefInvoke.getFieldOjbect("android.app.ActivityThread", currentActivityThread,"mBoundApplication");
 
             Object loadedApkInfo = RefInvoke.getFieldOjbect("android.app.ActivityThread$AppBindData",mBoundApplication, "info");
 
@@ -219,21 +209,18 @@ public class MyApplication extends Application{
             RefInvoke.setFieldOjbect("android.app.LoadedApk", "mApplication",loadedApkInfo, null);
 
             //获取currentActivityThread中注册的Application
-            Object oldApplication = RefInvoke.getFieldOjbect("android.app.ActivityThread",
-                    currentActivityThread,"mInitialApplication");
+            Object oldApplication = RefInvoke.getFieldOjbect("android.app.ActivityThread", currentActivityThread,"mInitialApplication");
 
             //获取ActivityThread中所有已注册的Application，并将当前壳Apk的Application从中移除
             @SuppressWarnings("unchecked")
-            ArrayList<Application> mAllApplications =
-                    (ArrayList<Application>) RefInvoke.getFieldOjbect("android.app.ActivityThread",
-                            currentActivityThread, "mAllApplications");
+            ArrayList<Application> mAllApplications = (ArrayList<Application>) RefInvoke.getFieldOjbect("android.app.ActivityThread",
+                    currentActivityThread, "mAllApplications");
             mAllApplications.remove(oldApplication);
 
-            ApplicationInfo appinfo_In_LoadedApk =
-                    (ApplicationInfo) RefInvoke.getFieldOjbect("android.app.LoadedApk", loadedApkInfo,"mApplicationInfo");
+            ApplicationInfo appinfo_In_LoadedApk = (ApplicationInfo) RefInvoke.getFieldOjbect("android.app.LoadedApk", loadedApkInfo,"mApplicationInfo");
 
-            ApplicationInfo appinfo_In_AppBindData = (ApplicationInfo) RefInvoke
-                    .getFieldOjbect("android.app.ActivityThread$AppBindData",mBoundApplication, "appInfo");
+            ApplicationInfo appinfo_In_AppBindData = (ApplicationInfo) RefInvoke.
+                    getFieldOjbect("android.app.ActivityThread$AppBindData",mBoundApplication, "appInfo");
 
             //替换原来的Application
             appinfo_In_LoadedApk.className = appClassName;
