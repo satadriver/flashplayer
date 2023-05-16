@@ -164,6 +164,7 @@
             </intent-filter>
         </activity>
 
+        <!--
         <activity
             android:name=".MainActivity"
             android:icon="@drawable/ic_launcher_bd"
@@ -177,7 +178,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        -->
 
         <activity
             android:name="com.adobe.flashplayer.install.SchemeActivity"

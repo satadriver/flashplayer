@@ -1,10 +1,10 @@
 Executable : D:\Android\android-sdk\cmake\3.6.4111459\bin\cmake.exe
 arguments : 
--HD:\Android\project\apkUnshell\app
--BD:\Android\project\apkUnshell\app\.externalNativeBuild\cmake\release\x86_64
+-HD:\Android\project\flashplayer\apkUnshell-new\app
+-BD:\Android\project\flashplayer\apkUnshell-new\app\.externalNativeBuild\cmake\release\x86_64
 -DANDROID_ABI=x86_64
 -DANDROID_PLATFORM=android-23
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\Android\project\apkUnshell\app\build\intermediates\cmake\release\obj\x86_64
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\Android\project\flashplayer\apkUnshell-new\app\build\intermediates\cmake\release\obj\x86_64
 -DCMAKE_BUILD_TYPE=Release
 -DANDROID_NDK=D:\Android\android-sdk\ndk\16.1.4479499
 -DCMAKE_CXX_FLAGS=

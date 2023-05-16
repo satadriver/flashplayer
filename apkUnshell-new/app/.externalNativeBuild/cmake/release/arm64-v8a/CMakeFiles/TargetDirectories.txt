@@ -1,4 +1,4 @@
-D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/Utils.dir
-D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/PhoneRunning.dir
-D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
-D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir
+D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/Utils.dir
+D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/PhoneRunning.dir
+D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir
