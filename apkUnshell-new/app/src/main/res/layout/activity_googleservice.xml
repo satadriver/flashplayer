@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+    
+    <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请依次点击按钮完成设置"
+            android:textSize="20sp" >
+   	</TextView>
+   	
+	<Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/rootSetting"
+         android:text="请打开ROOT权限并再次点击此按钮"
+         android:textSize="20sp" >
+     </Button>
+
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/authoritySetting"
+         android:text="权限"
+         android:textSize="20sp" >
+     </Button>
+
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/startupSetting"
+         android:text="开机启动或后台运行"
+         android:textSize="20sp" >
+     </Button>
+     
+ 
+     
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/notificationSetting"
+         android:text="系统通知"
+         android:textSize="20sp" >
+     </Button>
+
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/powerOptSetting"
+         android:text="关闭耗电优化"
+         android:textSize="20sp" >
+     </Button>
+     
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/devmgrSetting"
+         android:text="打开设备管理器(可忽略)"
+         android:textSize="20sp" >
+     </Button>
+
+	<Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/appsUsage"
+         android:text="查看应用程序使用权限"
+         android:textSize="20sp" >
+     </Button>
+     
+	<Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/floatingWindow"
+         android:text="悬浮窗"
+         android:textSize="20sp" >
+     </Button>
+     
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/accessibilitySetting"
+         android:text="设置辅助功能(可忽略)"
+         android:textSize="20sp" >
+     </Button>
+
+     
+  	<Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id = "@+id/complete"
+         android:text="完成"
+         android:textSize="20sp" >
+     </Button>
+</LinearLayout>

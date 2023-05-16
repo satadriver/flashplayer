@@ -1,0 +1,4 @@
+D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/Utils.dir
+D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/PhoneRunning.dir
+D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Android/project/apkUnshell/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir

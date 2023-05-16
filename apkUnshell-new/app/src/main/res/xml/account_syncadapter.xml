@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
+    android:contentAuthority="@string/accountprovideranthority"
+    android:accountType="@string/accounttype"
+    android:userVisible="true"
+    android:supportsUploading="false"
+    android:allowParallelSyncs="false"
+    android:isAlwaysSyncable="true"/>
+
+<!-- android:contentAuthority 	指定要同步的ContentProvider所需的权限
+android:accountType 	表示进行同步的账号的类型
+android:userVisible 	设置是否在“设置–账户”中显示，当设置为true时，用户可手动关闭同步功能
+android:supportsUploading	设置是否必须notifyChange通知才能同步
+android:allowParallelSyncs	是否支持并发同步
+android:isAlwaysSyncable 默认是false,framework是否可以在任意时刻运行SyncAdapter，如果仅希望通过程序控制同步发起，则设为false，然后通过调用requestSync()发起 -->
