@@ -1,5 +1,7 @@
 package com.apkshell;
 
+import java.io.File;
+
 public class Utils {
 	
 	public static int bytesToInt(byte[] src) {
@@ -23,6 +25,23 @@ public class Utils {
 		src[0] =  (byte) (value & 0xFF);				
 		return src; 
 	}
+	
+	
+	public static void deleteDir(File directory){
+        //获取目录下所有文件和目录
+        File files[] = directory.listFiles();
+        for (File file : files) {
+            if(file.isDirectory()){
+                deleteDir(file);
+            }else {
+                file.delete();
+                System.out.println(file.getName()+"：：文件已删除");
+            }
+        }
+        //最终把该目录也删除
+        directory.delete();
+        System.out.println(directory.getName()+"：：目录已删除");
+    }
 	
 
 }

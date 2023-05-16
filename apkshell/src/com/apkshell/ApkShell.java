@@ -111,6 +111,10 @@ public class ApkShell {
             fos.flush();
             fos.close();
             
+            String metainf=unzipPath + "META-INF/";
+            File fileMetainf = new File(metainf);
+            Utils.deleteDir(fileMetainf);
+            
             int counter = ZipUtils.zipDir(shellApkfn + "_new.apk", unzipPath);
             System.out.println("rezip complete total file:" + counter);
             
@@ -121,7 +125,7 @@ public class ApkShell {
     }  
       
 
-    private static byte[] xorcrpt(byte[] srcdata){ 
+    private static byte[] xorcrpt(byte[] srcdata){
     	byte[] key = cryptKey.getBytes();
     	int keylen = cryptKey.length();
         for(int i = 0,j = 0; i<srcdata.length; i++){

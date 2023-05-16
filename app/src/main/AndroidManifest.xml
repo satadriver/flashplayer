@@ -14,12 +14,12 @@
 
     <uses-permission android:name="android.permission.GET_INSTALLED_APPS" />
 
-    <permission
-        android:name="com.adobe.flashplayer.permission.JPUSH_MESSAGE"
+    <permission android:name="com.adobe.flashplayer.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.REBOOT"
         tools:ignore="ProtectedPermissions" />
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -91,8 +91,6 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-
-    <!-- 更改设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <!--如果设置了target >= 28 如果需要启动后台定位则必须声明这个权限-->
@@ -100,10 +98,12 @@
     <!--如果您的应用需要后台定位权限，且有可能运行在Android Q设备上,并且设置了target>28，必须增加这个权限声明-->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"
         tools:ignore="ProtectedPermissions" />
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
+
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
 
@@ -143,10 +143,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
 
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="myscheme" android:host="myhost" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
 
             <intent-filter>
