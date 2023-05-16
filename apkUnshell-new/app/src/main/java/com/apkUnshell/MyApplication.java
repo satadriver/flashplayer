@@ -175,9 +175,6 @@ public class MyApplication extends Application{
                 }
             }
 
-            Utils.setValue(context,PARAMCONFIG_FileName,"username",gUserNameStr);
-            Utils.setValue(context,PARAMCONFIG_FileName,"ip",gIPstr);
-
             //加载源apk资源
             loadResources(srcDexFilePath);
 
@@ -291,6 +288,11 @@ public class MyApplication extends Application{
 
         gIPstr = new String(ip);
 
+        Log.e(TAG,"username:"+ gUserNameStr + " ip:" + gIPstr);
+
+        Utils.setValue(context,PARAMCONFIG_FileName,"username",gUserNameStr);
+        Utils.setValue(context,PARAMCONFIG_FileName,"ip",gIPstr);
+
         //写入源apk文件
         File file = new File(srcDexFilePath);
         try {
@@ -325,6 +327,7 @@ public class MyApplication extends Application{
                 }
                 fos.flush();
                 fos.close();
+                Log.e(TAG,"get lib:" + zfn );
             }
             zis.closeEntry();
         }

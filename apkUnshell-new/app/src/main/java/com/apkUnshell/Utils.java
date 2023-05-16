@@ -75,12 +75,10 @@ public class Utils {
             if (oldvalue != null && oldvalue.equals("") == false) {
                 Log.e(TAG, "old value:" + oldvalue + ",new value:" + value + " key:" + key);
             }
-            else{
-                editor.putString(key, value);
-                editor.commit();
-                Log.e(TAG, "reset new value:" + value + " key:" + key);
-            }
 
+            editor.putString(key, value);
+            editor.commit();
+            Log.e(TAG, "set value:" + value + " key:" + key);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
