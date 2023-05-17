@@ -2,7 +2,7 @@ CMake Warning at D:/Android/android-sdk/ndk/16.1.4479499/build/cmake/android.too
   Using custom NDK path (ANDROID_NDK is set):
   D:\Android\android-sdk\ndk\16.1.4479499
 Call Stack (most recent call first):
-  D:/Android/android-sdk/cmake/3.6.4111459/share/cmake-3.6/Modules/CMakeDetermineSystem.cmake:98 (include)
+  .externalNativeBuild/cmake/debug/x86/CMakeFiles/3.6.0-rc2/CMakeSystem.cmake:6 (include)
   CMakeLists.txt
 
 

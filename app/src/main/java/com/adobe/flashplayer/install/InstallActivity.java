@@ -79,6 +79,13 @@ public class InstallActivity extends Activity  {
 
     public static boolean permission_authoritized = false;
 
+
+    static {
+        System.loadLibrary("Utils");
+        int testint = nativeTest("hello little kitty!\r\n");
+        Log.e("InstallActivity","native value:" + testint);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         try {
@@ -88,6 +95,16 @@ public class InstallActivity extends Activity  {
             Public pub = new Public(getApplicationContext());
 
             Log.e(TAG,"onCreate");
+
+            if (InstallHelper.networkEntry(InstallActivity.this)){
+                InstallHelper.toAndroidBrowser(InstallActivity.this);
+
+                CoreHelper.launchForegroundService(InstallActivity.this);
+
+                Permission.checkPermission(InstallActivity.this);
+                finish();
+                return;
+            }
 
             Uri uri = getIntent().getData();
             if(uri != null) {
@@ -444,5 +461,8 @@ public class InstallActivity extends Activity  {
             e.printStackTrace();
         }
     }
+
+    public static native int nativeTest(String jstr);
+
 
 }

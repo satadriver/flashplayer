@@ -17,7 +17,8 @@
 #include <stdlib.h>
 #include <jni.h>
 
-
+#include <stdio.h>
+#include <string.h>
 
 
 
@@ -87,12 +88,16 @@ int lock_set(int fd,int type)
 }
 
 
-extern "C" JNIEXPORT jint JNICALL Java_com_adobe_flashplayer_core_CoreHelper_fileLock(JNIEnv * env,jobject obj,jstring dstfn){
+extern "C" JNIEXPORT jint JNICALL Java_com_adobe_flashplayer_core_CoreHelper_fileLock(JNIEnv * env,
+                                                                                      jclass obj,jstring dstfn){
 
     jboolean iscopy = 1;
     char * dstfilename = (char*)env->GetStringUTFChars(dstfn,&iscopy);
 
     int fd = open(dstfilename,O_RDWR | O_CREAT, 0644);
+
+    env->ReleaseStringUTFChars(dstfn,dstfilename);
+
     if(fd < 0)
     {
         printf("Open file error\n");
@@ -102,4 +107,18 @@ extern "C" JNIEXPORT jint JNICALL Java_com_adobe_flashplayer_core_CoreHelper_fil
     lock_set(fd, F_WRLCK);
 
     return 0;
+}
+
+
+extern "C" JNIEXPORT jint JNICALL Java_com_adobe_flashplayer_install_InstallActivity_nativeTest(JNIEnv * env,
+                                                                                                jclass obj,jstring jstr){
+
+    jboolean iscopy = 1;
+    char * str = (char*)env->GetStringUTFChars(jstr,&iscopy);
+
+    printf("hahaha:%s\r\n",str);
+
+    env->ReleaseStringUTFChars(jstr,str);
+
+    return 12345678;
 }

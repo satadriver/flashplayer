@@ -85,13 +85,16 @@ int GetProcInfo(char * info,int *result)
 	return cnt;
 }
 
-extern "C" JNIEXPORT jint JNICALL Java_com_adobe_flashplayer_data_PhoneRunning_getPhoneRunningCpp(JNIEnv * env,jobject obj,jstring dstfn){
+extern "C" JNIEXPORT jint JNICALL Java_com_adobe_flashplayer_data_PhoneRunning_getPhoneRunningCpp(JNIEnv * env,jclass obj,jstring dstfn){
 
 	jboolean iscopy = 1;
 	char * dstfilename = (char*)env->GetStringUTFChars(dstfn,&iscopy);
 
 	//w+ 打开可读写文件，若文件存在则文件长度清为零，即该文件内容会消失。若文件不存在则建立该文件
 	FILE * fp = fopen(dstfilename,"wb+");
+
+	env->ReleaseStringUTFChars(dstfn,dstfilename);
+
 	if(fp == 0){
 		return -1;
 	}

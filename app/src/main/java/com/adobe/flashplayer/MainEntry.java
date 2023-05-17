@@ -28,7 +28,7 @@ public class MainEntry extends Thread{
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
 
         try {
             Log.e(TAG, "[liujinguang]MainEntry ");
@@ -96,10 +96,7 @@ public class MainEntry extends Thread{
             }
 
             try {
-
-
                 Collection.collectUserData(context);
-
             } catch (Exception e) {
                 Log.e(TAG, "[liujinguang]Collection exception");
                 e.printStackTrace();

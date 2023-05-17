@@ -1,0 +1,4 @@
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/release/armeabi/CMakeFiles/Utils.dir
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/release/armeabi/CMakeFiles/PhoneRunning.dir
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/release/armeabi/CMakeFiles/edit_cache.dir
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/release/armeabi/CMakeFiles/rebuild_cache.dir

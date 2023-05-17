@@ -26,7 +26,7 @@ public class WECHAT implements Runnable{
     }
 
 
-    public void run(){
+    public synchronized void run(){
 
         try{
             PackageManager pm = context.getPackageManager();

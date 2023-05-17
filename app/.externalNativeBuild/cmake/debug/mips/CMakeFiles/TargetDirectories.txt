@@ -1,0 +1,4 @@
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/Utils.dir
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/PhoneRunning.dir
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/edit_cache.dir
+D:/Android/project/flashplayer/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/rebuild_cache.dir

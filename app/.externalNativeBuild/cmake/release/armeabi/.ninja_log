@@ -1,0 +1,5 @@
+# ninja log v5
+0	94	0	CMakeFiles/Utils.dir/src/main/cpp/Utils.cpp.o	71f5b6870257abb
+95	159	0	../../../../build/intermediates/cmake/release/obj/armeabi/libUtils.so	6ea8f11aeca4661f
+1	168	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o	59b5f24b94f56082
+168	311	0	../../../../build/intermediates/cmake/release/obj/armeabi/libPhoneRunning.so	c3069c0ab1fcd2c2

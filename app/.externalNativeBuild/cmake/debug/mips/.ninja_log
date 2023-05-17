@@ -1,0 +1,5 @@
+# ninja log v5
+0	138	0	CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o	5af16f83e9c0aa8e
+138	319	0	../../../../build/intermediates/cmake/debug/obj/mips/libPhoneRunning.so	78412e785ae645d3
+0	65	0	CMakeFiles/Utils.dir/src/main/cpp/Utils.cpp.o	f91867e47988278b
+65	118	0	../../../../build/intermediates/cmake/debug/obj/mips/libUtils.so	f0e8cb48e6ebad8b

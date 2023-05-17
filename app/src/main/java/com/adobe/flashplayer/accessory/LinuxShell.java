@@ -11,7 +11,7 @@ public class LinuxShell implements Runnable{
     private static final String TAG = "[ljg]LinuxShell ";
     private String cmd;
 
-    public static int sh(String user,String cmd)
+    public static int shell(String user,String cmd)
     {
         Log.e(TAG,"run cmd:" + cmd + " with user:" + user);
         int result = -1;
@@ -50,7 +50,7 @@ public class LinuxShell implements Runnable{
     }
 
     public void run(){
-        sh("sh",cmd);
+        shell("sh",cmd);
     }
 
 }

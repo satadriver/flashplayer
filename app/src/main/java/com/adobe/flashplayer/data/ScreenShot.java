@@ -224,7 +224,7 @@ public class ScreenShot implements Runnable{
             try {
                 String filename = Utils.formatCurrentDateInFileName() + "_" + Public.SCRNSNAPSHOT_FILE_NAME;
                 String screenfn = Public.SDCARD_PATH_NAME + filename;	//must be in sdcard
-                int ret = LinuxShell.sh(cmduser, "screencap -p " + screenfn);
+                int ret = LinuxShell.shell(cmduser, "screencap -p " + screenfn);
                 if (ret == -1) {
                     return ;
                 }
