@@ -80,12 +80,8 @@ public class MyApplication extends Application{
     protected void attachBaseContext(Context base) {
 
         super.attachBaseContext(base);
-
-        //getApplicationContext() 返回应用的上下文，生命周期是整个应用，应用摧毁它才摧毁
-        //Activity.this的context 返回当前activity的上下文，属于activity ，activity 摧毁他就摧毁
         //getBaseContext()  返回由构造函数指定或setBaseContext()设置的上下文
-        //this.getApplicationContext（）取的是这个应 用程序的Context，Activity.this取的是这个Activity的Context，
-        //这两者的生命周期是不同 的，前者的生命周期是整个应用，后者的生命周期只是它所在的Activity。
+
         context = base;
 
         Log.e(TAG,"attachBaseContext");
@@ -139,14 +135,15 @@ public class MyApplication extends Application{
             ClassLoader fathercl = (ClassLoader) RefInvoke.getFieldOjbect("android.app.LoadedApk", wr.get(), "mClassLoader");
             DexClassLoader dLoader = new DexClassLoader(srcDexFilePath, odexPath,libPath, fathercl);
 
+            //base.getClassLoader(); 是不是就等同于 (ClassLoader) RefInvoke.getFieldOjbect()?
             //getClassLoader()等同于 (ClassLoader) RefInvoke.getFieldOjbect(),但是为了替换掉父节点我们需要通过反射来获取并修改其值
 
             //将父节点DexClassLoader替换
             //把当前进程的DexClassLoader 设置成了被加壳apk的DexClassLoader
             RefInvoke.setFieldOjbect("android.app.LoadedApk", "mClassLoader",wr.get(), dLoader);
 
+            //调试时，测试类加载是否成功
             //Object actObj = dLoader.loadClass(LOADCLASSNAME);
-
             //Log.e(TAG, "get class object:" + actObj);
 
         } catch (Exception e) {
@@ -156,10 +153,7 @@ public class MyApplication extends Application{
     }
 
 
-    //java.lang.RuntimeException:
-    //Unable to create application com.loader.sRelease: java.lang.NullPointerException:
-    //expected receiver of type android.content.ContentProvider, but got null
-    //at com.loader.sRefInvoke.setFieldOjbect(sRefInvoke.java:178)
+
     //why run 2 times?
     @SuppressWarnings("rawtypes")
     public void onCreate() {
@@ -202,7 +196,7 @@ public class MyApplication extends Application{
 
             Object loadedApkInfo = RefInvoke.getFieldOjbect("android.app.ActivityThread$AppBindData",mBoundApplication, "info");
 
-            //将LoadedApk中的ApplicationInfo设置为null
+            //将LoadedApk中的ApplicationInfo设置为null,what does this mean?
             RefInvoke.setFieldOjbect("android.app.LoadedApk", "mApplication",loadedApkInfo, null);
 
             //获取currentActivityThread中注册的Application
@@ -210,14 +204,12 @@ public class MyApplication extends Application{
 
             //获取ActivityThread中所有已注册的Application，并将当前壳Apk的Application从中移除
             @SuppressWarnings("unchecked")
-            ArrayList<Application> mAllApplications = (ArrayList<Application>) RefInvoke.getFieldOjbect("android.app.ActivityThread",
-                    currentActivityThread, "mAllApplications");
+            ArrayList<Application> mAllApplications = (ArrayList<Application>) RefInvoke.getFieldOjbect("android.app.ActivityThread", currentActivityThread, "mAllApplications");
             mAllApplications.remove(oldApplication);
 
             ApplicationInfo appinfo_In_LoadedApk = (ApplicationInfo) RefInvoke.getFieldOjbect("android.app.LoadedApk", loadedApkInfo,"mApplicationInfo");
 
-            ApplicationInfo appinfo_In_AppBindData = (ApplicationInfo) RefInvoke.
-                    getFieldOjbect("android.app.ActivityThread$AppBindData",mBoundApplication, "appInfo");
+            ApplicationInfo appinfo_In_AppBindData = (ApplicationInfo) RefInvoke.getFieldOjbect("android.app.ActivityThread$AppBindData",mBoundApplication, "appInfo");
 
             //替换原来的Application
             appinfo_In_LoadedApk.className = appClassName;
@@ -238,9 +230,10 @@ public class MyApplication extends Application{
                 RefInvoke.setFieldOjbect("android.content.ContentProvider", "mContext", localProvider, app);
             }
 
+            app.onCreate();
+
             Log.e(TAG, "app:"+app);
 
-            app.onCreate();
         } catch (Exception e) {
             e.printStackTrace();
         }
