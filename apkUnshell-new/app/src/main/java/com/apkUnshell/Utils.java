@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.util.Log;
 
 
@@ -106,4 +107,17 @@ public class Utils {
 
         return null;
     }
+
+
+    public static int getSystemBits(){
+        String[] abis = Build.SUPPORTED_ABIS;
+        int size = abis.length;
+        for (int i = 0;i < size ;i ++){
+            if (abis[i].equals("arm64-v8a")){
+                return 64;
+            }
+        }
+        return 32;
+    }
+
 }

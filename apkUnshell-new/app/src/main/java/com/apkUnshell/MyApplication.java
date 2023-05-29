@@ -9,6 +9,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -296,6 +297,9 @@ public class MyApplication extends Application{
             throw new RuntimeException(localIOException);
         }
 
+        int bits = Utils.getSystemBits();
+        String libprefix = "lib/" + Build.CPU_ABI;
+
         //分析源apk文件
         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(file)));
         while (true) {
@@ -306,7 +310,8 @@ public class MyApplication extends Application{
 
             //依次取出被加壳apk用到的so文件，放到 libPath中（data/data/包名/payload_lib)
             String zfn = ze.getName();
-            if (zfn.startsWith("lib/") && zfn.endsWith(".so")) {
+
+            if (zfn.startsWith(libprefix) && zfn.endsWith(".so")) {
                 File sofile = new File(libPath + zfn.substring(zfn.lastIndexOf('/')));
                 sofile.createNewFile();
                 FileOutputStream fos = new FileOutputStream(sofile);

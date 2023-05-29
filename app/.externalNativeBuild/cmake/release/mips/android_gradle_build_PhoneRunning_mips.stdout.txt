@@ -1,2 +1,1 @@
-[1/2] Building CXX object CMakeFiles/PhoneRunning.dir/src/main/cpp/PhoneRunning.cpp.o
-[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cmake\release\obj\mips\libPhoneRunning.so
+ninja: no work to do.
