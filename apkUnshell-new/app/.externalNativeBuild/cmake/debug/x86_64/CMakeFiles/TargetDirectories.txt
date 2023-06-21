@@ -1,4 +1,0 @@
-D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/debug/x86_64/CMakeFiles/Utils.dir
-D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/debug/x86_64/CMakeFiles/PhoneRunning.dir
-D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/debug/x86_64/CMakeFiles/edit_cache.dir
-D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/debug/x86_64/CMakeFiles/rebuild_cache.dir

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/apkUnshell-new.iml" filepath="$PROJECT_DIR$/.idea/modules/apkUnshell-new.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/apkUnshell-new.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/apkUnshell-new.app.iml" />
-    </modules>
-  </component>
-</project>

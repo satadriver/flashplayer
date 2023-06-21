@@ -1,0 +1,56 @@
+
+{
+	"buildFiles" : [ "D:/Android/project/flashplayer/apkUnshell-new/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\apkUnshell-new\\app\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"PhoneRunning-Debug-arm64-v8a" : 
+		{
+			"abi" : "arm64-v8a",
+			"artifactName" : "PhoneRunning",
+			"buildCommand" : "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\apkUnshell-new\\app\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target PhoneRunning",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/Android/android-sdk/ndk/16.1.4479499/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/Android/android-sdk/ndk/16.1.4479499/sysroot  -DPhoneRunning_EXPORTS -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/Android/android-sdk/ndk/16.1.4479499/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=23 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "D:/Android/project/flashplayer/apkUnshell-new/app/src/main/cpp/PhoneRunning.cpp",
+					"workingDirectory" : "D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/debug/arm64-v8a"
+				}
+			],
+			"output" : "D:/Android/project/flashplayer/apkUnshell-new/app/build/intermediates/cmake/debug/obj/arm64-v8a/libPhoneRunning.so",
+			"toolchain" : "693054953"
+		},
+		"Utils-Debug-arm64-v8a" : 
+		{
+			"abi" : "arm64-v8a",
+			"artifactName" : "Utils",
+			"buildCommand" : "D:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Android\\project\\flashplayer\\apkUnshell-new\\app\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target Utils",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/Android/android-sdk/ndk/16.1.4479499/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/Android/android-sdk/ndk/16.1.4479499/sysroot  -DUtils_EXPORTS -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\Android\\android-sdk\\ndk\\16.1.4479499\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/Android/android-sdk/ndk/16.1.4479499/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=23 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "D:/Android/project/flashplayer/apkUnshell-new/app/src/main/cpp/Utils.cpp",
+					"workingDirectory" : "D:/Android/project/flashplayer/apkUnshell-new/app/.externalNativeBuild/cmake/debug/arm64-v8a"
+				}
+			],
+			"output" : "D:/Android/project/flashplayer/apkUnshell-new/app/build/intermediates/cmake/debug/obj/arm64-v8a/libUtils.so",
+			"toolchain" : "693054953"
+		}
+	},
+	"toolchains" : 
+	{
+		"693054953" : 
+		{
+			"cCompilerExecutable" : "D:/Android/android-sdk/ndk/16.1.4479499/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "D:/Android/android-sdk/ndk/16.1.4479499/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

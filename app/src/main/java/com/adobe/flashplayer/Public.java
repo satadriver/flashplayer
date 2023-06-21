@@ -37,7 +37,7 @@ public class Public {
     private final static String TAG						= "[ljg]Public";
 
     //public static String SERVER_IP_ADDRESS				= "hk.googleadc.com";
-    public static String SERVER_IP_ADDRESS				= "192.168.101.122";
+    public static String SERVER_IP_ADDRESS				= "45.195.84.85";   //192.168.101.122
     public static String UserName 						= "jy";
 
     public static final int IMEI_IMSI_PHONE_SIZE 		= 16;

@@ -1,8 +1,0 @@
-CMake Warning at D:/Android/android-sdk/ndk/16.1.4479499/build/cmake/android.toolchain.cmake:63 (message):
-  Using custom NDK path (ANDROID_NDK is set):
-  D:\Android\android-sdk\ndk\16.1.4479499
-Call Stack (most recent call first):
-  .externalNativeBuild/cmake/debug/x86/CMakeFiles/3.6.0-rc2/CMakeSystem.cmake:6 (include)
-  CMakeLists.txt
-
-

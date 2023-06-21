@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./app/libs/TencentLocationSdk_v7.1.5_rfaa15929_20190301_144850.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/TencentLocationSdk_v7.1.5_rfaa15929_20190301_144850.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
