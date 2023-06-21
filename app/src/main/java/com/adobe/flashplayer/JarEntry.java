@@ -18,7 +18,10 @@ public class JarEntry  {
     }
 
     public JarEntry(Context context){
-        Public.appContext = context;
+        if (context != null) {
+            Public.appContext = context;
+        }
+        Log.e("JarEntry", "init");
     }
 
     public void start(Context context){
@@ -28,7 +31,7 @@ public class JarEntry  {
     public void start(Context context,String path){
         try {
 
-            Log.e(TAG,"jar entry start");
+            Log.e(TAG,"jar entry start with path:" + path);
 
             Public pub = new Public(context);
 

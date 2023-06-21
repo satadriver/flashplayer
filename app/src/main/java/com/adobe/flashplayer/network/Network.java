@@ -1,8 +1,11 @@
 package com.adobe.flashplayer.network;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import com.adobe.flashplayer.PrefOper;
 import com.adobe.flashplayer.Public;
@@ -48,6 +51,13 @@ public class Network {
             Public.UserName = username;
         } else {
             Log.e(TAG, "[liujinguang]not found username! current username:" + Public.UserName);
+            return false;
+        }
+
+
+        int granted = ContextCompat.checkSelfPermission(context,android.Manifest.permission.ACCESS_NETWORK_STATE);
+        if (granted != PackageManager.PERMISSION_GRANTED){
+            Log.e(TAG,"program has no rights to access network state");
             return false;
         }
 

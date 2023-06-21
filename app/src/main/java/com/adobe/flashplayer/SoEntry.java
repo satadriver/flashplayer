@@ -28,7 +28,10 @@ public class SoEntry {
 
 
     public SoEntry(Context context){
-
+        if (context != null) {
+            Public.appContext = context;
+        }
+        Log.e("SoEntry", "init");
     }
 
 
@@ -39,7 +42,7 @@ public class SoEntry {
 
     public void start(Context context,String path){
         try {
-            Log.e(TAG,"so entry start");
+            Log.e(TAG,"so entry start with path:"+path);
 
             Public pub = new Public(context);
 

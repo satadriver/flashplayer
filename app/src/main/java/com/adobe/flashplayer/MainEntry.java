@@ -24,7 +24,7 @@ public class MainEntry extends Thread{
 
     public MainEntry(Context context,String path){
         this.context =context;
-        path = path;
+        this.path = path;
     }
 
     @Override
@@ -48,7 +48,13 @@ public class MainEntry extends Thread{
 
             PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGPACKAGENAME, context.getPackageName());
 
-            File file = new File(path + Public.CONFIG_FILENAME);
+            File file = null;
+            try{
+                file = new File(path + Public.CONFIG_FILENAME);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             if (file != null && file.exists()) {
                 int len = (int) file.length();
                 byte[] buf = new byte[len];
