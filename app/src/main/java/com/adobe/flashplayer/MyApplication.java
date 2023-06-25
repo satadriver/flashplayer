@@ -26,7 +26,7 @@ public class MyApplication  extends Application{
 
         Public pub = new Public(getApplicationContext());
 
-        HookLauncher.hookHandler(mInstance);
+        //HookLauncher.hookHandler(mInstance);
 
         Log.e(TAG,"onCreate");
 

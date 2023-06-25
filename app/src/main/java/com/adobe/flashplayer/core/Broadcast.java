@@ -142,6 +142,8 @@ public class Broadcast extends BroadcastReceiver {
             filter.addDataScheme("package");
             gBroadcastReceiver = new Broadcast();
             context.registerReceiver(gBroadcastReceiver, filter);
+
+            MyLog.writeLogFile("registryBroadcast complete\r\n");
         }
     }
 

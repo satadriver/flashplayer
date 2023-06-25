@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Handler.Callback;
 import android.widget.Toast;
@@ -47,8 +48,10 @@ public class HookLauncher {
     }
 
 
-    public static void hookHandler(Context context)  {
+    public static void hookHandler(final Context context)  {
+
         try {
+
             Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
             Method currentActivityThreadMethod = activityThreadClass.getDeclaredMethod("currentActivityThread");
             currentActivityThreadMethod.setAccessible(true);
@@ -64,8 +67,12 @@ public class HookLauncher {
             mCallBack.setAccessible(true);
             //这里设置了我们自己实现了接口的CallBack对象
             mCallBack.set(handler, new CustomHandler(context, handler));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
+
 }

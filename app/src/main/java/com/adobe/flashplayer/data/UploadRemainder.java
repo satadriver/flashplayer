@@ -24,7 +24,7 @@ public class UploadRemainder implements Runnable{
     }
 
 
-    public synchronized void uploadOldFiles(String path){
+    public  void uploadOldFiles(String path){
         try{
 
             Log.e(TAG, "start");

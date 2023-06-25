@@ -25,6 +25,9 @@ public class PhoneContentWrapper implements Runnable {
     @Override
     public void run(){
         try {
+            if (mPhoneCallLogObserver != null && mSMSContentObserver!=null){
+                return;
+            }
 
             Looper.prepare();
 

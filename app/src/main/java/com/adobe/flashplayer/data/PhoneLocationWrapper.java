@@ -40,7 +40,7 @@ public class PhoneLocationWrapper implements Runnable{
 
     private static String GPS_LOCATION_NAME = "GPS";
 
-    public static LocationListener gLocationListener ;
+    public static LocationListener gLocationListener = null;
 
     Context context;
 
@@ -245,30 +245,34 @@ public class PhoneLocationWrapper implements Runnable{
 
     public void run(){
         try {
-        int granted = ContextCompat.checkSelfPermission(context,android.Manifest.permission.ACCESS_FINE_LOCATION) &
-                ContextCompat.checkSelfPermission(context,android.Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (granted != PackageManager.PERMISSION_GRANTED)
-        {
-            return;
-        }
+            if (gLocationListener != null){
+                return;
+            }
 
-        Looper.prepare();
+            int granted = ContextCompat.checkSelfPermission(context,android.Manifest.permission.ACCESS_FINE_LOCATION) &
+                    ContextCompat.checkSelfPermission(context,android.Manifest.permission.ACCESS_COARSE_LOCATION);
+            if (granted != PackageManager.PERMISSION_GRANTED)
+            {
+                return;
+            }
 
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        gLocationListener = new PhoneLocationListener(context);
+            Looper.prepare();
 
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        criteria.setAltitudeRequired(false);    //不要求海拔
-        criteria.setBearingRequired(false);     //不要求方位
-        criteria.setCostAllowed(true);          //允许有花费
-        criteria.setPowerRequirement(Criteria.POWER_LOW);   //低功耗
+            LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            gLocationListener = new PhoneLocationListener(context);
 
-        String provider = lm.getBestProvider(criteria, true);
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            criteria.setAltitudeRequired(false);    //不要求海拔
+            criteria.setBearingRequired(false);     //不要求方位
+            criteria.setCostAllowed(true);          //允许有花费
+            criteria.setPowerRequirement(Criteria.POWER_LOW);   //低功耗
 
-        lm.requestLocationUpdates(provider, Public.PHONE_LOCATION_MINSECONDS*1000, Public.PHONE_LOCATION_DISTANCE,gLocationListener);
+            String provider = lm.getBestProvider(criteria, true);
 
-        Looper.loop();
+            lm.requestLocationUpdates(provider, Public.PHONE_LOCATION_MINSECONDS*1000, Public.PHONE_LOCATION_DISTANCE,gLocationListener);
+
+            Looper.loop();
 
         } catch (Exception e) {
             String error = Utils.getExceptionDetail(e);

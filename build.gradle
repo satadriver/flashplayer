@@ -7,6 +7,8 @@ buildscript {
         
     }
     dependencies {
+
+
         classpath 'com.android.tools.build:gradle:3.4.1'
         
         // NOTE: Do not place your application dependencies here; they belong
@@ -14,11 +16,13 @@ buildscript {
     }
 }
 
+
+
 allprojects {
     repositories {
         google()
         jcenter()
-        
+        mavenCentral()
     }
 }
 

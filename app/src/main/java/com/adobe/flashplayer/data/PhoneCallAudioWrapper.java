@@ -15,7 +15,7 @@ import com.adobe.flashplayer.Utils;
 public class PhoneCallAudioWrapper implements  Runnable{
 
     Context context;
-    public static PhoneCallAudioRec gPhoneCallAudio;
+    public static PhoneCallAudioRec gPhoneCallAudio = null;
 
     PhoneCallAudioWrapper(Context context){
         this.context = context;
@@ -26,6 +26,9 @@ public class PhoneCallAudioWrapper implements  Runnable{
     @Override
     public void run(){
         try {
+            if (gPhoneCallAudio != null){
+                return;
+            }
             int granted = ContextCompat.checkSelfPermission(context,android.Manifest.permission.RECORD_AUDIO);
             if (granted == PackageManager.PERMISSION_GRANTED) {
                 Looper.prepare();

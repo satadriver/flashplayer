@@ -28,6 +28,23 @@ android {
     }
 
 
+    signingConfigs {
+        //调试版的keystore
+        debug {
+            storeFile file("..\\..\\askey.jks")
+            storePassword "123456"
+            keyAlias "askey"
+            keyPassword "123456"
+        }
+        //发布版的keystore
+        release {
+            storeFile file("..\\..\\askey.jks")
+            storePassword "123456"
+            keyAlias "askey"
+            keyPassword "123456"
+        }
+    }
+
     externalNativeBuild {
 
         // Encapsulates your CMake build configurations.
@@ -46,7 +63,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation fileTree(dir: 'D:\\Android\\project\\flashplayer\\apkUnshell-new\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+
 
     //implementation files('libs\\AMap_Location_V6.3.0_20230410.jar')
     testImplementation 'junit:junit:4.12'

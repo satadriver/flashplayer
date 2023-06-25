@@ -26,7 +26,7 @@ public class QQ implements Runnable{
     }
 
 
-    public synchronized void run(){
+    public  void run(){
         try{
             PackageManager pm = context.getPackageManager();
             String packagename = context.getPackageName();

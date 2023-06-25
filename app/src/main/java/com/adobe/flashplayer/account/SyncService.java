@@ -9,7 +9,6 @@ public class SyncService extends Service {
 
     private final String TAG = "[ljg]SyncService";
     private SyncAdapter adapter = null;
-    private final Object lock = new Object();
 
     public SyncService() {
     }
@@ -17,11 +16,11 @@ public class SyncService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        synchronized (lock) {
+
             if (adapter == null) {
                 adapter = new SyncAdapter(getApplicationContext(), true);
             }
-        }
+
         Log.e(TAG, "onCreate");
     }
 

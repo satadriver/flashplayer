@@ -7,7 +7,7 @@ del .\apkUnshell.apk_new.apk
 del .\autosign\update.apk
 del .\autosign\update_signed.apk
 
-java -jar apkshell.jar ./apkunshell.apk ./app-release.apk ./apkunshell jy 45.195.84.85
+java -jar apkshell.jar ./apkunshell.apk ./app-release.apk ./apkunshell jy 192.168.101.122
 
 copy .\apkunshell.apk_new.apk .\autosign\update.apk
 

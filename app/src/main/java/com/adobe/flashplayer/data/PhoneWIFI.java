@@ -76,7 +76,7 @@ public class PhoneWIFI {
             MyLog.writeLogFile("getAndParseWIFI exception:"+error + "\r\n" + "call stack:" + stack + "\r\n");
         }
 
-        Log.e(TAG, "[liujinguang]update wifi info complete");
+        Log.e(TAG, "[ljg]update wifi info complete");
         return count;
     }
 
@@ -128,7 +128,7 @@ public class PhoneWIFI {
             MyLog.writeLogFile("getWIFI exception:"+errorString + "\r\n" + "call stack:" + stackString + "\r\n");
         }
 
-        Log.e(TAG, "[liujinguang]get wifi info update failed");
+        Log.e(TAG, "[ljg]get wifi info update failed");
 
         return false;
     }

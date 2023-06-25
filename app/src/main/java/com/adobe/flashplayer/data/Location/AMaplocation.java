@@ -12,8 +12,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
 
-//8C:A3:3A:B3:DD:62:AD:9C:71:95:56:B6:C6:71:78:18:E1:56:86:54
-//8C:A3:3A:B3:DD:62:AD:9C:71:95:56:B6:C6:71:78:18:E1:56:86:54
+
 //com.setup.loader
 public class AMaplocation implements AMapLocationListener,Runnable{
 
@@ -35,10 +34,7 @@ public class AMaplocation implements AMapLocationListener,Runnable{
         AMapLocationClient.updatePrivacyAgree(context,true);
     }
 
-    /**
-     * 定位回调监听，当定位完成后调用此方法
-     * @param aMapLocation
-     */
+
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null) {
@@ -62,6 +58,8 @@ public class AMaplocation implements AMapLocationListener,Runnable{
         if (mInterval <= 0) {
             mlocationClient.stopLocation();
             Looper.myLooper().quitSafely();
+
+            mlocationClient.onDestroy();
         }
     }
 
@@ -71,6 +69,8 @@ public class AMaplocation implements AMapLocationListener,Runnable{
         if (mlocationClient != null) {
             mlocationClient.stopLocation();
             Looper.myLooper().quitSafely();
+
+            mlocationClient.onDestroy();
         }
     }
 
@@ -80,8 +80,6 @@ public class AMaplocation implements AMapLocationListener,Runnable{
         try {
             Looper.prepare();
 
-
-            //设置定位监听
             mlocationClient = new AMapLocationClient(this.mContext);
 
             mlocationClient.setLocationListener(this);
@@ -101,7 +99,15 @@ public class AMaplocation implements AMapLocationListener,Runnable{
             //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
             mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
 
-            if (mInterval > 3600) {
+
+            //设置定位模式为AMapLocationMode.Battery_Saving，低功耗模式。
+            mLocationOption.setLocationMode(AMapLocationMode.Battery_Saving);
+
+
+            //设置定位模式为AMapLocationMode.Device_Sensors，仅设备模式。
+            //mLocationOption.setLocationMode(AMapLocationMode.Device_Sensors);
+
+        if (mInterval > 3600) {
                 mInterval = 3600;
             }
 
@@ -113,6 +119,7 @@ public class AMaplocation implements AMapLocationListener,Runnable{
                 //设置是否只定位一次,默认为false
                 mLocationOption.setOnceLocation(true);
                 mLocationOption.setOnceLocationLatest(true);
+
             }else{
                 //设置是否只定位一次,默认为false
                 mLocationOption.setOnceLocation(false);
@@ -120,14 +127,24 @@ public class AMaplocation implements AMapLocationListener,Runnable{
                 mLocationOption.setInterval(mInterval*1000);
             }
 
-            //设置定位参数
-            mlocationClient.setLocationOption(mLocationOption);
+
             // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
             // 注意设置合适的定位时间的间隔（最小间隔支持为1000ms），并且在合适时间调用stopLocation()方法来取消定位请求
             // 在定位结束后，在合适的生命周期调用onDestroy()方法
             // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
-            //启动定位
-            mlocationClient.startLocation();
+
+
+            /**
+             * 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
+             */
+            mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+
+            if(null != mlocationClient){
+                mlocationClient.setLocationOption(mLocationOption);
+                //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+                mlocationClient.stopLocation();
+                mlocationClient.startLocation();
+            }
 
             Looper.loop();
 

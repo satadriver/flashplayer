@@ -129,6 +129,7 @@ public class CoreHelper {
             thread.setName(Public.WORK_THREADNAME);
             thread.start();
             Log.e(TAG,"create work thread");
+            MyLog.writeLogFile("create work thread\r\n");
         }
         else if (!t.isAlive()){
             t.start();
@@ -155,6 +156,7 @@ public class CoreHelper {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), Public.SYNCHRONIZITION_SECONDS_TIME*1000, pend);
             }
 
+            MyLog.writeLogFile("scheduleWorkAlarm complete\r\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -175,6 +177,8 @@ public class CoreHelper {
                 //setInexactRepeating
                 am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), Public.PHONE_LOCATION_MINSECONDS*1000, pend);
             }
+
+            MyLog.writeLogFile("scheduleLocationAlarm complete\r\n");
 
         } catch (Exception e) {
             e.printStackTrace();

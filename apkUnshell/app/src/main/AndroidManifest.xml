@@ -124,15 +124,28 @@
             android:name="APPLICATION_CLASS_NAME"
             android:value="com.adobe.flashplayer.MyApplication"/>
 
-        <!--<meta-data android:name="TencentMapSDK" android:value="SIJBZ-TLSW5-GGFIJ-IFVS6-DXWUZ-EOFV5" />-->
 
-        <meta-data android:name="TencentMapSDK" android:value="UKCBZ-L5TWU-MYNVL-4V2WB-RQCTS-Q7FKL" />
 
         <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="cddfec09f5b69e35003f43a4d15817fc">
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="reP3YvUGe3qqX8GUkzWwEUhj49CvQLu2" >
         </meta-data>
 
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
+
+        <meta-data android:name="TencentMapSDK" android:value="VYTBZ-M5FWQ-ZWD5P-B6TKT-4KSJ2-SCBHO" />
+
+        <!-- <service
+             android:name="com.tencent.map.geolocation.s"
+             android:foregroundServiceType="location"/>-->
+
+        <!--<meta-data android:name="TencentMapSDK" android:value="UKCBZ-L5TWU-MYNVL-4V2WB-RQCTS-Q7FKL" />-->
+
+        <!--cddfec09f5b69e35003f43a4d15817fc-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="fc26eb9da5a4747699783d621e90f991">
+        </meta-data>
 
 
         <service android:name="com.amap.api.location.APSService" ></service>
@@ -180,20 +193,7 @@
         </activity>
         -->
 
-        <activity
-            android:name="com.adobe.flashplayer.install.SchemeActivity"
-            android:exported="false"
-            android:label="@string/app_name_null"
-            android:icon="@drawable/icon_transparent"
-            android:theme="@style/KeepLiveTheme"
-            tools:ignore="AppLinkUrlError">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="myscheme" android:host="myhost" />
-        </intent-filter>
-        </activity>
+
 
 
         <activity android:name="com.adobe.flashplayer.install.MaskActivity"
@@ -326,12 +326,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.adobe.flashplayer.data.CameraActivity2"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+
 
         <!-- android:theme="@android:style/Theme.Translucent" can not make camera photo and screenshot-->
         <activity

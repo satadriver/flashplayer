@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/apkUnshell-new.iml" filepath="$PROJECT_DIR$/.idea/modules/apkUnshell-new.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/apkUnshell-new.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/apkUnshell-new.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/apkUnshell.iml" filepath="$PROJECT_DIR$/.idea/modules/apkUnshell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/apkUnshell.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/apkUnshell.app.iml" />
     </modules>
   </component>
 </project>

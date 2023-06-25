@@ -68,6 +68,8 @@ public class RemoteSrv extends Service {
         Log.e(TAG, "onStartCommand bindService result:" + String.valueOf(ret));
 
         MyLog.writeLogFile(TAG+"onStartCommand bindService result:" + String.valueOf(ret) + "\r\n");
+
+        CoreHelper.launchJobDeamonService(context);
     }
 
 
@@ -75,8 +77,6 @@ public class RemoteSrv extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        CoreHelper.launchJobDeamonService(context);
 
         if (Build.VERSION.SDK_INT < 18) {
             startForeground(REMOTE_INNNERTHREAD_ID, new Notification());

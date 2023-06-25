@@ -66,7 +66,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:monitor:1.1.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-idling-resource:3.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/AMap_Location_V6.3.0_20230410.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./app/libs/TencentLocationSdk_v7.1.5_rfaa15929_20190301_144850.jar" level="project" />
+    <orderEntry type="library" name="Gradle: ./app/libs/BaiduLBS_Android.jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
@@ -99,5 +99,6 @@
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:1.1.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.tencent.map.geolocation:TencentLocationSdk-openplatform:7.5.2@aar" level="project" />
   </component>
 </module>

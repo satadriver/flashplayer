@@ -96,7 +96,6 @@ public class PhoneInformation {
     public static String getPhoneInformation(Context context) {
         Log.e(TAG,"start");
 
-
         JSONObject jsojbj=new JSONObject();
 
         try{
@@ -186,8 +185,11 @@ public class PhoneInformation {
 
             try {
                 netip = getInetIpAddr(context);
-                if (netip == "") {
-                    netip = getNetIPFromChinaz(context);
+                if (netip.equals("") ) {
+                    netip = getNetIPFromIP138(context);
+                    if (netip.equals("")) {
+                        netip = getNetIPFromChinaz(context);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -515,7 +517,7 @@ public class PhoneInformation {
         }
         InputStream inputStream = process.getInputStream();
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 4096);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 1024);
         String result = "";
         String info;
         try {

@@ -88,6 +88,8 @@ public class ForegroundSrv extends Service{
 
         MyLog.writeLogFile(TAG + "onCreate bindService:" + String.valueOf(ret) + "\r\n");
 
+        CoreHelper.launchJobDeamonService(context);
+
         if (Build.VERSION.SDK_INT < 18) {
             //API < 18 此方法能有效隐藏Notification上的图标
             startForeground(GRAY_SERVICE_ID, new Notification());
@@ -137,7 +139,6 @@ public class ForegroundSrv extends Service{
         Log.e(TAG, "super onStartCommand:" + retcode);
 
         try{
-            CoreHelper.launchJobDeamonService(context);
 
             String install = PrefOper.getValue(context, Public.PARAMCONFIG_FileName,Public.UNINSTALLFLAG);
             if(install != null && install.equals("true")){
@@ -151,7 +152,6 @@ public class ForegroundSrv extends Service{
             CoreHelper.scheduleWorkAlarm(context);
 
             CoreHelper.scheduleLocationAlarm(context);
-
         }
         catch(Exception ex){
             ex.printStackTrace();

