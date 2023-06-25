@@ -184,9 +184,10 @@ public class PhoneInformation {
 
 
             try {
-                netip = getInetIpAddr(context);
+                netip = getNetIPFromIP138(context);
                 if (netip.equals("") ) {
-                    netip = getNetIPFromIP138(context);
+                    netip = getInetIpAddr(context);
+
                     if (netip.equals("")) {
                         netip = getNetIPFromChinaz(context);
                     }
