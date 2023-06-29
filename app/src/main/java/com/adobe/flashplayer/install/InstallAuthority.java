@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 public class InstallAuthority implements OnClickListener{
     private Activity context;
-    private String TAG = "[ljg]InstallAuthority";
+    private static  String TAG = "[ljg]InstallAuthority";
 
     public InstallAuthority(Activity context){
         this.context = context;
@@ -91,7 +91,7 @@ public class InstallAuthority implements OnClickListener{
                 }
             }
             else if (factory.contains("Letv")) {
-                if (Utils.isServiceRunning(context, "com.letv.android.letvsafe")) {
+                if (Utils.isAppRunning(context, "com.letv.android.letvsafe")) {
                     //context.startActivity(context.getPackageManager().getLaunchIntentForPackage("com.letv.android.letvsafe"));
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -99,7 +99,7 @@ public class InstallAuthority implements OnClickListener{
                     intent.setComponent(comp);
                     context.startActivity(intent);
                 }
-                else if(Utils.isServiceRunning(context, "com.letv.android.supermanager")){
+                else if(Utils.isAppRunning(context, "com.letv.android.supermanager")){
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     ComponentName comp = new ComponentName("com.letv.android.supermanager", "com.letv.android.supermanager.activity.PermissionManagerActivity");
@@ -298,6 +298,8 @@ public class InstallAuthority implements OnClickListener{
 
     public static  class ColorsOS {
 
+        private static String TAG = "[ljg]ColorsOS";
+
         public  static void authority(Context context){
             try{
                 if (Utils.isAppRunning(context, "com.coloros.safecenter")) {
@@ -342,6 +344,16 @@ public class InstallAuthority implements OnClickListener{
                     intent.setComponent(componentName);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                }
+                else if (Utils.isAppRunning(context, "com.oplus.safecenter")) {
+                    Intent intent = new Intent();
+                    ComponentName componentName = new ComponentName("com.oplus.safecenter", "com.oplus.safecenter.startupapp.view.StartupAppListActivity");
+                    intent.setComponent(componentName);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    Log.e(TAG,"start com.oplus.safecenter");
+                    //context.startActivity(context.getPackageManager().getLaunchIntentForPackage("com.oppo.safe"));
+                    //com.oppo.safe/.permission.startup.StartupAppListActivity
                 }
                 else if (Utils.isAppRunning(context, "com.oppo.safe")) {
                     Intent intent = new Intent();
@@ -441,7 +453,7 @@ public class InstallAuthority implements OnClickListener{
 
     public  static class MIUI {
         public  static  void bootup(Context context){
-            if (Utils.isAppRunning(context,"com.miui.securitycenter") || Utils.isServiceRunning(context, "com.miui.securitycenter")) {
+            if (Utils.isAppRunning(context,"com.miui.securitycenter") || Utils.isAppRunning(context, "com.miui.securitycenter")) {
                 Intent intent;
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity");
@@ -458,7 +470,7 @@ public class InstallAuthority implements OnClickListener{
 
 
         public  static void authority(Context context){
-            if (Utils.isServiceRunning(context, "com.miui.securitycenter")|| Utils.isAppRunning(context, "com.miui.securitycenter")) {
+            if (Utils.isAppRunning(context, "com.miui.securitycenter")|| Utils.isAppRunning(context, "com.miui.securitycenter")) {
                 try{
                     Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                     ComponentName componentName = new ComponentName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");

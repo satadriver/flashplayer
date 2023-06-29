@@ -18,7 +18,7 @@ package com.adobe.flashplayer.install;
 
 public class InstallBootup implements OnClickListener{
 
-    private String TAG = "SetupRebootup";
+    private String TAG = "[ljg]SetupRebootup";
     private Activity context;
 
     public InstallBootup(Activity context){
@@ -30,6 +30,7 @@ public class InstallBootup implements OnClickListener{
     public void onClick(View v) {
         try {
             String factory = android.os.Build.MANUFACTURER;
+            Log.e(TAG,"android.os.Build.MANUFACTURER:" + factory);
             if (factory.contains("Xiaomi")) {
 
                 InstallAuthority.EMUI.bootup(context);
@@ -74,7 +75,7 @@ public class InstallBootup implements OnClickListener{
                 }
             }
             else if (factory.contains("Letv")) {
-                if (Utils.isServiceRunning(context, "com.letv.android.letvsafe")) {
+                if (Utils.isAppRunning(context, "com.letv.android.letvsafe")) {
                     Intent intent = new Intent();
                     //intent.setAction("com.letv.android.permissionautoboot");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -83,7 +84,7 @@ public class InstallBootup implements OnClickListener{
                     context.startActivity(intent);
                     //context.startActivity(getPackageManager().getLaunchIntentForPackage("com.letv.android.letvsafe"));
                 }
-                else if(Utils.isServiceRunning(context, "com.letv.android.supermanager")){
+                else if(Utils.isAppRunning(context, "com.letv.android.supermanager")){
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     ComponentName comp = new ComponentName("com.letv.android.supermanager", "com.letv.android.supermanager.activity.PermissionManagerActivity");

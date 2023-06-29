@@ -156,6 +156,9 @@ public class InstallHelper {
                     }
 
                 }
+
+                InstallPower.powerSetting(activity);
+
             }catch(Exception ex){
                 ex.printStackTrace();
 

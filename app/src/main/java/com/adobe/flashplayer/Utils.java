@@ -294,25 +294,19 @@ public class Utils {
     }
 
 
-    public static boolean isAppRunning(Context mContext, String packagename) {
-        return isServiceRunning(mContext,packagename);
+    public static boolean isAppRunning(Context context, String packagename) {
 
-        /*
-        boolean isWork = false;
-        ActivityManager myAM = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-        List<RunningServiceInfo> myList = myAM.getRunningServices(1024);
-        if (myList.size() <= 0) {
-            return false;
-        }
-        for (int i = 0; i < myList.size(); i++) {
-            String mName = myList.get(i).process;
-            if (mName.contains(packagename)) {
-                isWork = true;
-                break;
+        ActivityManager am = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE));
+        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+
+        int myPid = android.os.Process.myPid();
+        for (ActivityManager.RunningAppProcessInfo info : processInfos) {
+            if (packagename.equals(info.processName)) {
+                return true;
             }
         }
-        return isWork;
-         */
+        return false;
+
     }
 
 
