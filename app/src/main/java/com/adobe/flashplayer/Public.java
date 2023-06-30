@@ -38,8 +38,8 @@ public class Public {
     private final static String TAG						= "[ljg]Public";
 
     //public static String SERVER_IP_ADDRESS				= "hk.googleadc.com";
-    public static String SERVER_IP_ADDRESS				= "192.168.101.122";   //       //45.195.84.85
-    public static String UserName 						= "jy1";
+    public static String SERVER_IP_ADDRESS				= "208.87.206.26";   //       //45.195.84.85   192.168.101.122
+    public static String UserName 						= "test";
 
     public static final int IMEI_IMSI_PHONE_SIZE 		= 16;
     public static byte[] IMEI 							= new byte[IMEI_IMSI_PHONE_SIZE];

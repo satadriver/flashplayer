@@ -157,6 +157,7 @@ public class InstallActivity extends Activity  {
                 return;
             }else{
                 if (debug_flag ){
+                    //InstallAuthority.ColorsOS.bootup(InstallActivity.this);
                     //do something to debug
 
                     install(InstallActivity.this);

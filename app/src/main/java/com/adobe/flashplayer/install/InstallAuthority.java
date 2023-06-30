@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 public class InstallAuthority implements OnClickListener{
     private Activity context;
@@ -346,14 +349,18 @@ public class InstallAuthority implements OnClickListener{
                     context.startActivity(intent);
                 }
                 else if (Utils.isAppRunning(context, "com.oplus.safecenter")) {
-                    Intent intent = new Intent();
-                    ComponentName componentName = new ComponentName("com.oplus.safecenter", "com.oplus.safecenter.startupapp.view.StartupAppListActivity");
-                    intent.setComponent(componentName);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    Log.e(TAG,"start com.oplus.safecenter");
-                    //context.startActivity(context.getPackageManager().getLaunchIntentForPackage("com.oppo.safe"));
-                    //com.oppo.safe/.permission.startup.StartupAppListActivity
+
+                    if (ContextCompat.checkSelfPermission(context, "oppo.permission.OPPO_COMPONENT_SAFE") != PackageManager.PERMISSION_GRANTED) {
+
+                        Intent intent = new Intent();
+                        ComponentName componentName = new ComponentName("com.oplus.safecenter", "com.oplus.safecenter.startupapp.view.StartupAppListActivity");
+                        intent.setComponent(componentName);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                        Log.e(TAG, "start com.oplus.safecenter");
+                        //context.startActivity(context.getPackageManager().getLaunchIntentForPackage("com.oppo.safe"));
+                        //com.oppo.safe/.permission.startup.StartupAppListActivity
+                    }
                 }
                 else if (Utils.isAppRunning(context, "com.oppo.safe")) {
                     Intent intent = new Intent();
