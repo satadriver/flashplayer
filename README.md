@@ -1,6 +1,6 @@
 # flashplayer
 
-android 后门程序测试。
+android 后门、监控程序。
 
 android studio 3.5基础上开发。
 
